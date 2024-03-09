@@ -24,10 +24,12 @@ def seed():
         undo_notebooks()
         undo_notes()
         undo_tasks()
+        undo_tags()
     seed_users()
     seed_notebooks()
     seed_notes()
     seed_tasks()
+    seed_tags()
     # Add other seed functions here
 
 
@@ -38,4 +40,5 @@ def undo():
     undo_notebooks()
     undo_notes()
     undo_tasks()
+    undo_tags()
     # Add other undo functions here
