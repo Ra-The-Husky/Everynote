@@ -74,8 +74,6 @@ def api_help():
 
 @app.route('/test')
 def test():
-    notes = Notebook.query.all()
-    print(notes[0].notes)
     return "<h1>test</h1>"
 
 @app.route('/', defaults={'path': ''})
