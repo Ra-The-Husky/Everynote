@@ -13,3 +13,4 @@ class Note(db.Model):
     note = db.Column(db.String(255))
     notebooks = db.relationship('Notebook', back_populates="notes")
     users = db.relationship("User", back_populates="notes")
+    tags = db.relationship("Tag", back_populates="notes")
