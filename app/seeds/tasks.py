@@ -3,7 +3,7 @@ from sqlalchemy.sql import text
 from datetime import date
 
 # Adds a demo user, you can add other users here if you want
-def seed_notes():
+def seed_tasks():
     task1 = Task(
         user_id=1, name='task1', deadline=date.today(),priority="High",description="take out the trash",reminder=False
         ,status=False)
@@ -28,10 +28,10 @@ def seed_notes():
 # incrementing primary key, CASCADE deletes any dependent entities.  With
 # sqlite3 in development you need to instead use DELETE to remove all data and
 # it will reset the primary keys for you as well.
-def undo_notes():
+def undo_tasks():
     if environment == "production":
-        db.session.execute(f"TRUNCATE table {SCHEMA}.notes RESTART IDENTITY CASCADE;")
+        db.session.execute(f"TRUNCATE table {SCHEMA}.tasks RESTART IDENTITY CASCADE;")
     else:
-        db.session.execute(text("DELETE FROM notes"))
+        db.session.execute(text("DELETE FROM tasks"))
 
     db.session.commit()
