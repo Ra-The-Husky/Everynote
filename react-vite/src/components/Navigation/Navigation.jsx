@@ -1,18 +1,20 @@
-import { NavLink } from "react-router-dom";
-import ProfileButton from "./ProfileButton";
+import { useNavigate } from "react-router-dom";
+import {useDispatch} from 'react-redux'
+import { thunkLogout } from "../../redux/session";
 import "./Navigation.css";
 
 function Navigation() {
-  return (
-    <ul>
-      <li>
-        <NavLink to="/">Home</NavLink>
-      </li>
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
-      <li>
-        <ProfileButton />
-      </li>
-    </ul>
+  const logout = (e) => {
+    e.preventDefault();
+    dispatch(thunkLogout());
+    navigate('/')
+  };
+
+  return (
+        <button onClick={logout}>Log Out</button>
   );
 }
 
