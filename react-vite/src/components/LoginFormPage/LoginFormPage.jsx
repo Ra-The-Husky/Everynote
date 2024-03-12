@@ -2,6 +2,8 @@ import { useState } from "react";
 import { thunkLogin } from "../../redux/session";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
+import OpenModalMenuItem from '../Navigation/OpenModalMenuItem'
+import SignupFormModal from '../SignupFormModal/SignupFormModal'
 import "./LoginForm.css";
 
 function LoginFormPage() {
@@ -33,6 +35,8 @@ function LoginFormPage() {
 
   return (
     <>
+    <img src="../../public/EveryNote-trans.png" />
+
       <h1>Log In</h1>
       {errors.length > 0 &&
         errors.map((message) => <p key={message}>{message}</p>)}
@@ -58,6 +62,9 @@ function LoginFormPage() {
         </label>
         {errors.password && <p>{errors.password}</p>}
         <button type="submit">Log In</button>
+        <OpenModalMenuItem
+          itemText="Don't have an account? Sign up NOW!"
+        />
         <button type="submit" onClick={() => {
           setEmail('demo@aa.io')
           setPassword('password')
