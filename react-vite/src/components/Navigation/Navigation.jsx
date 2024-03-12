@@ -1,20 +1,22 @@
-import { useNavigate } from "react-router-dom";
-import {useDispatch} from 'react-redux'
+import { useDispatch, useSelector } from "react-redux";
 import { thunkLogout } from "../../redux/session";
 import "./Navigation.css";
+import { useNavigate } from "react-router-dom";
 
 function Navigation() {
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const sessionUser = useSelector((state) => state.session.user);
 
-  const logout = (e) => {
+  const logout = async (e) => {
     e.preventDefault();
-    dispatch(thunkLogout());
-    navigate('/')
+
+    await dispatch(thunkLogout())
+    .then(()=>navigate("/"));
   };
 
   return (
-        <button onClick={logout}>Log Out</button>
+    <>{!sessionUser ? <></> : <button onClick={logout}>Log Out</button>}</>
   );
 }
 

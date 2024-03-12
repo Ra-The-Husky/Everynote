@@ -2,6 +2,8 @@ import { useState } from "react";
 import { thunkLogin } from "../../redux/session";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
+import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
+import SignupFormModal from "../SignupFormModal/SignupFormModal";
 import "./LoginForm.css";
 
 function LoginFormPage() {
@@ -33,6 +35,8 @@ function LoginFormPage() {
 
   return (
     <>
+      <img src="../../public/EveryNote-trans.png" />
+
       <h1>Log In</h1>
       {errors.length > 0 &&
         errors.map((message) => <p key={message}>{message}</p>)}
@@ -46,7 +50,7 @@ function LoginFormPage() {
             required
           />
         </label>
-        {errors.email && <p>{errors.email}</p>}
+        {/* {errors.email && <p>{errors.email}</p>} */}
         <label>
           Password
           <input
@@ -56,12 +60,21 @@ function LoginFormPage() {
             required
           />
         </label>
-        {errors.password && <p>{errors.password}</p>}
+        {errors.password || errors.email && <p>{errors.password || errors.email}</p>}
         <button type="submit">Log In</button>
-        <button type="submit" onClick={() => {
-          setEmail('demo@aa.io')
-          setPassword('password')
-        }}>Demo User</button>
+        <OpenModalMenuItem
+          itemText="Don't have an account? Sign up NOW!"
+          modalComponent={<SignupFormModal />}
+        />
+        <button
+          type="submit"
+          onClick={() => {
+            setEmail("demo@aa.io");
+            setPassword("password");
+          }}
+        >
+          Demo User
+        </button>
       </form>
     </>
   );
