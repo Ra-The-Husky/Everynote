@@ -1,3 +1,29 @@
-.profile-dropdown {
+.navigationContainer {
   position: absolute;
+  top: 0px;
+  left: 0px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 15%;
+  border: 1px solid black;
+  align-items: center;
+  background: linear-gradient(90deg, rgba(44,166,99,255), rgba(75,177,116,255));
+  margin: 0px;
+}
+
+.logout {
+  width: fit-content;
+}
+
+.navLogo {
+  width: 100%;
+  padding-bottom: 50px;
+}
+
+.buttonsBox {
+  display: flex;
+  flex-direction: column;
+  height: 20%;
+  justify-content: space-evenly;
 }

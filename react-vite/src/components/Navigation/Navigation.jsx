@@ -12,11 +12,21 @@ function Navigation() {
     e.preventDefault();
 
     await dispatch(thunkLogout())
-    .then(()=>navigate("/"));
+      .then(() => navigate("/"));
   };
 
   return (
-    <>{!sessionUser ? <></> : <button onClick={logout}>Log Out</button>}</>
+    <>{!sessionUser ? <></> :
+      <div className="navigationContainer">
+        <img src="../../public/EveryNote.png" alt=""  className="navLogo"/>
+        <div className="buttonsBox">
+          <button className="navButtons">NoteBooks</button>
+          <button className="navButtons">Notes</button>
+          <button className="navButtons">Tasks</button>
+        </div>
+        <button onClick={logout} className="logout">Log Out</button>
+      </div>
+    }</>
   );
 }
 
