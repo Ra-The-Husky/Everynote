@@ -7,7 +7,7 @@ from flask import Blueprint
 from flask_login import login_required, current_user
 home_route = Blueprint('home', __name__)
 
-@home_route.route("/")
+@home_route.route("")
 @login_required
 def main_page():
     print(current_user)
