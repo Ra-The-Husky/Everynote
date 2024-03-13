@@ -1,3 +1,6 @@
+import { useDispatch, } from "react-redux";
+import { useState } from "react";
+import { noteThunk } from "../../redux/home";
 
 
 
@@ -6,6 +9,13 @@
 
 
 function Homepage() {
+  const dispatch = useDispatch();
+  const [notes,setNotes] = useState([])
+  const getNotes= async() => {
+    await dispatch(noteThunk()).then((e)=>setNotes(e))
+  }
+  getNotes()
+  console.log(notes)
   return (
     <div className="HomePage" >
       <p>Image will go here</p>
