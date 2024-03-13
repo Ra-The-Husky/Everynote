@@ -1,4 +1,4 @@
-
+import Cookies from "js-cookie"
 
 const GET_NOTES = "home/GetNotes";
 
@@ -8,7 +8,13 @@ const getNotes = (notes) => ({
 });
 
 export const noteThunk = () => async (dispatch) => {
-  const response = await fetch("/api/home");
+  const token = Cookies.get()
+  console.log(token)
+  const response = await fetch("/api/home", {
+    headers: {
+      "csrf_token": Cookies.get("csrf_token")
+    }
+  });
   console.log(response,"$$$$$$$$$$$$$")
   if (response.ok) {
     const data = await response.json();
