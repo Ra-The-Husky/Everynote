@@ -20,6 +20,18 @@ export const router = createBrowserRouter([
         path: "/signup",
         element: <SignupFormPage />,
       },
+      {
+        path: "/notebooks",
+        element: <h1>Notebooks Page</h1>,
+      },
+      {
+        path: "/notes",
+        element: <h1>Notes Page</h1>,
+      },
+      {
+        path: "/tasks",
+        element: <h1>Tasks Page</h1>,
+      },
     ],
   },
 ]);
