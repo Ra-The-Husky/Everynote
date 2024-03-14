@@ -1,6 +1,6 @@
 from app.models import db, Task, environment, SCHEMA
 from sqlalchemy.sql import text
-from datetime import date
+from datetime import date,timedelta
 
 # Adds a demo user, you can add other users here if you want
 def seed_tasks():
@@ -11,14 +11,29 @@ def seed_tasks():
         user_id=2, name='task2', deadline=date.today(),priority="High",description="make pizza",reminder=False
         ,status=False)
     task3 = Task(
-        user_id=3, name='task3', deadline=date.today(),priority="High",description="eat pizza",reminder=False
+        user_id=3, name='task3', deadline=date.today(),priority="Medium",description="eat pizza",reminder=False
         ,status=False)
+    task4 = Task(
+        user_id=1, name='task4', deadline=date.today()+timedelta(weeks=5),priority="Low",description="ride bus",reminder=False
+        ,status=False)
+
+    task5 = Task(
+        user_id=1, name='task5', deadline=date.today()+timedelta(weeks=3),priority="Medium",description="take cat for a walk",reminder=False
+        ,status=False)
+    task6 = Task(
+        user_id=1, name='task6', deadline= date.today()+timedelta(weeks=2),priority="High",description="wash car",reminder=False
+        ,status=False)
+
+
 
 
 
     db.session.add(task1)
     db.session.add(task2)
     db.session.add(task3)
+    db.session.add(task4)
+    db.session.add(task5)
+    db.session.add(task6)
     db.session.commit()
 
 
