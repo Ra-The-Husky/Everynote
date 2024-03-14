@@ -20,7 +20,7 @@ function Homepage() {
   }, [dispatch]);
   return (
     <div className="HomePage">
-      <img src="https://asset.cloudinary.com/dfxxgifho/a4d62a279975536954b89266e90d988e" alt="" />
+      <img src="https://res.cloudinary.com/dfxxgifho/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1710376011/istockphoto-1303583671-612x612_f5tvml.jpg?_s=public-apps" />
       <h2>Users Home</h2>
       <div>
         <div>{userNotebooks && userNotebooks[0].name}</div>
