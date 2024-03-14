@@ -10,13 +10,13 @@ function Homepage() {
 
   const dispatch = useDispatch();
 
+  if (userTasks && userTasks.length > 0 && tasks.length === 0) {
+    setTasks([userTasks[0],userTasks[1],userTasks[2]])
+  }
+
 
   useEffect(() => {
-    dispatch(noteThunk());
-    // if(userTasks && userTasks.length){
-    //   setTasks([userTasks[0],userTasks[1],userTasks[2]])
-    // }
-    console.log(userTasks,"!@!@!@!@!@!@!")
+    dispatch(noteThunk())
   }, [dispatch]);
   return (
     <div className="HomePage">
