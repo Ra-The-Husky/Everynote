@@ -15,3 +15,14 @@ class Task(db.Model):
     reminder = db.Column(db.Boolean)
     status = db.Column(db.Boolean)
     users = db.relationship("User",back_populates="tasks")
+
+    def to_dict(self):
+        return{
+            "id" : self.id,
+            "name":self.name,
+            "deadline":self.deadline,
+            "priority":self.priority,
+            "description":self.description,
+            "reminder":self.reminder,
+            "status":self.status,
+        }

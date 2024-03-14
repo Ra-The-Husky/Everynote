@@ -14,3 +14,11 @@ class Note(db.Model):
     notebooks = db.relationship('Notebook', back_populates="notes")
     users = db.relationship("User", back_populates="notes")
     tags = db.relationship("Tag", back_populates="notes")
+
+
+    def to_dict(self):
+        return{
+            "id" : self.id,
+            "name":self.name,
+            "note":self.note,
+        }

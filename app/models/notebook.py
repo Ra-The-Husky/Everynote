@@ -12,3 +12,10 @@ class Notebook(db.Model):
     description = db.Column(db.String(255))
     notes = db.relationship("Note", back_populates="notebooks", cascade='all, delete')
     users = db.relationship("User", back_populates="notebooks")
+
+    def to_dict(self):
+        return{
+            "id" : self.id,
+            "name":self.name,
+            "description":self.description,
+        }
