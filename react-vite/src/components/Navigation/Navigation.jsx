@@ -32,7 +32,7 @@ function Navigation() {
   return (
     <>{!sessionUser ? <></> :
       <div className="navigationContainer">
-        <img src="../../public/EveryNote.png" alt="" className="navLogo" onClick={() => navigate("/home")}/>
+        <img src="https://res.cloudinary.com/dfxxgifho/image/upload/v1710376011/EveryNote_iw1qhe.png" alt="" className="navLogo" onClick={() => navigate("/home")}/>
         <div className="buttonsBox">
           <span className="buttonsPlus">
             <button className="navButtons" onClick={handleSubmit}>Notebooks</button>

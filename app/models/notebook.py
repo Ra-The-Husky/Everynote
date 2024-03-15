@@ -18,4 +18,5 @@ class Notebook(db.Model):
             "id" : self.id,
             "name":self.name,
             "description":self.description,
+            "notes": [note.to_dict() for note in self.notes]
         }

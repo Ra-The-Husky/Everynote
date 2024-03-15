@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect,useState } from "react";
-import { noteThunk } from "../../redux/home";
+import { homeThunk } from "../../redux/home";
 import moment from "moment"
 function Homepage() {
   const userNotes = useSelector((state) => state.home.notes);
@@ -16,7 +16,7 @@ function Homepage() {
 
 
   useEffect(() => {
-    dispatch(noteThunk())
+    dispatch(homeThunk())
   }, [dispatch]);
   return (
     <div className="HomePage">

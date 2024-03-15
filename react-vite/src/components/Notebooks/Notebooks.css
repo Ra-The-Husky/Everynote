@@ -1,0 +1,42 @@
+
+.table {
+    border: 1px black solid;
+    width: 60%;
+    padding: 5px;
+    border-collapse: collapse;
+}
+
+
+.col {
+    text-align: center;
+    border: 1px black solid;
+}
+
+.row {
+    height: 80px;
+}
+
+.fa-angle-right {
+    position: absolute;
+    cursor: pointer;
+}
+
+.fa-angle-down {
+    position: absolute;
+    cursor: pointer;
+}
+
+.notebookName {
+    width: 40%;
+}
+
+.table2 {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    cursor: default;
+}
+
+.note {
+    font-weight: 100;
+}

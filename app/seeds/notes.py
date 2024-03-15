@@ -7,19 +7,19 @@ def seed_notes():
     note1 = Note(
         user_id=1, notebook_id=1, name='note1', note='test note')
     note2 = Note(
-        user_id=2, notebook_id=1, name='note2', note='test note')
+        user_id=1, notebook_id=1, name='note2', note='test note')
     note3 = Note(
-        user_id=3, notebook_id=1, name='note3', note='test note')
+        user_id=1, notebook_id=1, name='note3', note='test note')
     note4 = Note(
-        user_id=1, notebook_id=2, name='note1', note='test note')
+        user_id=2, notebook_id=2, name='note1', note='test note')
     note5 = Note(
         user_id=2, notebook_id=2, name='note2', note='test note')
     note6 = Note(
-        user_id=3, notebook_id=2, name='note3', note='test note')
+        user_id=2, notebook_id=2, name='note3', note='test note')
     note7 = Note(
-        user_id=1, notebook_id=3, name='note1', note='test note')
+        user_id=3, notebook_id=3, name='note1', note='test note')
     note8 = Note(
-        user_id=2, notebook_id=3, name='note2', note='test note')
+        user_id=3, notebook_id=3, name='note2', note='test note')
     note9 = Note(
         user_id=3, notebook_id=3, name='note3', note='test note')
 

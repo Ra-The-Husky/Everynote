@@ -19,7 +19,7 @@ const getTasks= (tasks) => ({
 
 
 
-export const noteThunk = () => async (dispatch) => {
+export const homeThunk = () => async (dispatch) => {
   const response = await fetch("/api/home");
   if (response.ok) {
     const data = await response.json();
@@ -31,7 +31,7 @@ export const noteThunk = () => async (dispatch) => {
 
 const initialState = { notes: null, notebook: null,tasks:null };
 
-function notesReducer(state = initialState, action) {
+function homeReducer(state = initialState, action) {
   switch (action.type) {
     case GET_NOTES:
       return { ...state, notes: action.notes };
@@ -44,4 +44,4 @@ function notesReducer(state = initialState, action) {
   }
 }
 
-export default notesReducer;
+export default homeReducer;
