@@ -2,6 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import LoginFormPage from '../components/LoginFormPage';
 import SignupFormPage from '../components/SignupFormPage';
 import Homepage from '../components/Home';
+import Notes from '../components/Notes'
 import Layout from './Layout';
 
 export const router = createBrowserRouter([
@@ -26,7 +27,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/notes",
-        element: <h1>Notes Page</h1>,
+        element: <Notes />,
       },
       {
         path: "/tasks",
