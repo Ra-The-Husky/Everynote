@@ -13,30 +13,28 @@
 }
 
 .row {
-    height: 80px;
-}
-
-.fa-angle-right {
-    position: absolute;
-    cursor: pointer;
-}
-
-.fa-angle-down {
-    position: absolute;
-    cursor: pointer;
+    height: 50px;
 }
 
 .notebookName {
-    width: 40%;
+    cursor: pointer;
 }
 
-.table2 {
-    width: 100%;
+.col2 {
+    border: 1px black solid;
+    text-align: center;
+    align-items: center;
+}
+
+.profile-dropdown {
+    position: absolute;
     display: flex;
-    justify-content: center;
-    cursor: default;
-}
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 75px;
+    background-color: lightgray;
+    border-radius: 5px 5px 5px 5px;
+    width: fit-content;
+    padding: 2px 10px;
 
-.note {
-    font-weight: 100;
 }

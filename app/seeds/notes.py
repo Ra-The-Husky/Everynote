@@ -22,6 +22,12 @@ def seed_notes():
         user_id=3, notebook_id=3, name='note2', note='test note')
     note9 = Note(
         user_id=3, notebook_id=3, name='note3', note='test note')
+    note10 = Note(
+        user_id=1, notebook_id=4, name='note1', note='test note')
+    note11 = Note(
+        user_id=1, notebook_id=4, name='note2', note='test note')
+    note12 = Note(
+        user_id=1, notebook_id=4, name='note3', note='test note')
 
     db.session.add(note1)
     db.session.add(note2)
@@ -32,6 +38,9 @@ def seed_notes():
     db.session.add(note7)
     db.session.add(note8)
     db.session.add(note9)
+    db.session.add(note10)
+    db.session.add(note11)
+    db.session.add(note12)
     db.session.commit()
 
 
