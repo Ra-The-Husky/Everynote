@@ -1,5 +1,6 @@
 const GET_NOTES = "notes/GetNotes";
 const GET_NOTE = "notes/GetNote";
+const GET_TAGS = "notes/GetTags";
 const NEW_NOTE = "notes/NewNote";
 const EDIT_NOTE = "notes/EditNote";
 const REMOVE_NOTE = "notes/RemoveNote";
@@ -9,9 +10,14 @@ const getNotes = (notes) => ({
   notes,
 });
 
-const getNote = (noteDetails) => ({
+const getNote = (note) => ({
   type: GET_NOTE,
-  noteDetails,
+  note,
+});
+
+const getTags = (tags) => ({
+  type: GET_TAGS,
+  tags,
 });
 
 const newNote = () => ({
@@ -30,22 +36,27 @@ export const allNotes = () => async (dispatch) => {
   }
 };
 
-export const note = (noteId) => async (dispatch) => {
-  const response = await fetch(`/api/notes/${notesId}`);
+export const noteInfo = (noteId) => async (dispatch) => {
+  const response = await fetch(`/api/notes/${noteId}`);
   if (response.ok) {
     const data = await response.json();
-    dispatch(getNote(data));
+    console.log(data, "#$#$#");
+    dispatch(getNote(data.note));
+    // dispatch(getNotebok(data.notebook))
+    dispatch(getTags(data.tags));
   }
 };
 
-const initialState = { notes: null };
+const initialState = { notes: null, tags: null };
 
 function notesReducer(state = initialState, action) {
   switch (action.type) {
     case GET_NOTES:
       return { ...state, notes: action.notes };
     case GET_NOTE:
-      return { ...state, note: action.noteDetails };
+      return { ...state, note: action.note };
+    case GET_TAGS:
+      return { ...state, tags: [action.tags] };
     default:
       return state;
   }

@@ -42,6 +42,7 @@ function AllNotes() {
             <div key={note.id} onClick={() => navigate(`/notes/${note.id}`)}>
               <div>Note's name: {note.name} </div>
               <p>A short description of the note here...</p>
+              <p>The note's created date will appear here as well...</p>
             </div>
           ))}
       </div>
