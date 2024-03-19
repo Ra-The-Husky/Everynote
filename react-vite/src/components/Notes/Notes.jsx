@@ -5,7 +5,7 @@ import { allNotes } from "../../redux/notes";
 
 function AllNotes() {
   const navigate = useNavigate();
-  const userNotes = useSelector((state) => state.notes.notes);
+  const userNotes = useSelector((state) => state.notes.allNotes);
   const dispatch = useDispatch();
   const currDate = new Date();
   const month = currDate.getMonth();
@@ -39,8 +39,10 @@ function AllNotes() {
       <div>
         {userNotes &&
           userNotes.map((note) => (
-            <div key={note.id} onClick={() => navigate(`/notes/${note.id}`)}>
-              <div>Note's name: {note.name} </div>
+            <div key={note.id}>
+              <div onClick={() => navigate(`/notes/${note.id}`)}>
+                Note's name: {note.name}{" "}
+              </div>
               <p>A short description of the note here...</p>
               <p>The note's created date will appear here as well...</p>
             </div>
