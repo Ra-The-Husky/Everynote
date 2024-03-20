@@ -81,6 +81,7 @@ export const newTags = (noteId, tag) => async (dispatch) => {
   });
   if (response.ok) {
     const data = await response.json();
+    console.log(data, "------------TAG THUNK DATA")
     dispatch(addTags(data));
     return data;
   }

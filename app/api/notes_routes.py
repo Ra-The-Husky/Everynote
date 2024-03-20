@@ -3,7 +3,8 @@ from app.models import Note, db
 from app.models import Tag
 from app.models import Notebook
 from app.forms.note_form import NoteForm
-from flask import Blueprint, request
+from app.forms.tag_form import TagForm
+from flask import Blueprint, request, redirect
 from flask_login import login_required, current_user
 notes_route = Blueprint('notes', __name__)
 
@@ -33,25 +34,35 @@ def get_note(noteId):
 @notes_route.route('/new-note', methods=['POST'])
 @login_required
 def make_note():
-   data = request.get_json()
    users = User.query.get(current_user.id)
    notes = Note.query.all()
-#!    This prints the length of all notes in the database.
-#    print(int(len(notes)), 'LENGTH OF NOTES HERE!!!!!!!!')
    add_note = NoteForm()
-   add_note.notebook.choices = [nb.id for nb in users.notebooks]
-   print(add_note.notebook.choices, '#$#$#$#$#$#')
-   if add_note.validate_on_submit():
-    new_note = {
-        'id': Note(id=int(len(notes))+1),
-        'user_id': current_user.id,
-        'notebook_id': Note(notebook_id=add_note.notebook.data),
-        'name': data.name,
-        'note': data.note,
-    }
-    db.session.add(new_note)
-    db.session.commit()
-   return {
-       'res': 201,
-       'msg:': "Note was successfully created"
+   add_note.notebooks.choices = [(nb.id, nb.name) for nb in users.notebooks]
+   data = request.get_json()
+   new_note = {
+        'id': int(len(notes))+1,
+        'userId': current_user.id,
+        # 'notebook_id':
+        'name': data['name'],
+        'note': data['note'],
         }
+#    db.session.add(new_note)
+#    db.session.commit()
+   redirect('/notes/{new_note.id}')
+   return new_note
+
+@notes_route.route('/<int:noteId>/tags', methods=['POST'])
+@login_required
+def add_tags(noteId):
+    tags = Tag.query.all()
+    data = request.get_json()
+    add_tag = TagForm()
+    print(data, '--------------from tags route')
+    new_tag = {
+         'id': int(len(tags))+1,
+         'userId': current_user.id,
+         'noteId': noteId,
+         'name': data['name'],
+    }
+    print(new_tag, "$$$$$$$$$$$$$$$$ NEW TAG(S)")
+    return new_tag

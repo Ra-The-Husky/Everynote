@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { createNote, newTags } from "../../redux/notes";
+import { useNavigate } from "react-router-dom";
+import { allNotes, createNote, newTags } from "../../redux/notes";
 import { noteThunk } from "../../redux/home";
 
 function NoteInfo() {
@@ -9,30 +9,30 @@ function NoteInfo() {
   const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [note, setNote] = useState("");
-  const [notebook_id, setNotebook_id] = useState(0);
+  const [notebook, setNotebook] = useState(0);
   const [tag1, setTag1] = useState("");
   const [tag2, setTag2] = useState("");
   const [tag3, setTag3] = useState("");
   const [tag4, setTag4] = useState("");
   const [tag5, setTag5] = useState("");
-  const reset = () => {
-    setName("");
-    setNote("");
-    setNotebook_id(0);
-    setTag1("");
-    setTag2("");
-    setTag3("");
-    setTag4("");
-    setTag5("");
-  };
+  // const reset = () => {
+  //   setName("");
+  //   setNote("");
+  //   setNotebook_id(0);
+  //   setTag1("");
+  //   setTag2("");
+  //   setTag3("");
+  //   setTag4("");
+  //   setTag5("");
+  // };
   const notebooks = useSelector((state) => state.home.notebook);
 
   const testNote = () => {
     setName("Test Note");
     setNote("This note is being submitted for testing purposes.");
-    setTag1("");
-    setTag2("");
-    setTag3("");
+    setTag1("Testing");
+    setTag2("Multi-Tag");
+    setTag3("#Tested");
     setTag4("");
     setTag5("");
   };
@@ -41,19 +41,27 @@ function NoteInfo() {
     e.preventDefault();
 
     const newNote = {
-      notebook_id,
       name,
       note,
     };
+    const allTags = [];
+    allTags.push(tag1, tag2, tag3, tag4, tag5);
 
-    await dispatch(createNote(newNote));
-    console.log("The added note", newNote);
-    // .then((validNote) => {
-    //   console.log(validNote)
-    //   if (allTags.length) {
-    //     allTags.map((tag) => dispatch(newTags(validNote.id, tag)));
-    //   }
-    // navigate(`/notes/${newNote.id}`)
+    await dispatch(createNote(newNote)).then(navigate(`/notes/${newNote.id}`))
+    
+      // .then((confirmedNote) => {
+      //   return confirmedNote;
+      // })
+      // .then((noteInfo) => {
+      //   if (allTags.length) {
+      //     allTags.map((tag) => {
+      //       if (tag) {
+      //         dispatch(newTags(noteInfo.id, tag));
+      //       }
+      //     });
+      //   }
+      //   navigate(`/notes/${noteInfo.id}`)
+      // })
     // reset()
   };
 
@@ -111,11 +119,7 @@ function NoteInfo() {
           <select>
             {notebooks &&
               notebooks.map((notebook) => (
-                <option
-                  key={notebook.id}
-                  value={notebook.id}
-                  onChange={(e) => setNotebook_id(e.target.value)}
-                >
+                <option key={notebook.id} value={notebook}>
                   {notebook.name}
                 </option>
               ))}

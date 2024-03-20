@@ -3,5 +3,5 @@ from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
 
 class TagForm(FlaskForm):
-    author = StringField('author', validators=[DataRequired()])
+    name = StringField('name')
     submit = SubmitField('create tweet')
