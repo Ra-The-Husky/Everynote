@@ -19,6 +19,8 @@ class Note(db.Model):
     def to_dict(self):
         return{
             "id" : self.id,
+            'user_id':self.user_id,
+            'notebook_id':self.notebook_id,
             "name":self.name,
             "note":self.note,
         }

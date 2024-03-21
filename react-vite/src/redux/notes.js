@@ -65,6 +65,7 @@ export const createNote = (note) => async (dispatch) => {
   });
   if (response.ok) {
     const data = await response.json();
+    console.log(data, 'THUNK DATA')
     dispatch(newNote(data));
     return data
   }

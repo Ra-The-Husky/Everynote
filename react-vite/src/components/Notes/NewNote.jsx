@@ -9,7 +9,9 @@ function NoteInfo() {
   const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [note, setNote] = useState("");
-  const [notebook, setNotebook] = useState(0);
+  const notebooks = useSelector((state) => state.home.notebook);
+  const [notebook, setNotebook] = useState('');
+  const [nb_Id, setNb_id] = useState('')
   const [tag1, setTag1] = useState("");
   const [tag2, setTag2] = useState("");
   const [tag3, setTag3] = useState("");
@@ -25,7 +27,6 @@ function NoteInfo() {
   //   setTag4("");
   //   setTag5("");
   // };
-  const notebooks = useSelector((state) => state.home.notebook);
 
   const testNote = () => {
     setName("Test Note");
@@ -47,8 +48,8 @@ function NoteInfo() {
     const allTags = [];
     allTags.push(tag1, tag2, tag3, tag4, tag5);
 
-    await dispatch(createNote(newNote)).then(navigate(`/notes/${newNote.id}`))
-    
+    dispatch(createNote(newNote))
+
       // .then((confirmedNote) => {
       //   return confirmedNote;
       // })
@@ -116,10 +117,12 @@ function NoteInfo() {
           ></input>
         </div>
         <div>
-          <select>
+          <div>Chosen Notebook: {notebook} </div>
+          <select onChange={(e) => setNotebook(e.target.value)}>
+            <option value={notebook}></option>
             {notebooks &&
               notebooks.map((notebook) => (
-                <option key={notebook.id} value={notebook}>
+                <option key={notebook.id} value={notebook.id} onChange={(f) => setNb_id(f.target.value)}>
                   {notebook.name}
                 </option>
               ))}
