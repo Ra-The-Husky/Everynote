@@ -10,17 +10,19 @@ function NoteInfo() {
   const [name, setName] = useState("");
   const [note, setNote] = useState("");
   const notebooks = useSelector((state) => state.home.notebook);
-  const [notebook, setNotebook] = useState('');
-  const [nb_Id, setNb_id] = useState('')
+  const [notebook_id, setNotebook_id] = useState("notebooks[0].id");
+  const [tag, setTag] = useState('')
   const [tag1, setTag1] = useState("");
   const [tag2, setTag2] = useState("");
   const [tag3, setTag3] = useState("");
   const [tag4, setTag4] = useState("");
   const [tag5, setTag5] = useState("");
+  const [errors, setErrors] = useState({});
+
   // const reset = () => {
   //   setName("");
   //   setNote("");
-  //   setNotebook_id(0);
+  //   setNotebook_id(defaultNotebookId);
   //   setTag1("");
   //   setTag2("");
   //   setTag3("");
@@ -31,39 +33,57 @@ function NoteInfo() {
   const testNote = () => {
     setName("Test Note");
     setNote("This note is being submitted for testing purposes.");
-    setTag1("Testing");
-    setTag2("Multi-Tag");
-    setTag3("#Tested");
-    setTag4("");
-    setTag5("");
+    setNotebook_id(1);
+    setTag("Testing")
+    // setTag1();
+    // setTag2("Multi-Tag");
+    // setTag3("#Tested");
+    // setTag4("");
+    // setTag5("");
   };
+  useEffect(() => {
+    const errs = {};
+
+    if (!name) {
+      errs.name = "Name of note required";
+    }
+    if (!note) {
+      errs.note = "Note information required";
+    }
+    if (note.length < 30) {
+      errs.note = "Note information must be a minimium of 30 characters";
+    }
+    setErrors(errs);
+  }, [name, note]);
 
   const submitNote = async (e) => {
     e.preventDefault();
 
     const newNote = {
+      notebook_id,
       name,
       note,
+      tag,
     };
+
     const allTags = [];
     allTags.push(tag1, tag2, tag3, tag4, tag5);
 
-    dispatch(createNote(newNote))
-
+    await dispatch(createNote(newNote))
       // .then((confirmedNote) => {
       //   return confirmedNote;
       // })
-      // .then((noteInfo) => {
+      // .then((newNote) => {
       //   if (allTags.length) {
       //     allTags.map((tag) => {
       //       if (tag) {
-      //         dispatch(newTags(noteInfo.id, tag));
+      //         console.log(newNote.id, tag)
+      //         dispatch(newTags(newNote.id, tag));
       //       }
       //     });
+      //     // navigate(`/notes/${newNote.id}`);
       //   }
-      //   navigate(`/notes/${noteInfo.id}`)
-      // })
-    // reset()
+      // });
   };
 
   useEffect(() => {
@@ -80,6 +100,7 @@ function NoteInfo() {
             value={name}
             onChange={(e) => setName(e.target.value)}
           ></input>
+          <p>{errors.name}</p>
         </div>
         <div>
           <textarea
@@ -88,12 +109,25 @@ function NoteInfo() {
             value={note}
             onChange={(e) => setNote(e.target.value)}
           ></textarea>
+          <p>{errors.note}</p>
         </div>
         <div>
+          <div>Pick A Notebook</div>
+          <select onChange={(e) => setNotebook_id(e.target.value)}>
+            {notebooks &&
+              notebooks.map((notebook) => (
+                <option key={notebook.id} value={notebook.id}>
+                  {notebook.name}
+                </option>
+              ))}
+          </select>
+        </div>
+        <div>
+          <p>Add Tags (Optional)</p>
           <input
             type="text"
-            value={tag1}
-            onChange={(e) => setTag1(e.target.value)}
+            value={tag}
+            onChange={(e) => setTag(e.target.value)}
           ></input>
           <input
             type="text"
@@ -116,19 +150,9 @@ function NoteInfo() {
             onChange={(e) => setTag5(e.target.value)}
           ></input>
         </div>
-        <div>
-          <div>Chosen Notebook: {notebook} </div>
-          <select onChange={(e) => setNotebook(e.target.value)}>
-            <option value={notebook}></option>
-            {notebooks &&
-              notebooks.map((notebook) => (
-                <option key={notebook.id} value={notebook.id} onChange={(f) => setNb_id(f.target.value)}>
-                  {notebook.name}
-                </option>
-              ))}
-          </select>
-        </div>
-        <button type="submit">Save</button>
+        <button type="submit" disabled={Object.values(errors)}>
+          Save
+        </button>
         <button onClick={testNote}>Test Note</button>
       </form>
     </>

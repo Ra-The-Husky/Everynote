@@ -58,34 +58,37 @@ export const noteInfo = (noteId) => async (dispatch) => {
 };
 
 export const createNote = (note) => async (dispatch) => {
-  const response = await fetch(`/api/notes/new-note`, {
+  const response = await fetch('/api/notes/new-note', {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(note),
   });
   if (response.ok) {
     const data = await response.json();
-    console.log(data, 'THUNK DATA')
     dispatch(newNote(data));
     return data
   }
 };
 
 export const newTags = (noteId, tag) => async (dispatch) => {
-  const { name } = tag;
-  const response = await fetch(`/api/notes/${noteId}/tags`, {
-    method: "POST",
-    body: JSON.stringify({
-      noteId: noteId,
-      name,
-    }),
-  });
-  if (response.ok) {
-    const data = await response.json();
-    console.log(data, "------------TAG THUNK DATA")
-    dispatch(addTags(data));
-    return data;
+  try {
+    const response = await fetch(`/api/notes/new-note`, {
+      method: "POST",
+      body: JSON.stringify({
+        noteId,
+        tag
+      }),
+    });
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data, "------------TAG THUNK DATA")
+      dispatch(addTags(data));
+      return data;
+    }
+  } catch (error) {
+    console.log(error)
   }
+
 };
 
 const initialState = { notes: null, tags: null };

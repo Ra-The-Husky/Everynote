@@ -1,4 +1,4 @@
-from flask import Blueprint, request, redirect
+from flask import Blueprint, request, redirect, url_for
 from app.models import Note, User, Tag, Notebook, db
 from app.forms.note_form import NoteForm
 from app.forms.tag_form import TagForm
@@ -20,7 +20,7 @@ def get_note(noteId):
         tags = Tag.query.get(noteId)
         # notebook = Notebook.query.get(noteId)
         note_data = notes.to_dict()
-        tag_name = 'no tags'
+        tag = ''
         if tags:
              tag = tags.to_dict()
         data = {
@@ -29,45 +29,42 @@ def get_note(noteId):
         }
         return data
 
-@notes_route.route('/new-note', methods=['GET', 'POST'])
+@notes_route.route('/new-note', methods=['POST'])
 @login_required
 def new_note():
-   """
-   Allows user to create a new note
-   """
-   users = User.query.get(current_user.id)
-   notes = Note.query.all()
-   add_note = NoteForm()
-   user_notebooks = [(nb.id, nb.name) for nb in users.notebooks]
-   add_note.notebook_id.choices = user_notebooks
-   print(user_notebooks, '--------------choices------------')
-   data = request.get_json()
-   note = Note(
-            id=int(len(notes))+1,
-            user_id=current_user.id,
-            notebook_id=add_note.notebook_id.data,
-            name=data['name'],
-            note=data['note'],
-            )
-   print(add_note.notebook_id.data, 'WHATEVER this is doing')
-   print(note.to_dict(), '----!SHOULD show all the new note\'s info!----')
-    #    db.session.add(note.to_dict())
-    #    db.session.commit()
-    #    return note
-   return {'note': note.to_dict()}
+    notes = Note.query.all()
+    add_note = NoteForm()
+    data = request.get_json()
+    if add_note:
+         newNote = Note(
+              id=int(len(notes))+1,
+              user_id=current_user.id,
+              notebook_id=data['notebook_id'],
+              name=data['name'],
+              note=data['note'],
+              tag=data['tag'],
+              )
+         print(newNote.to_dict(), '----!SHOULD show all the new note\'s info!----')
+         db.session.add(newNote)
+         db.session.commit()
+         return  newNote.to_dict()
 
-@notes_route.route('/<int:noteId>/tags', methods=['POST'])
+@notes_route.route('/new-note', methods=['POST'])
 @login_required
-def add_tags(noteId):
+def add_tags():
     tags = Tag.query.all()
     data = request.get_json()
+    print(data, 'TAG DATA')
     add_tag = TagForm()
     print(data, '--------------from tags route')
-    new_tag = {
-         'id': int(len(tags))+1,
-         'userId': current_user.id,
-         'noteId': noteId,
-         'name': data['name'],
-    }
-    print(new_tag, "$$$$$$$$$$$$$$$$ NEW TAG(S)")
-    return new_tag
+    if add_tag:
+        new_tag = Tag(
+         id=int(len(tags))+1,
+         userId= current_user.id,
+         noteId= noteId,
+         name=data['name'],
+        )
+        db.session.add(new_tag)
+        db.session.commit()
+    print(new_tag, "NEW TAG(S)")
+    return new_tag.to_dict()
