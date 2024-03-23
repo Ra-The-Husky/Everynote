@@ -42,7 +42,6 @@ def new_note():
               notebook_id=data['notebook_id'],
               name=data['name'],
               note=data['note'],
-              tag=data['tag'],
               )
          print(newNote.to_dict(), '----!SHOULD show all the new note\'s info!----')
          db.session.add(newNote)

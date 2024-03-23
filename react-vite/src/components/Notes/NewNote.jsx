@@ -11,7 +11,7 @@ function NoteInfo() {
   const [note, setNote] = useState("");
   const notebooks = useSelector((state) => state.home.notebook);
   const [notebook_id, setNotebook_id] = useState("notebooks[0].id");
-  const [tag, setTag] = useState('')
+  const [tag, setTag] = useState("");
   const [tag1, setTag1] = useState("");
   const [tag2, setTag2] = useState("");
   const [tag3, setTag3] = useState("");
@@ -19,22 +19,11 @@ function NoteInfo() {
   const [tag5, setTag5] = useState("");
   const [errors, setErrors] = useState({});
 
-  // const reset = () => {
-  //   setName("");
-  //   setNote("");
-  //   setNotebook_id(defaultNotebookId);
-  //   setTag1("");
-  //   setTag2("");
-  //   setTag3("");
-  //   setTag4("");
-  //   setTag5("");
-  // };
-
   const testNote = () => {
     setName("Test Note");
     setNote("This note is being submitted for testing purposes.");
     setNotebook_id(1);
-    setTag("Testing")
+    setTag("Testing");
     // setTag1();
     // setTag2("Multi-Tag");
     // setTag3("#Tested");
@@ -63,27 +52,26 @@ function NoteInfo() {
       notebook_id,
       name,
       note,
-      tag,
     };
 
     const allTags = [];
     allTags.push(tag1, tag2, tag3, tag4, tag5);
 
     await dispatch(createNote(newNote))
-      // .then((confirmedNote) => {
-      //   return confirmedNote;
-      // })
-      // .then((newNote) => {
-      //   if (allTags.length) {
-      //     allTags.map((tag) => {
-      //       if (tag) {
-      //         console.log(newNote.id, tag)
-      //         dispatch(newTags(newNote.id, tag));
-      //       }
-      //     });
-      //     // navigate(`/notes/${newNote.id}`);
-      //   }
-      // });
+      .then((confirmedNote) => {
+        return confirmedNote;
+      })
+      .then((newNote) => {
+        //   if (allTags.length) {
+        //     allTags.map((tag) => {
+        //       if (tag) {
+        //         dispatch(newTags(newNote.id, tag));
+        //       }
+        //     });
+        //   }
+        // });
+        navigate(`/notes/${newNote.id}`);
+      });
   };
 
   useEffect(() => {
@@ -93,7 +81,7 @@ function NoteInfo() {
   return (
     <>
       <form onSubmit={submitNote}>
-        <div>
+        <div className="name">
           <input
             type="text"
             placeholder="Name"
@@ -102,7 +90,7 @@ function NoteInfo() {
           ></input>
           <p>{errors.name}</p>
         </div>
-        <div>
+        <div className="info">
           <textarea
             type="text"
             placeholder="Note Information"
@@ -111,7 +99,7 @@ function NoteInfo() {
           ></textarea>
           <p>{errors.note}</p>
         </div>
-        <div>
+        <div className="notebook">
           <div>Pick A Notebook</div>
           <select onChange={(e) => setNotebook_id(e.target.value)}>
             {notebooks &&
@@ -122,12 +110,12 @@ function NoteInfo() {
               ))}
           </select>
         </div>
-        <div>
+        <div className="tags">
           <p>Add Tags (Optional)</p>
           <input
             type="text"
             value={tag}
-            onChange={(e) => setTag(e.target.value)}
+            onChange={(e) => setTag1(e.target.value)}
           ></input>
           <input
             type="text"
@@ -150,10 +138,18 @@ function NoteInfo() {
             onChange={(e) => setTag5(e.target.value)}
           ></input>
         </div>
-        <button type="submit" disabled={Object.values(errors)}>
-          Save
-        </button>
-        <button onClick={testNote}>Test Note</button>
+        <div className="buttons">
+          <button
+            className="button"
+            type="submit"
+            disabled={Object.values(errors)}
+          >
+            Save
+          </button>
+          <button className="button" onClick={testNote}>
+            Test Note
+          </button>
+        </div>
       </form>
     </>
   );
