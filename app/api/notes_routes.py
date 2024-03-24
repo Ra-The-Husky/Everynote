@@ -13,7 +13,20 @@ def get_notes():
     notes_data= [note.to_dict() for note in users.notes]
     return notes_data
 
-@notes_route.route('/<int:noteId>')
+@notes_route.route('<int:noteId>/edit', methods=['PUT'])
+@login_required
+def edit_note(noteId):
+     adjust_note = Note.query.get(noteId)
+     data = request.get_json()
+     adjust_note.id=noteId
+     adjust_note.user_id=current_user.id
+     adjust_note.notebook_id=data['notebook_id']
+     adjust_note.name=data['name']
+     adjust_note.note=data['note']
+     db.session.commit()
+     return adjust_note
+
+@notes_route.route('<int:noteId>')
 @login_required
 def get_note(noteId):
         notes = Note.query.get(noteId)
@@ -29,7 +42,7 @@ def get_note(noteId):
         }
         return data
 
-@notes_route.route('/new-note', methods=['POST'])
+@notes_route.route('new-note', methods=['POST'])
 @login_required
 def new_note():
     notes = Note.query.all()
@@ -48,7 +61,8 @@ def new_note():
          db.session.commit()
          return  newNote.to_dict()
 
-@notes_route.route('/new-note', methods=['POST'])
+
+@notes_route.route('<int:noteId>/tags', methods=['POST'])
 @login_required
 def add_tags():
     tags = Tag.query.all()

@@ -2,7 +2,7 @@ const ALL_NOTES = "notes/AllNotes";
 const GET_NOTE = "notes/GetNote";
 const GET_TAGS = "notes/GetTags";
 const NEW_NOTE = "notes/NewNote";
-const ADD_TAGS = "notes/AddTags"
+const ADD_TAGS = "notes/AddTags";
 const EDIT_NOTE = "notes/EditNote";
 const REMOVE_NOTE = "notes/RemoveNote";
 
@@ -31,13 +31,14 @@ const addTags = (tag) => ({
   tag,
 });
 
-const adjustNote = (id) => ({
+const adjustNote = (note) => ({
   type: EDIT_NOTE,
+  note,
 });
 
 const deleteNote = (id) => ({
   type: REMOVE_NOTE,
-})
+});
 
 export const allNotes = () => async (dispatch) => {
   const response = await fetch("/api/notes");
@@ -58,7 +59,7 @@ export const noteInfo = (noteId) => async (dispatch) => {
 };
 
 export const createNote = (note) => async (dispatch) => {
-  const response = await fetch('/api/notes/new-note', {
+  const response = await fetch("/api/notes/new-note", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(note),
@@ -66,29 +67,41 @@ export const createNote = (note) => async (dispatch) => {
   if (response.ok) {
     const data = await response.json();
     dispatch(newNote(data));
-    return data
+    return data;
+  }
+};
+
+export const editNote = (noteId, edits) => async (dispatch) => {
+  const response = await fetch(`/api/notes/${noteId}/edit`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(edits),
+  });
+  if (response.ok) {
+    const data = await response.json();
+    dispatch(adjustNote(data));
+    return data;
   }
 };
 
 export const newTags = (noteId, tag) => async (dispatch) => {
   try {
-    const response = await fetch(`/api/notes/new-note`, {
+    const response = await fetch(`/api/notes/${noteId}/tags`, {
       method: "POST",
       body: JSON.stringify({
         noteId,
-        tag
+        tag,
       }),
     });
     if (response.ok) {
       const data = await response.json();
-      console.log(data, "------------TAG THUNK DATA")
+      console.log(data, "------------TAG THUNK DATA");
       dispatch(addTags(data));
       return data;
     }
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-
 };
 
 const initialState = { notes: null, tags: null };
@@ -103,6 +116,8 @@ function notesReducer(state = initialState, action) {
       return { ...state, tags: [action.tags] };
     case NEW_NOTE:
       return { ...state, note: action.newNote };
+    case EDIT_NOTE:
+      return { ...state, note: action.note };
     case ADD_TAGS:
       return { ...state, tags: action.tags };
     default:

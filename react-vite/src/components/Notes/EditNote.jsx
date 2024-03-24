@@ -1,56 +1,52 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { createNote } from "../../redux/notes";
+import { useNavigate, useParams } from "react-router-dom";
+import { editNote, noteInfo } from "../../redux/notes";
 import { noteThunk } from "../../redux/home";
 
-function CreateNote() {
+function EditNote() {
+  const { noteId } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [name, setName] = useState("");
-  const [note, setNote] = useState("");
+  const noteDeets = useSelector((state) => state.notes.note);
   const notebooks = useSelector((state) => state.home.notebook);
-  const defaultNotebook = notebooks?.find((notebook) => notebook.id === notebooks[0].id)
-  console.log(defaultNotebook?.id)
-  const [notebook_id, setNotebook_id] = useState(defaultNotebook?.id);
-  const [tag, setTag] = useState("");
-  const [tag1, setTag1] = useState("");
-  const [tag2, setTag2] = useState("");
-  const [tag3, setTag3] = useState("");
-  const [tag4, setTag4] = useState("");
-  const [tag5, setTag5] = useState("");
+  const defaultNotebook = notebooks?.find(
+    (notebook) => notebook.id === noteDeets.notebook_id
+  );
+  const [name, setName] = useState(noteDeets?.name);
+  const [note, setNote] = useState(noteDeets?.note);
+  const [notebook_id, setNotebook_id] = useState(noteDeets?.notebook_id);
+  const [tag1, setTag1] = useState(noteDeets?.tag1);
+  const [tag2, setTag2] = useState(noteDeets?.tag2);
+  const [tag3, setTag3] = useState(noteDeets?.tag3);
+  const [tag4, setTag4] = useState(noteDeets?.tag4);
+  const [tag5, setTag5] = useState(noteDeets?.tag5);
   const [errors, setErrors] = useState({});
 
-  const testNote = () => {
-    setName("Test Note");
-    setNote("This note is being submitted for testing purposes.");
-    setNotebook_id(1);
-    setTag("Testing");
-    // setTag1("Tester Tag");
-    // setTag2("Multi-Tag");
-    // setTag3("#Tested");
-    // setTag4("");
-    // setTag5("");
-  };
+  useEffect(() => {
+    dispatch(noteInfo(Number(noteId)));
+    dispatch(noteThunk());
+  }, [dispatch, noteId]);
+
+  
   useEffect(() => {
     const errs = {};
-
     if (!name) {
       errs.name = "Name of note required";
     }
     if (!note) {
       errs.note = "Note information required";
     }
-    if (note.length < 30) {
+    if (note?.length < 30) {
       errs.note = "Note information must be a minimium of 30 characters";
     }
     setErrors(errs);
   }, [name, note]);
 
-  const submitNote = async (e) => {
+  const submitChanges = async (e) => {
     e.preventDefault();
 
-    const newNote = {
+    const edits = {
       notebook_id,
       name,
       note,
@@ -59,31 +55,13 @@ function CreateNote() {
     const allTags = [];
     allTags.push(tag1, tag2, tag3, tag4, tag5);
 
-    await dispatch(createNote(newNote))
-      .then((confirmedNote) => {
-        return confirmedNote;
-      })
-      .then((newNote) => {
-        //   if (allTags.length) {
-        //     allTags.map((tag) => {
-        //       if (tag) {
-        //         dispatch(newTags(newNote.id, tag));
-        //       }
-        //     });
-        //   }
-        // });
-        navigate(`/notes/${newNote.id}`);
-      });
+    await dispatch(editNote(noteId, edits)).then(navigate(`/notes/${noteId}`));
   };
-
-  useEffect(() => {
-    dispatch(noteThunk());
-  }, [dispatch]);
 
   return (
     <>
-    <h1>Write A New Note</h1>
-      <form onSubmit={submitNote}>
+      <h1>Edit Your Note</h1>
+      <form onSubmit={submitChanges}>
         <div className="name">
           <input
             type="text"
@@ -105,8 +83,9 @@ function CreateNote() {
         <div className="notebook">
           <div>Pick A Notebook</div>
           <select onChange={(e) => setNotebook_id(e.target.value)}>
+            <option value={defaultNotebook?.id}>{defaultNotebook?.name}</option>
             {notebooks &&
-              notebooks.map((notebook) => (
+              notebooks?.map((notebook) => (
                 <option key={notebook.id} value={notebook.id}>
                   {notebook.name}
                 </option>
@@ -117,7 +96,7 @@ function CreateNote() {
           <p>Add Tags (Optional)</p>
           <input
             type="text"
-            value={tag}
+            value={tag1}
             onChange={(e) => setTag1(e.target.value)}
           ></input>
           <input
@@ -147,10 +126,7 @@ function CreateNote() {
             type="submit"
             disabled={Object.values(errors).length}
           >
-            Save
-          </button>
-          <button className="button" onClick={testNote}>
-            Test Note
+            Save Changes
           </button>
         </div>
       </form>
@@ -158,4 +134,4 @@ function CreateNote() {
   );
 }
 
-export default CreateNote;
+export default EditNote;
