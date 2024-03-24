@@ -62,7 +62,7 @@ function CreateNote() {
     const allTags = [];
     allTags.push(tag1, tag2, tag3, tag4, tag5);
 
-    await dispatch(createNote(newNote)).then(() => console.log(newNote))
+    await dispatch(createNote(newNote)).then((note) => navigate(`/notes/${note.id}`))
   };
 
   useEffect(() => {

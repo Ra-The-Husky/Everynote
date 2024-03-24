@@ -47,20 +47,17 @@ def get_note(noteId):
 def new_note():
     add_note = NoteForm()
     data = request.get_json()
-    print(data, "This is the new note data")
     if add_note:
          newNote = Note(
-            #   id=
               user_id=current_user.id,
               notebook_id=data['notebook_id'],
               name=data['name'],
               info=data['info'],
               )
-         print(newNote.to_dict(), '----!SHOULD show all the new note\'s info!----')
          db.session.add(newNote)
          db.session.commit()
-         return  {'status': 201,
-                  'message': "Note Successfully Created"}
+         note = Note.query.get(newNote.id)
+         return  note.to_dict()
 
 @notes_route.route('<int:noteId>', methods=['DELETE'])
 @login_required

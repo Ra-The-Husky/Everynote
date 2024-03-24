@@ -3,10 +3,12 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { allNotes } from "../../redux/notes";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
+import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import DeleteNoteModal from "../Notes/DeleteNoteModal";
 
 function AllNotes() {
   const navigate = useNavigate();
+  const [clicked, setClicked] = useState(false)
   const userNotes = useSelector((state) => state.notes.allNotes);
   const dispatch = useDispatch();
   const currDate = new Date();
@@ -47,9 +49,7 @@ function AllNotes() {
               </div>
               <p>A short description of the note here...</p>
               <p>The note's created date will appear here as well...</p>
-              <i className="fa-regular fa-trash-can"></i>
-              <OpenModalMenuItem
-                itemText="delete"
+              <OpenModalButton
                 modalComponent={<DeleteNoteModal noteId={note.id} />}
               />
             </div>
