@@ -99,7 +99,6 @@ export const destroyNote = (noteId) => async (dispatch) => {
 };
 
 export const newTags = (noteId, tag) => async (dispatch) => {
-  try {
     const response = await fetch(`/api/notes/${noteId}/tags`, {
       method: "POST",
       body: JSON.stringify({
@@ -113,9 +112,6 @@ export const newTags = (noteId, tag) => async (dispatch) => {
       dispatch(addTags(data));
       return data;
     }
-  } catch (error) {
-    console.log(error);
-  }
 };
 
 const initialState = { notes: null, tags: null };
