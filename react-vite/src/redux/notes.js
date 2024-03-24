@@ -79,7 +79,20 @@ export const editNote = (noteId, edits) => async (dispatch) => {
   });
   if (response.ok) {
     const data = await response.json();
+    dispatch(getNote(data))
     dispatch(adjustNote(data));
+    return data;
+  }
+};
+
+export const destroyNote = (noteId) => async (dispatch) => {
+  const response = await fetch(`/api/notes/${noteId}`, {
+    method: "DELETE",
+  });
+  if (response.ok) {
+    const data = await response.json();
+    dispatch(deleteNote(data));
+    dispatch(allNotes())
     return data;
   }
 };

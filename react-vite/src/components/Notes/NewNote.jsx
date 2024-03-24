@@ -8,12 +8,12 @@ function CreateNote() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [name, setName] = useState("");
-  const [note, setNote] = useState("");
+  const [info, setInfo] = useState("");
   const notebooks = useSelector((state) => state.home.notebook);
-  const defaultNotebook = notebooks?.find((notebook) => notebook.id === notebooks[0].id)
-  console.log(defaultNotebook?.id)
+  const defaultNotebook = notebooks?.find(
+    (notebook) => notebook.id === notebooks[0].id
+  );
   const [notebook_id, setNotebook_id] = useState(defaultNotebook?.id);
-  const [tag, setTag] = useState("");
   const [tag1, setTag1] = useState("");
   const [tag2, setTag2] = useState("");
   const [tag3, setTag3] = useState("");
@@ -23,9 +23,9 @@ function CreateNote() {
 
   const testNote = () => {
     setName("Test Note");
-    setNote("This note is being submitted for testing purposes.");
+    setInfo("This note is being submitted for testing purposes.");
     setNotebook_id(1);
-    setTag("Testing");
+    // setTag("Testing");
     // setTag1("Tester Tag");
     // setTag2("Multi-Tag");
     // setTag3("#Tested");
@@ -38,14 +38,17 @@ function CreateNote() {
     if (!name) {
       errs.name = "Name of note required";
     }
-    if (!note) {
-      errs.note = "Note information required";
+    if (name.toLowerCase().includes('notebook')) {
+      errs.name = 'Name of note cannot contain the word "notebook"'
     }
-    if (note.length < 30) {
-      errs.note = "Note information must be a minimium of 30 characters";
+    if (!info) {
+      errs.info = "Note information required";
+    }
+    if (info.length < 30) {
+      errs.info = "Note information must be a minimium of 30 characters";
     }
     setErrors(errs);
-  }, [name, note]);
+  }, [name, info]);
 
   const submitNote = async (e) => {
     e.preventDefault();
@@ -53,27 +56,13 @@ function CreateNote() {
     const newNote = {
       notebook_id,
       name,
-      note,
+      info,
     };
 
     const allTags = [];
     allTags.push(tag1, tag2, tag3, tag4, tag5);
 
-    await dispatch(createNote(newNote))
-      .then((confirmedNote) => {
-        return confirmedNote;
-      })
-      .then((newNote) => {
-        //   if (allTags.length) {
-        //     allTags.map((tag) => {
-        //       if (tag) {
-        //         dispatch(newTags(newNote.id, tag));
-        //       }
-        //     });
-        //   }
-        // });
-        navigate(`/notes/${newNote.id}`);
-      });
+    await dispatch(createNote(newNote)).then(() => console.log(newNote))
   };
 
   useEffect(() => {
@@ -82,7 +71,7 @@ function CreateNote() {
 
   return (
     <>
-    <h1>Write A New Note</h1>
+      <h1>Write A New Note</h1>
       <form onSubmit={submitNote}>
         <div className="name">
           <input
@@ -97,10 +86,10 @@ function CreateNote() {
           <textarea
             type="text"
             placeholder="Note Information"
-            value={note}
-            onChange={(e) => setNote(e.target.value)}
+            value={info}
+            onChange={(e) => setInfo(e.target.value)}
           ></textarea>
-          <p>{errors.note}</p>
+          <p>{errors.info}</p>
         </div>
         <div className="notebook">
           <div>Pick A Notebook</div>
@@ -117,7 +106,7 @@ function CreateNote() {
           <p>Add Tags (Optional)</p>
           <input
             type="text"
-            value={tag}
+            value={tag1}
             onChange={(e) => setTag1(e.target.value)}
           ></input>
           <input

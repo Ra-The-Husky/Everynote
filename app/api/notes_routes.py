@@ -22,16 +22,16 @@ def edit_note(noteId):
      adjust_note.user_id=current_user.id
      adjust_note.notebook_id=data['notebook_id']
      adjust_note.name=data['name']
-     adjust_note.note=data['note']
+     adjust_note.info=data['info']
      db.session.commit()
-     return adjust_note
+     return {'status': 201,
+             'message': "Note Successfully Updated"}
 
 @notes_route.route('<int:noteId>')
 @login_required
 def get_note(noteId):
         notes = Note.query.get(noteId)
         tags = Tag.query.get(noteId)
-        # notebook = Notebook.query.get(noteId)
         note_data = notes.to_dict()
         tag = ''
         if tags:
@@ -45,22 +45,32 @@ def get_note(noteId):
 @notes_route.route('new-note', methods=['POST'])
 @login_required
 def new_note():
-    notes = Note.query.all()
     add_note = NoteForm()
     data = request.get_json()
+    print(data, "This is the new note data")
     if add_note:
          newNote = Note(
-              id=int(len(notes))+1,
+            #   id=
               user_id=current_user.id,
               notebook_id=data['notebook_id'],
               name=data['name'],
-              note=data['note'],
+              info=data['info'],
               )
          print(newNote.to_dict(), '----!SHOULD show all the new note\'s info!----')
          db.session.add(newNote)
          db.session.commit()
-         return  newNote.to_dict()
+         return  {'status': 201,
+                  'message': "Note Successfully Created"}
 
+@notes_route.route('<int:noteId>', methods=['DELETE'])
+@login_required
+def destroy_note(noteId):
+        note = Note.query.get(noteId)
+        db.session.delete(note)
+        db.session.commit()
+        return {'status': 200,
+                'message': "Note Successfully Deleted"
+                }
 
 @notes_route.route('<int:noteId>/tags', methods=['POST'])
 @login_required
@@ -72,7 +82,7 @@ def add_tags():
     print(data, '--------------from tags route')
     if add_tag:
         new_tag = Tag(
-         id=int(len(tags))+1,
+        #  id=int(len(tags))+1,
          userId= current_user.id,
          noteId= noteId,
          name=data['name'],

@@ -2,6 +2,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { allNotes } from "../../redux/notes";
+import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
+import DeleteNoteModal from "../Notes/DeleteNoteModal";
 
 function AllNotes() {
   const navigate = useNavigate();
@@ -41,11 +43,15 @@ function AllNotes() {
           userNotes.map((note) => (
             <div key={note.id}>
               <div onClick={() => navigate(`/notes/${note.id}`)}>
-               {note.name}{" "}
+                {note.name}{" "}
               </div>
               <p>A short description of the note here...</p>
               <p>The note's created date will appear here as well...</p>
               <i className="fa-regular fa-trash-can"></i>
+              <OpenModalMenuItem
+                itemText="delete"
+                modalComponent={<DeleteNoteModal noteId={note.id} />}
+              />
             </div>
           ))}
       </div>

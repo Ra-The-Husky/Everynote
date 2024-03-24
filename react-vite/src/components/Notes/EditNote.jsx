@@ -8,13 +8,13 @@ function EditNote() {
   const { noteId } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const noteDeets = useSelector((state) => state.notes.note);
+  const noteDeets = useSelector((state) => state.notes?.note);
   const notebooks = useSelector((state) => state.home.notebook);
   const defaultNotebook = notebooks?.find(
     (notebook) => notebook.id === noteDeets.notebook_id
   );
   const [name, setName] = useState(noteDeets?.name);
-  const [note, setNote] = useState(noteDeets?.note);
+  const [info, setInfo] = useState(noteDeets?.info);
   const [notebook_id, setNotebook_id] = useState(noteDeets?.notebook_id);
   const [tag1, setTag1] = useState(noteDeets?.tag1);
   const [tag2, setTag2] = useState(noteDeets?.tag2);
@@ -28,20 +28,20 @@ function EditNote() {
     dispatch(noteThunk());
   }, [dispatch, noteId]);
 
-  
+
   useEffect(() => {
     const errs = {};
     if (!name) {
       errs.name = "Name of note required";
     }
-    if (!note) {
-      errs.note = "Note information required";
+    if (!info) {
+      errs.info = "Note information required";
     }
-    if (note?.length < 30) {
-      errs.note = "Note information must be a minimium of 30 characters";
+    if (info?.length < 30) {
+      errs.info = "Note information must be a minimium of 30 characters";
     }
     setErrors(errs);
-  }, [name, note]);
+  }, [name, info]);
 
   const submitChanges = async (e) => {
     e.preventDefault();
@@ -49,7 +49,7 @@ function EditNote() {
     const edits = {
       notebook_id,
       name,
-      note,
+      info,
     };
 
     const allTags = [];
@@ -75,10 +75,10 @@ function EditNote() {
           <textarea
             type="text"
             placeholder="Note Information"
-            value={note}
-            onChange={(e) => setNote(e.target.value)}
+            value={info}
+            onChange={(e) => setInfo(e.target.value)}
           ></textarea>
-          <p>{errors.note}</p>
+          <p>{errors.info}</p>
         </div>
         <div className="notebook">
           <div>Pick A Notebook</div>

@@ -20,7 +20,7 @@ function NoteInfo() {
   return (
     <>
       <h1>{noteDetails?.name}</h1>
-      <p>{noteDetails?.note}</p>
+      <p>{noteDetails?.info}</p>
       <div>
         <button onClick={edit}>Edit Note</button>
       </div>
