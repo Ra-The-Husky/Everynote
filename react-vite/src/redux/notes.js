@@ -55,6 +55,7 @@ export const noteInfo = (noteId) => async (dispatch) => {
     dispatch(getNote(data.note));
     // dispatch(getNotebok(data.notebook))
     dispatch(getTags(data.tags));
+    return data
   }
 };
 

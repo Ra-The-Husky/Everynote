@@ -13,20 +13,23 @@ function EditNote() {
   const defaultNotebook = notebooks?.find(
     (notebook) => notebook.id === noteDeets.notebook_id
   );
-  const [name, setName] = useState(noteDeets?.name);
-  const [info, setInfo] = useState(noteDeets?.info);
+  const [name, setName] = useState();
+  const [info, setInfo] = useState();
   const [notebook_id, setNotebook_id] = useState(noteDeets?.notebook_id);
-  const [tag1, setTag1] = useState(noteDeets?.tag1);
-  const [tag2, setTag2] = useState(noteDeets?.tag2);
-  const [tag3, setTag3] = useState(noteDeets?.tag3);
-  const [tag4, setTag4] = useState(noteDeets?.tag4);
-  const [tag5, setTag5] = useState(noteDeets?.tag5);
+  const [tag1, setTag1] = useState();
+  const [tag2, setTag2] = useState();
+  const [tag3, setTag3] = useState();
+  const [tag4, setTag4] = useState();
+  const [tag5, setTag5] = useState();
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
-    dispatch(noteInfo(Number(noteId)));
+    dispatch(noteInfo(Number(noteId))).then((note) => {
+      setName(note.note.name)
+      setInfo(note.note.info)
+    })
     dispatch(noteThunk());
-  }, [dispatch, noteId]);
+  }, [dispatch]);
 
 
   useEffect(() => {
