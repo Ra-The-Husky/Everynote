@@ -71,7 +71,9 @@ def destroy_note(noteId):
 
 @notes_route.route('<int:noteId>/tags', methods=['POST'])
 @login_required
-def add_tags():
+def add_tags(noteId, tags):
+    #if tags
+        #for tag in tags
     tags = Tag.query.all()
     data = request.get_json()
     print(data, 'TAG DATA')
@@ -79,7 +81,6 @@ def add_tags():
     print(data, '--------------from tags route')
     if add_tag:
         new_tag = Tag(
-        #  id=int(len(tags))+1,
          userId= current_user.id,
          noteId= noteId,
          name=data['name'],

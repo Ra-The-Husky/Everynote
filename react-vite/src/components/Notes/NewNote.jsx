@@ -59,10 +59,18 @@ function CreateNote() {
       info,
     };
 
+    /*
+      const tag = tags.split(' ')
+
+     */
+
     const allTags = [];
     allTags.push(tag1, tag2, tag3, tag4, tag5);
 
-    await dispatch(createNote(newNote)).then((note) => navigate(`/notes/${note.id}`))
+    await dispatch(createNote(newNote)).then((note) => {
+      //dispatch()
+      navigate(`/notes/${note.id}`)
+    })
   };
 
   useEffect(() => {
