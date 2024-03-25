@@ -4,7 +4,6 @@ import "./Navigation.css";
 import { useNavigate } from "react-router-dom";
 import CreateNotebookModal from "../Notebooks/CreateNotebook";
 import { useModal } from '../../context/Modal';
-import OpenModalMenuItem from "./OpenModalMenuItem";
 
 
 function Navigation() {

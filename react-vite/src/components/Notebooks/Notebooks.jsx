@@ -4,6 +4,9 @@ import { notebookThunk } from "../../redux/notebooks";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import './Notebooks.css'
 import { useNavigate } from "react-router-dom";
+import DeleteNotebookModal from "./DeleteNotebookModal";
+import EditNotebookModal from "./EditNotebookModal"
+
 
 function Notebooks() {
   const notebooks = useSelector((state) => state.notebooks.notebooks);
@@ -61,7 +64,7 @@ function Notebooks() {
         {notebooks && notebooks.map((notebook) => (
           <tbody key={notebook.id}>
             <tr className="row">
-              <td scope="row" className="col2"><span className="notebookName">{notebook.name}</span></td>
+              <td scope="row" className="col2"><span className="notebookName" onClick={()=>navigate(`/notebooks/${notebook.id}`)}>{notebook.name}</span></td>
               <td className="col">{notebook.description}</td>
               <td className="col"><span><b className='notebookName' onClick={(e) => {
                 toggleMenu(e)
@@ -82,13 +85,18 @@ function Notebooks() {
                         <OpenModalMenuItem
                           itemText="Edit Notebook"
                           onItemClick={closeMenu}
-                          modalComponent={'Edit'}
+                          modalComponent={<EditNotebookModal
+                            notebook={notebook}
+                          />}
                           onModalClose={() => {notebook.show = false}}
                         />
                         <OpenModalMenuItem
                           itemText="Delete Notebook"
                           onItemClick={closeMenu}
-                          modalComponent={'Delete'}
+                          modalComponent={<DeleteNotebookModal
+                            notebookId={notebook.id}
+                            notebookName={notebook.name}
+                          />}
                           onModalClose={() => {notebook.show = false}}
                         />
                       </>

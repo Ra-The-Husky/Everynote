@@ -1,27 +1,28 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { newNotebookThunk } from "../../redux/notebooks";
+import { editNotebookThunk } from "../../redux/notebooks";
 import { useModal } from "../../context/Modal";
 
 
 
-function CreateNotebookModal() {
+function EditNotebookModal({notebook}) {
+    console.log(notebook)
     const { closeModal } = useModal();
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const [name, setName] = useState("");
-    const [description, setDescription] = useState("");
+    const [name, setName] = useState(notebook.name);
+    const [description, setDescription] = useState(notebook.description);
 
     const submitNotebook = async (e) => {
         e.preventDefault();
-        const newNotebook = {
+        const editedNotebook = {
             name,
             description,
         };
 
-        dispatch(newNotebookThunk(newNotebook)).then(() => {
+        dispatch(editNotebookThunk(notebook.id, editedNotebook)).then(() => {
             closeModal()
             navigate(`/notebooks`)
         })
@@ -29,7 +30,7 @@ function CreateNotebookModal() {
 
     return (
         <>
-            <h1>Create A New Notebook</h1>
+            <h1>Edit Notebook</h1>
             <form onSubmit={submitNotebook}>
                 <div className="name">
                     <input
@@ -59,4 +60,4 @@ function CreateNotebookModal() {
     )
 }
 
-export default CreateNotebookModal
+export default EditNotebookModal
