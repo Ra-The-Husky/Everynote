@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { noteInfo } from "../../redux/notes";
 
@@ -29,12 +29,13 @@ function NoteInfo() {
           <></>
         ) : (
           <div>
-            {tags && tags.map((tag) => <div key={tag.id}>{tag.name}</div>)}
+            {tags && tags.map((allTags) => allTags.map((tag) => <div key={tag.id}>#{tag.name}</div>))}
           </div>
         )}
       </div>
     </>
   );
 }
+/* <div><i class="fa-solid fa-square-xmark"></i></div> */
 
 export default NoteInfo;

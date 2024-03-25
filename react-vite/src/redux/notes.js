@@ -38,7 +38,7 @@ const adjustNote = (note) => ({
 
 const deleteNote = (noteId) => ({
   type: REMOVE_NOTE,
-  noteId
+  noteId,
 });
 
 export const allNotes = () => async (dispatch) => {
@@ -55,7 +55,7 @@ export const noteInfo = (noteId) => async (dispatch) => {
     const data = await response.json();
     dispatch(getNote(data.note));
     dispatch(getTags(data.tags));
-    return data
+    return data;
   }
 };
 
@@ -80,7 +80,7 @@ export const editNote = (noteId, edits) => async (dispatch) => {
   });
   if (response.ok) {
     const data = await response.json();
-    dispatch(getNote(data))
+    dispatch(getNote(data));
     dispatch(adjustNote(data));
     return data;
   }
@@ -93,23 +93,24 @@ export const destroyNote = (noteId) => async (dispatch) => {
   if (response.ok) {
     const data = await response.json();
     dispatch(deleteNote(data));
-    dispatch(allNotes())
+    dispatch(allNotes());
     return data;
   }
 };
 
 export const newTags = (noteId, tag) => async (dispatch) => {
-    const response = await fetch(`/api/notes/${noteId}/tags`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(tag),
-    });
-    if (response.ok) {
-      const data = await response.json();
-      console.log(data, "------------TAG THUNK DATA");
-      dispatch(addTags(data));
-      return data;
-    }
+  const response = await fetch(`/api/notes/${noteId}/tags`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(
+      tag,
+    ),
+  });
+  if (response.ok) {
+    const data = await response.json();
+    dispatch(addTags(data));
+    return data;
+  }
 };
 
 const initialState = { notes: null, tags: null };

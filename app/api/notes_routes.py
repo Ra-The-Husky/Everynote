@@ -31,14 +31,15 @@ def edit_note(noteId):
 @login_required
 def get_note(noteId):
         notes = Note.query.get(noteId)
-        tags = Tag.query.get(noteId)
+        tags = Tag.query.filter(Tag.note_id == noteId).all()
+        # print(tags, 'ALL THE NOTES TAGS!!!')
         note_data = notes.to_dict()
-        tag = ''
-        if tags:
-             tag = tags.to_dict()
+        # print(note_data, "-----> Note Data")
+        tag_data = [tag.to_dict() for tag in tags]
+        # print(tag_data, '-----> Should be all the tags in a dict')
         data = {
               'note': note_data,
-              'tags': tag,
+              'tags': tag_data,
         }
         return data
 
@@ -71,22 +72,15 @@ def destroy_note(noteId):
 
 @notes_route.route('<int:noteId>/tags', methods=['POST'])
 @login_required
-def add_tags(noteId, tags):
-    print(noteId, "-------> Should be the newNote's id")
-    print(tags, '------> Should be a list of tags')
-    if tags:
-         for tag in tags:
-              data = request.get_json()
-              print(data, '---------------->TAG DATA')
-              add_tag = TagForm()
-              if add_tag:
-                   tag = Tag(
-                        userId= current_user.id,
-                        note_id=noteId,
-                        name=data['name'],
-                        )
-                   db.session.add(tag)
-                   db.session.commit()
-                   print(tag, "NEW TAG(S)")
-                   return {'status': 201,
-                           'message': 'Added Tag Successfully'}
+def add_tags(noteId):
+    tags = request.get_json()
+    for tag in tags:
+         new_tag = Tag(
+              user_id=current_user.id,
+              note_id=noteId,
+              name=tag,
+              )
+         db.session.add(new_tag)
+         db.session.commit()
+    return {'status': 201,
+            'message': 'Added Tags Successfully'}

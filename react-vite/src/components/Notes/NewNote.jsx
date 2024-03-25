@@ -15,8 +15,8 @@ function CreateNote() {
   );
   const [notebook_id, setNotebook_id] = useState(defaultNotebook?.id);
   const [tags, setTags] = useState("");
-  const notes = useSelector((state) => state.notes.allNotes)
-  const noteNames = notes?.map((note) => note.name)
+  const notes = useSelector((state) => state.notes.allNotes);
+  const noteNames = notes?.map((note) => note.name);
   const [errors, setErrors] = useState({});
 
   const testNote = () => {
@@ -35,11 +35,11 @@ function CreateNote() {
     if (name.toLowerCase().includes("notebook")) {
       errs.name = 'Name of note cannot contain the word "notebook"';
     }
-    if (noteNames?.includes(name)){
-      errs.name = 'Name already exists'
+    if (noteNames?.includes(name)) {
+      errs.name = "Name already exists";
     }
-    if (name.length > 20){
-      errs.name = "Name cannot exceed 20 characters"
+    if (name.length > 20) {
+      errs.name = "Name cannot exceed 20 characters";
     }
     if (!info) {
       errs.info = "Note information required";
@@ -59,12 +59,15 @@ function CreateNote() {
       info,
     };
     const tag = tags.split(" ");
+    if (tag.length > 5){
+      setErrors(errors.tags = "Too many entered tags")
+    }
 
-    if (Object.values(errors).length){
-      return console.log(errors)
+    if (Object.values(errors).length) {
+      return console.log(errors);
     } else {
       await dispatch(createNote(newNote)).then((note) => {
-        dispatch(newTags(note.id, tag))
+        dispatch(newTags(note.id, tag));
         navigate(`/notes/${note.id}`);
       });
     }
@@ -72,7 +75,7 @@ function CreateNote() {
 
   useEffect(() => {
     dispatch(noteThunk());
-    dispatch(allNotes())
+    dispatch(allNotes());
   }, [dispatch]);
 
   return (
@@ -110,11 +113,13 @@ function CreateNote() {
         </div>
         <div className="tags">
           <p>Add Tags (Optional)</p>
+          <p>All tags need to be separated with spaces</p>
           <input
             type="text"
             value={tags}
             onChange={(e) => setTags(e.target.value)}
           ></input>
+          {errors.tags && <p>{errors.tags}</p>}
         </div>
         <div className="buttons">
           <button
