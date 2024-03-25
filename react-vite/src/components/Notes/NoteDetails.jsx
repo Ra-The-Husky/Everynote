@@ -2,6 +2,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { noteInfo } from "../../redux/notes";
+import OpenModalButton from "../OpenModalButton/OpenModalButton";
+import DeleteNoteModal from "./DeleteNoteModal";
 
 function NoteInfo() {
   const { noteId } = useParams();
@@ -22,9 +24,6 @@ function NoteInfo() {
       <h1>{noteDetails?.name}</h1>
       <p>{noteDetails?.info}</p>
       <div>
-        <button onClick={edit}>Edit Note</button>
-      </div>
-      <div>
         {!tags?.length ? (
           <></>
         ) : (
@@ -33,6 +32,12 @@ function NoteInfo() {
           </div>
         )}
       </div>
+      <div>
+        <button onClick={edit}>Edit Note</button>
+      </div>
+      <OpenModalButton
+                modalComponent={<DeleteNoteModal noteId={noteId} />}
+              />
     </>
   );
 }

@@ -104,7 +104,7 @@ function CreateNote() {
           <div>Pick A Notebook</div>
           <select onChange={(e) => setNotebook_id(e.target.value)}>
             {notebooks &&
-              notebooks.map((notebook) => (
+              notebooks?.map((notebook) => (
                 <option key={notebook.id} value={notebook.id}>
                   {notebook.name}
                 </option>

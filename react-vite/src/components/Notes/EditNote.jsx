@@ -21,13 +21,12 @@ function EditNote() {
 
   useEffect(() => {
     dispatch(noteInfo(Number(noteId))).then((note) => {
-      setName(note.note.name)
-      setInfo(note.note.info)
-      setTags(note.note.tags)
-    })
+      setName(note.note.name);
+      setInfo(note.note.info);
+      setTags(note.note.tags);
+    });
     dispatch(noteThunk());
   }, [dispatch]);
-
 
   useEffect(() => {
     const errs = {};
@@ -63,8 +62,8 @@ function EditNote() {
     };
 
     const tag = tags.split(" ");
-    if (tag.length > 5){
-      setErrors(errors.tags = "Too many entered tags")
+    if (tag.length > 5) {
+      setErrors((errors.tags = "Too many entered tags"));
     }
 
     await dispatch(editNote(noteId, edits)).then(navigate(`/notes/${noteId}`));
