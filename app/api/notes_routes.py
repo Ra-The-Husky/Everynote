@@ -72,20 +72,21 @@ def destroy_note(noteId):
 @notes_route.route('<int:noteId>/tags', methods=['POST'])
 @login_required
 def add_tags(noteId, tags):
-    #if tags
-        #for tag in tags
-    tags = Tag.query.all()
-    data = request.get_json()
-    print(data, 'TAG DATA')
-    add_tag = TagForm()
-    print(data, '--------------from tags route')
-    if add_tag:
-        new_tag = Tag(
-         userId= current_user.id,
-         noteId= noteId,
-         name=data['name'],
-        )
-        db.session.add(new_tag)
-        db.session.commit()
-    print(new_tag, "NEW TAG(S)")
-    return new_tag.to_dict()
+    print(noteId, "-------> Should be the newNote's id")
+    print(tags, '------> Should be a list of tags')
+    if tags:
+         for tag in tags:
+              data = request.get_json()
+              print(data, '---------------->TAG DATA')
+              add_tag = TagForm()
+              if add_tag:
+                   tag = Tag(
+                        userId= current_user.id,
+                        note_id=noteId,
+                        name=data['name'],
+                        )
+                   db.session.add(tag)
+                   db.session.commit()
+                   print(tag, "NEW TAG(S)")
+                   return {'status': 201,
+                           'message': 'Added Tag Successfully'}

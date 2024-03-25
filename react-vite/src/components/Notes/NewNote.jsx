@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createNote } from "../../redux/notes";
+import { allNotes, createNote, newTags } from "../../redux/notes";
 import { noteThunk } from "../../redux/home";
 
 function CreateNote() {
@@ -14,32 +14,32 @@ function CreateNote() {
     (notebook) => notebook.id === notebooks[0].id
   );
   const [notebook_id, setNotebook_id] = useState(defaultNotebook?.id);
-  const [tag1, setTag1] = useState("");
-  const [tag2, setTag2] = useState("");
-  const [tag3, setTag3] = useState("");
-  const [tag4, setTag4] = useState("");
-  const [tag5, setTag5] = useState("");
+  const [tags, setTags] = useState("");
+  const notes = useSelector((state) => state.notes.allNotes)
+  const noteNames = notes?.map((note) => note.name)
   const [errors, setErrors] = useState({});
 
   const testNote = () => {
-    setName("Test Note");
-    setInfo("This note is being submitted for testing purposes.");
+    setName("Tagged Test Note");
+    setInfo("This note is being submitted with tags for testing purposes.");
     setNotebook_id(1);
-    // setTag("Testing");
-    // setTag1("Tester Tag");
-    // setTag2("Multi-Tag");
-    // setTag3("#Tested");
-    // setTag4("");
-    // setTag5("");
+    setTags("Testing NewTag Tags4Days Notetag");
   };
+
   useEffect(() => {
     const errs = {};
 
     if (!name) {
       errs.name = "Name of note required";
     }
-    if (name.toLowerCase().includes('notebook')) {
-      errs.name = 'Name of note cannot contain the word "notebook"'
+    if (name.toLowerCase().includes("notebook")) {
+      errs.name = 'Name of note cannot contain the word "notebook"';
+    }
+    if (noteNames?.includes(name)){
+      errs.name = 'Name already exists'
+    }
+    if (name.length > 20){
+      errs.name = "Name cannot exceed 20 characters"
     }
     if (!info) {
       errs.info = "Note information required";
@@ -58,23 +58,21 @@ function CreateNote() {
       name,
       info,
     };
+    const tag = tags.split(" ");
 
-    /*
-      const tag = tags.split(' ')
-
-     */
-
-    const allTags = [];
-    allTags.push(tag1, tag2, tag3, tag4, tag5);
-
-    await dispatch(createNote(newNote)).then((note) => {
-      //dispatch()
-      navigate(`/notes/${note.id}`)
-    })
+    if (Object.values(errors).length){
+      return console.log(errors)
+    } else {
+      await dispatch(createNote(newNote)).then((note) => {
+        dispatch(newTags(note.id, tag))
+        navigate(`/notes/${note.id}`);
+      });
+    }
   };
 
   useEffect(() => {
     dispatch(noteThunk());
+    dispatch(allNotes())
   }, [dispatch]);
 
   return (
@@ -114,28 +112,8 @@ function CreateNote() {
           <p>Add Tags (Optional)</p>
           <input
             type="text"
-            value={tag1}
-            onChange={(e) => setTag1(e.target.value)}
-          ></input>
-          <input
-            type="text"
-            value={tag2}
-            onChange={(e) => setTag2(e.target.value)}
-          ></input>
-          <input
-            type="text"
-            value={tag3}
-            onChange={(e) => setTag3(e.target.value)}
-          ></input>
-          <input
-            type="text"
-            value={tag4}
-            onChange={(e) => setTag4(e.target.value)}
-          ></input>
-          <input
-            type="text"
-            value={tag5}
-            onChange={(e) => setTag5(e.target.value)}
+            value={tags}
+            onChange={(e) => setTags(e.target.value)}
           ></input>
         </div>
         <div className="buttons">

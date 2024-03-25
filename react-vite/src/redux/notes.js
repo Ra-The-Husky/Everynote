@@ -36,8 +36,9 @@ const adjustNote = (note) => ({
   note,
 });
 
-const deleteNote = (id) => ({
+const deleteNote = (noteId) => ({
   type: REMOVE_NOTE,
+  noteId
 });
 
 export const allNotes = () => async (dispatch) => {
@@ -53,7 +54,6 @@ export const noteInfo = (noteId) => async (dispatch) => {
   if (response.ok) {
     const data = await response.json();
     dispatch(getNote(data.note));
-    // dispatch(getNotebok(data.notebook))
     dispatch(getTags(data.tags));
     return data
   }
@@ -101,10 +101,8 @@ export const destroyNote = (noteId) => async (dispatch) => {
 export const newTags = (noteId, tag) => async (dispatch) => {
     const response = await fetch(`/api/notes/${noteId}/tags`, {
       method: "POST",
-      body: JSON.stringify({
-        noteId,
-        tag,
-      }),
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(tag),
     });
     if (response.ok) {
       const data = await response.json();
