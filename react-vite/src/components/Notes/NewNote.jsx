@@ -1,19 +1,17 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { createNote } from "../../redux/notes";
 import { homeThunk } from "../../redux/home";
 
 function CreateNote() {
+  const [params] = useSearchParams()
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [info, setInfo] = useState("");
-  const notebooks = useSelector((state) => state.home.notebook);
-  const defaultNotebook = notebooks?.find(
-    (notebook) => notebook.id === notebooks[0].id
-  );
-  const [notebook_id, setNotebook_id] = useState(defaultNotebook?.id);
+  const notebooks = useSelector((state) => state.home?.notebook);
+  const [notebook_id, setNotebook_id] = useState();
   const [tag1, setTag1] = useState("");
   const [tag2, setTag2] = useState("");
   const [tag3, setTag3] = useState("");
@@ -74,7 +72,8 @@ function CreateNote() {
   };
 
   useEffect(() => {
-    dispatch(homeThunk());
+    console.log(params.size)
+    dispatch(homeThunk())
   }, [dispatch]);
 
   return (
@@ -102,7 +101,8 @@ function CreateNote() {
         <div className="notebook">
           <div>Pick A Notebook</div>
           <select onChange={(e) => setNotebook_id(e.target.value)}>
-            {notebooks &&
+            {params.size && (<option value={+params.get("id")}>{params.get("name")}</option>)}
+            {notebooks && !params.size &&
               notebooks.map((notebook) => (
                 <option key={notebook.id} value={notebook.id}>
                   {notebook.name}

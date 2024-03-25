@@ -3,11 +3,13 @@ import { useState, useEffect, useRef } from "react";
 import { notebookThunk } from "../../redux/notebooks";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import './Notebooks.css'
+import { useNavigate } from "react-router-dom";
 
 function Notebooks() {
   const notebooks = useSelector((state) => state.notebooks.notebooks);
   const [show, setShow] = useState(false)
   const ulRef = useRef();
+  const navigate = useNavigate()
 
   const dispatch = useDispatch();
 
@@ -43,6 +45,7 @@ function Notebooks() {
   }, [show]);
 
   const closeMenu = () => setShow(false);
+  // const createNotebook = () Navigate()
 
   return (
     <>
@@ -70,8 +73,10 @@ function Notebooks() {
                       <>
                         <OpenModalMenuItem
                           itemText="Create Note"
-                          onItemClick={closeMenu}
-                          modalComponent={'Create'}
+                          onItemClick={() => {
+                            navigate(`/notes/new-note?id=${notebook.id}&name=${notebook.name}`);
+                          }}
+                          modalComponent={""}
                           onModalClose={() => {notebook.show = false}}
                         />
                         <OpenModalMenuItem

@@ -13,6 +13,18 @@ export const notebookThunk = () => async (dispatch) => {
   }
 };
 
+export const newNotebookThunk = (notebook) => async (dispatch) => {
+  const response = await fetch("/api/notebooks/", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(notebook),
+  })
+
+  if (response.ok) {
+    dispatch(notebookThunk())
+  }
+}
+
 const initialState = { notebooks: null };
 
 function notebookReducer(state = initialState, action) {
