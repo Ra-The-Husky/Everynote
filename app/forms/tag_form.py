@@ -3,5 +3,5 @@ from wtforms import StringField, IntegerField
 from wtforms.validators import DataRequired
 
 class TagForm(FlaskForm):
-    user_id = IntegerField('User_id')
+    note_id = IntegerField('Note_id')
     name = StringField('Name')
