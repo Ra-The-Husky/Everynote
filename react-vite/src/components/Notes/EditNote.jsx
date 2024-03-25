@@ -16,17 +16,14 @@ function EditNote() {
   const [name, setName] = useState();
   const [info, setInfo] = useState();
   const [notebook_id, setNotebook_id] = useState(noteDeets?.notebook_id);
-  const [tag1, setTag1] = useState();
-  const [tag2, setTag2] = useState();
-  const [tag3, setTag3] = useState();
-  const [tag4, setTag4] = useState();
-  const [tag5, setTag5] = useState();
+  const [tags, setTags] = useState();
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
     dispatch(noteInfo(Number(noteId))).then((note) => {
       setName(note.note.name)
       setInfo(note.note.info)
+      setTags(note.note.tags)
     })
     dispatch(homeThunk());
   }, [dispatch]);
@@ -34,13 +31,23 @@ function EditNote() {
 
   useEffect(() => {
     const errs = {};
+
     if (!name) {
       errs.name = "Name of note required";
+    }
+    if (name.toLowerCase().includes("notebook")) {
+      errs.name = 'Name of note cannot contain the word "notebook"';
+    }
+    if (noteNames?.includes(name)) {
+      errs.name = "Name already exists";
+    }
+    if (name.length > 20) {
+      errs.name = "Name cannot exceed 20 characters";
     }
     if (!info) {
       errs.info = "Note information required";
     }
-    if (info?.length < 30) {
+    if (info.length < 30) {
       errs.info = "Note information must be a minimium of 30 characters";
     }
     setErrors(errs);
@@ -55,8 +62,10 @@ function EditNote() {
       info,
     };
 
-    const allTags = [];
-    allTags.push(tag1, tag2, tag3, tag4, tag5);
+    const tag = tags.split(" ");
+    if (tag.length > 5){
+      setErrors(errors.tags = "Too many entered tags")
+    }
 
     await dispatch(editNote(noteId, edits)).then(navigate(`/notes/${noteId}`));
   };
@@ -84,7 +93,7 @@ function EditNote() {
           <p>{errors.info}</p>
         </div>
         <div className="notebook">
-          <div>Pick A Notebook</div>
+          <div>Assigned Notebook</div>
           <select onChange={(e) => setNotebook_id(e.target.value)}>
             <option value={defaultNotebook?.id}>{defaultNotebook?.name}</option>
             {notebooks &&
@@ -96,31 +105,11 @@ function EditNote() {
           </select>
         </div>
         <div className="tags">
-          <p>Add Tags (Optional)</p>
+          <p>Note's Tags</p>
           <input
             type="text"
-            value={tag1}
-            onChange={(e) => setTag1(e.target.value)}
-          ></input>
-          <input
-            type="text"
-            value={tag2}
-            onChange={(e) => setTag2(e.target.value)}
-          ></input>
-          <input
-            type="text"
-            value={tag3}
-            onChange={(e) => setTag3(e.target.value)}
-          ></input>
-          <input
-            type="text"
-            value={tag4}
-            onChange={(e) => setTag4(e.target.value)}
-          ></input>
-          <input
-            type="text"
-            value={tag5}
-            onChange={(e) => setTag5(e.target.value)}
+            value={tags}
+            onChange={(e) => setTags(e.target.value)}
           ></input>
         </div>
         <div className="buttons">
