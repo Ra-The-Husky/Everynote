@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { editNote, noteInfo } from "../../redux/notes";
-import { noteThunk } from "../../redux/home";
+import { homeThunk } from "../../redux/home";
 
 function EditNote() {
   const { noteId } = useParams();
@@ -28,7 +28,7 @@ function EditNote() {
       setName(note.note.name)
       setInfo(note.note.info)
     })
-    dispatch(noteThunk());
+    dispatch(homeThunk());
   }, [dispatch]);
 
 

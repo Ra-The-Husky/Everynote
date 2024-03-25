@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createNote } from "../../redux/notes";
-import { noteThunk } from "../../redux/home";
+import { homeThunk } from "../../redux/home";
 
 function CreateNote() {
   const navigate = useNavigate();
@@ -74,7 +74,7 @@ function CreateNote() {
   };
 
   useEffect(() => {
-    dispatch(noteThunk());
+    dispatch(homeThunk());
   }, [dispatch]);
 
   return (
