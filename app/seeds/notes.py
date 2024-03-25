@@ -5,29 +5,23 @@ from sqlalchemy.sql import text
 # Adds a demo user, you can add other users here if you want
 def seed_notes():
     note1 = Note(
-        user_id=1, notebook_id=1, name='note1', note='test note')
+        user_id=1, notebook_id=1, name='note1', info='test note')
     note2 = Note(
-        user_id=1, notebook_id=1, name='note2', note='test note')
+        user_id=1, notebook_id=1, name='note2', info='2nd test note')
     note3 = Note(
-        user_id=1, notebook_id=1, name='note3', note='test note')
+        user_id=1, notebook_id=4, name='note3', info='3rd test note')
     note4 = Note(
-        user_id=2, notebook_id=2, name='note1', note='test note')
+        user_id=2, notebook_id=2, name='note1', info='test note')
     note5 = Note(
-        user_id=2, notebook_id=2, name='note2', note='test note')
+        user_id=2, notebook_id=2, name='note2', info='test note')
     note6 = Note(
-        user_id=2, notebook_id=2, name='note3', note='test note')
+        user_id=2, notebook_id=2, name='note3', info='test note')
     note7 = Note(
-        user_id=3, notebook_id=3, name='note1', note='test note')
+        user_id=3, notebook_id=3, name='note1', info='test note')
     note8 = Note(
-        user_id=3, notebook_id=3, name='note2', note='test note')
+        user_id=3, notebook_id=3, name='note2', info='test note')
     note9 = Note(
-        user_id=3, notebook_id=3, name='note3', note='test note')
-    note10 = Note(
-        user_id=1, notebook_id=4, name='note1', note='test note')
-    note11 = Note(
-        user_id=1, notebook_id=4, name='note2', note='test note')
-    note12 = Note(
-        user_id=1, notebook_id=4, name='note3', note='test note')
+        user_id=3, notebook_id=3, name='note3', info='test note')
 
     db.session.add(note1)
     db.session.add(note2)
@@ -38,9 +32,6 @@ def seed_notes():
     db.session.add(note7)
     db.session.add(note8)
     db.session.add(note9)
-    db.session.add(note10)
-    db.session.add(note11)
-    db.session.add(note12)
     db.session.commit()
 
 

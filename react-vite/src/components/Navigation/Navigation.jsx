@@ -40,7 +40,7 @@ function Navigation() {
           </span>
           <span className="buttonsPlus">
             <button className="navButtons" onClick={handleSubmit}>Notes</button>
-            <i className="fa-solid fa-plus" onClick={() => alert("feature comming soon")}></i>
+            <i className="fa-solid fa-plus" onClick={() => {navigate('/notes/new-note')}}></i>
           </span>
           <span className="buttonsPlus">
             <button className="navButtons" onClick={handleSubmit}>Tasks</button>

@@ -13,3 +13,9 @@ class Tag(db.Model):
 
     user = db.relationship('User', back_populates='tags')
     notes = db.relationship('Note', back_populates='tags')
+
+    def to_dict(self):
+        return{
+            "id" : self.id,
+            "name":self.name,
+        }

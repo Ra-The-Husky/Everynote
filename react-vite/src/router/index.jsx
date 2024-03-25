@@ -2,6 +2,10 @@ import { createBrowserRouter } from 'react-router-dom';
 import LoginFormPage from '../components/LoginFormPage';
 import SignupFormPage from '../components/SignupFormPage';
 import Homepage from '../components/Home';
+import Notes from '../components/Notes'
+import NoteDetails from '../components/Notes/NoteDetails'
+import NewNote from '../components/Notes/NewNote'
+import EditNote from '../components/Notes/EditNote'
 import Notebooks from '../components/Notebooks';
 import Layout from './Layout';
 
@@ -27,7 +31,19 @@ export const router = createBrowserRouter([
       },
       {
         path: "/notes",
-        element: <h1>Notes Page</h1>,
+        element: <Notes />,
+      },
+      {
+        path: '/notes/:noteId',
+        element: <NoteDetails />
+      },
+      {
+        path: '/notes/new-note',
+        element: <NewNote />
+      },
+      {
+        path: '/notes/:noteId/edit',
+        element: <EditNote />
       },
       {
         path: "/tasks",
