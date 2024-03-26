@@ -1,16 +1,22 @@
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { destroyNote } from "../../redux/notes";
+import { useNavigate } from "react-router-dom";
+
 
 function DeleteNoteModal({noteId}) {
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   const { closeModal } = useModal();
 
   const burnNote = (e) => {
     e.preventDefault();
 
     return dispatch(destroyNote(noteId))
-    .then(closeModal());
+    .then(() => {
+      navigate('/notes')
+      closeModal()
+    })
   };
 
   return (

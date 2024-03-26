@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { noteInfo } from "../../redux/notes";
+import { destroyTag, noteInfo } from "../../redux/notes";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import DeleteNoteModal from "./DeleteNoteModal";
 
@@ -12,9 +12,11 @@ function NoteInfo() {
   const tags = useSelector((state) => state.notes.tags);
   const dispatch = useDispatch();
 
-  const edit = () => {
+  const edit = (e) => {
+    e.preventDefault()
     navigate(`/notes/${noteId}/edit`);
   };
+
   useEffect(() => {
     dispatch(noteInfo(Number(noteId)));
   }, [dispatch, noteId]);
@@ -28,19 +30,27 @@ function NoteInfo() {
           <></>
         ) : (
           <div>
-            {tags && tags.map((allTags) => allTags.map((tag) => <div key={tag.id}>#{tag.name}</div>))}
+            {tags &&
+              tags.map((allTags) =>
+                allTags.map((tag) => (
+                  <div key={tag.id}>
+                    #{tag.name}{" "}
+                    <div>
+                      {" "}
+                      <i className="fa-solid fa-square-xmark" onClick={() => dispatch(destroyTag(noteId, tag.id))}></i>
+                    </div>
+                  </div>
+                ))
+              )}
           </div>
         )}
       </div>
       <div>
         <button onClick={edit}>Edit Note</button>
       </div>
-      <OpenModalButton
-                modalComponent={<DeleteNoteModal noteId={noteId} />}
-              />
+      <OpenModalButton modalComponent={<DeleteNoteModal noteId={noteId} />} />
     </>
   );
 }
-/* <div><i class="fa-solid fa-square-xmark"></i></div> */
 
 export default NoteInfo;

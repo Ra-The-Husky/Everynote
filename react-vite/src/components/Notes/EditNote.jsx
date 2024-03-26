@@ -23,30 +23,20 @@ function EditNote() {
     dispatch(noteInfo(Number(noteId))).then((note) => {
       setName(note.note.name);
       setInfo(note.note.info);
-      setTags(note.note.tags);
+      setTags(note.tags);
     });
     dispatch(noteThunk());
   }, [dispatch]);
 
   useEffect(() => {
     const errs = {};
-
     if (!name) {
       errs.name = "Name of note required";
-    }
-    if (name.toLowerCase().includes("notebook")) {
-      errs.name = 'Name of note cannot contain the word "notebook"';
-    }
-    if (noteNames?.includes(name)) {
-      errs.name = "Name already exists";
-    }
-    if (name.length > 20) {
-      errs.name = "Name cannot exceed 20 characters";
     }
     if (!info) {
       errs.info = "Note information required";
     }
-    if (info.length < 30) {
+    if (info?.length < 30) {
       errs.info = "Note information must be a minimium of 30 characters";
     }
     setErrors(errs);
@@ -61,10 +51,10 @@ function EditNote() {
       info,
     };
 
-    const tag = tags.split(" ");
-    if (tag.length > 5) {
-      setErrors((errors.tags = "Too many entered tags"));
-    }
+    // const tag = tags.split(" ");
+    // if (tag.length > 5) {
+    //   setErrors((errors.tags = "Too many entered tags"));
+    // }
 
     await dispatch(editNote(noteId, edits)).then(navigate(`/notes/${noteId}`));
   };
@@ -76,7 +66,7 @@ function EditNote() {
         <div className="name">
           <input
             type="text"
-            placeholder="Name"
+            placeholder="Your note's name"
             value={name}
             onChange={(e) => setName(e.target.value)}
           ></input>
@@ -85,7 +75,7 @@ function EditNote() {
         <div className="info">
           <textarea
             type="text"
-            placeholder="Note Information"
+            placeholder="Note's Information"
             value={info}
             onChange={(e) => setInfo(e.target.value)}
           ></textarea>
@@ -104,12 +94,10 @@ function EditNote() {
           </select>
         </div>
         <div className="tags">
-          <p>Note's Tags</p>
-          <input
-            type="text"
-            value={tags}
-            onChange={(e) => setTags(e.target.value)}
-          ></input>
+          <p>Tags</p>
+          <div>
+            {tags && tags?.map((tag) => <p key={tag.id}>#{tag.name}</p>)}
+          </div>
         </div>
         <div className="buttons">
           <button
