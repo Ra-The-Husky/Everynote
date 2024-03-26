@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { editNote, noteInfo } from "../../redux/notes";
+import { homeThunk } from "../../redux/home";
 
 function EditNote() {
   const { noteId } = useParams();
@@ -12,6 +13,8 @@ function EditNote() {
   const defaultNotebook = notebooks?.find(
     (notebook) => notebook.id === noteDeets.notebook_id
   );
+  const notes = useSelector((state) => state.notes?.allNotes);
+  const noteNames = notes?.map((note) => note.name);
   const [name, setName] = useState();
   const [info, setInfo] = useState();
   const [notebook_id, setNotebook_id] = useState(noteDeets?.notebook_id);
@@ -24,13 +27,22 @@ function EditNote() {
       setInfo(note.note.info);
       setTags(note.tags);
     });
-    dispatch(noteThunk());
+    dispatch(homeThunk());
   }, [dispatch]);
 
   useEffect(() => {
     const errs = {};
     if (!name) {
       errs.name = "Name of note required";
+    }
+    if (name?.includes("notebook")) {
+      errs.name = 'Name of note cannot contain the word "notebook"'
+    }
+    if (name?.length > 20) {
+      errs.name = "Name cannot exceed 20 characters"
+    }
+    if (noteNames?.includes(name)) {
+      errs.name = "Note already exists"
     }
     if (!info) {
       errs.info = "Note information required";
