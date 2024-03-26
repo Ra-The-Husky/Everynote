@@ -3,9 +3,9 @@ import { useEffect,useState } from "react";
 import { homeThunk } from "../../redux/home";
 import moment from "moment"
 function Homepage() {
-  const userNotes = useSelector((state) => state.home.notes);
-  const userNotebooks = useSelector((state) => state.home.notebook);
-  const userTasks = useSelector((state) => state.home.tasks);
+  const userNotes = useSelector((state) => state.home?.notes);
+  const userNotebooks = useSelector((state) => state.home?.notebook);
+  const userTasks = useSelector((state) => state.home?.tasks);
   const [tasks,setTasks] = useState([])
 
   const dispatch = useDispatch();
@@ -23,8 +23,8 @@ function Homepage() {
       <img src="https://res.cloudinary.com/dfxxgifho/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1710376011/istockphoto-1303583671-612x612_f5tvml.jpg?_s=public-apps" />
       <h2>Users Home</h2>
       <div>
-        <div>{userNotebooks && userNotebooks[0].name}</div>
-        <p>{userNotebooks && userNotebooks[0].description}</p>
+        <div>{userNotebooks && userNotebooks[0]?.name}</div>
+        <p>{userNotebooks && userNotebooks[0]?.description}</p>
         <div>
           <div>
             {userNotes &&

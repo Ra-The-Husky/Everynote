@@ -3,11 +3,16 @@ import { useState, useEffect, useRef } from "react";
 import { notebookThunk } from "../../redux/notebooks";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import './Notebooks.css'
+import { useNavigate } from "react-router-dom";
+import DeleteNotebookModal from "./DeleteNotebookModal";
+import EditNotebookModal from "./EditNotebookModal"
+
 
 function Notebooks() {
   const notebooks = useSelector((state) => state.notebooks.notebooks);
   const [show, setShow] = useState(false)
   const ulRef = useRef();
+  const navigate = useNavigate()
 
   const dispatch = useDispatch();
 
@@ -43,6 +48,7 @@ function Notebooks() {
   }, [show]);
 
   const closeMenu = () => setShow(false);
+  // const createNotebook = () Navigate()
 
   return (
     <>
@@ -58,7 +64,7 @@ function Notebooks() {
         {notebooks && notebooks.map((notebook) => (
           <tbody key={notebook.id}>
             <tr className="row">
-              <td scope="row" className="col2"><span className="notebookName">{notebook.name}</span></td>
+              <td scope="row" className="col2"><span className="notebookName" onClick={()=>navigate(`/notebooks/${notebook.id}`)}>{notebook.name}</span></td>
               <td className="col">{notebook.description}</td>
               <td className="col"><span><b className='notebookName' onClick={(e) => {
                 toggleMenu(e)
@@ -70,20 +76,27 @@ function Notebooks() {
                       <>
                         <OpenModalMenuItem
                           itemText="Create Note"
-                          onItemClick={closeMenu}
-                          modalComponent={'Create'}
+                          onItemClick={() => {
+                            navigate(`/notes/new-note?id=${notebook.id}&name=${notebook.name}`);
+                          }}
+                          modalComponent={""}
                           onModalClose={() => {notebook.show = false}}
                         />
                         <OpenModalMenuItem
                           itemText="Edit Notebook"
                           onItemClick={closeMenu}
-                          modalComponent={'Edit'}
+                          modalComponent={<EditNotebookModal
+                            notebook={notebook}
+                          />}
                           onModalClose={() => {notebook.show = false}}
                         />
                         <OpenModalMenuItem
                           itemText="Delete Notebook"
                           onItemClick={closeMenu}
-                          modalComponent={'Delete'}
+                          modalComponent={<DeleteNotebookModal
+                            notebookId={notebook.id}
+                            notebookName={notebook.name}
+                          />}
                           onModalClose={() => {notebook.show = false}}
                         />
                       </>

@@ -2,8 +2,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { thunkLogout } from "../../redux/session";
 import "./Navigation.css";
 import { useNavigate } from "react-router-dom";
+import CreateNotebookModal from "../Notebooks/CreateNotebook";
+import { useModal } from '../../context/Modal';
+
 
 function Navigation() {
+  const { setModalContent } = useModal();
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
@@ -29,6 +34,8 @@ function Navigation() {
     }
   }
 
+  const newNotebook = () => setModalContent(<CreateNotebookModal/>)
+
   return (
     <>{!sessionUser ? <></> :
       <div className="navigationContainer">
@@ -36,7 +43,7 @@ function Navigation() {
         <div className="buttonsBox">
           <span className="buttonsPlus">
             <button className="navButtons" onClick={handleSubmit}>Notebooks</button>
-            <i className="fa-solid fa-plus" onClick={() => alert("feature comming soon")}></i>
+            <i className="fa-solid fa-plus" onClick={newNotebook}></i>
           </span>
           <span className="buttonsPlus">
             <button className="navButtons" onClick={handleSubmit}>Notes</button>
