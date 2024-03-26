@@ -3,6 +3,7 @@ import { thunkLogout } from "../../redux/session";
 import "./Navigation.css";
 import { useNavigate } from "react-router-dom";
 import CreateNotebookModal from "../Notebooks/CreateNotebook";
+import CreateTaskModal from "../Tasks/CreateTaskModal";
 import { useModal } from '../../context/Modal';
 
 
@@ -35,6 +36,7 @@ function Navigation() {
   }
 
   const newNotebook = () => setModalContent(<CreateNotebookModal/>)
+  const newTask = () => setModalContent(<CreateTaskModal />)
 
   return (
     <>{!sessionUser ? <></> :
@@ -51,7 +53,7 @@ function Navigation() {
           </span>
           <span className="buttonsPlus">
             <button className="navButtons" onClick={handleSubmit}>Tasks</button>
-            <i className="fa-solid fa-plus" onClick={() => alert("feature comming soon")}></i>
+            <i className="fa-solid fa-plus" onClick={newTask}></i>
           </span>
         </div>
         <button onClick={logout} className="logout">Log Out</button>

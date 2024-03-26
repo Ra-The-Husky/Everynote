@@ -8,6 +8,7 @@ import NewNote from '../components/Notes/NewNote'
 import EditNote from '../components/Notes/EditNote'
 import Notebooks from '../components/Notebooks';
 import NotebookDetails from '../components/Notebooks/NotebookDetails';
+import Tasks from '../components/Tasks';
 import Layout from './Layout';
 
 export const router = createBrowserRouter([
@@ -52,7 +53,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/tasks",
-        element: <h1>Tasks Page</h1>,
+        element: <Tasks />
       },
     ],
   },
