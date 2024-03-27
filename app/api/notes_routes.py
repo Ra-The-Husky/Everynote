@@ -57,8 +57,8 @@ def new_note():
               )
          db.session.add(newNote)
          db.session.commit()
-         note = Note.query.get(newNote.id)
-         return  note.to_dict()
+         return  {'status': 201,
+                  'message': "Note created Successfully"}
 
 @notes_route.route('<int:noteId>', methods=['DELETE'])
 @login_required
@@ -84,3 +84,13 @@ def add_tags(noteId):
          db.session.commit()
     return {'status': 201,
             'message': 'Added Tags Successfully'}
+
+@notes_route.route('<int:noteId>/tags/<int:tagId>', methods=['DELETE'])
+@login_required
+def destroy_tag(noteId, tagId):
+        tag=Tag.query.get(tagId)
+        db.session.delete(tag)
+        db.session.commit()
+        return {'status': 200,
+                'message': "Tag Successfully Deleted"
+                }

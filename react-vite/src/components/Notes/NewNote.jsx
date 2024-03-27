@@ -5,7 +5,7 @@ import { allNotes, createNote, newTags } from "../../redux/notes";
 import { homeThunk } from "../../redux/home";
 
 function CreateNote() {
-  const [params] = useSearchParams()
+  const [params] = useSearchParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [name, setName] = useState("");
@@ -39,7 +39,7 @@ function CreateNote() {
       errs.name = 'Name of note cannot contain the word "notebook"';
     }
     if (noteNames?.includes(name)) {
-      errs.name = "Name already exists";
+      errs.name = "Note already exists";
     }
     if (name.length > 20) {
       errs.name = "Name cannot exceed 20 characters";
@@ -62,8 +62,8 @@ function CreateNote() {
       info,
     };
     const tag = tags.split(" ");
-    if (tag.length > 5){
-      setErrors(errors.tags = "Too many entered tags")
+    if (tag.length > 5) {
+      setErrors((errors.tags = "Too many tags. Tag limit (5)"));
     }
 
     if (Object.values(errors).length) {
@@ -75,7 +75,6 @@ function CreateNote() {
       });
     }
   };
-
 
   return (
     <>
@@ -100,10 +99,13 @@ function CreateNote() {
           <p>{errors.info}</p>
         </div>
         <div className="notebook">
-          <div>Pick A Notebook</div>
+          {!params.size ? <div>Pick A Notebook</div> : <div>Notebook</div>}
           <select onChange={(e) => setNotebook_id(e.target.value)}>
-            {params.size && (<option value={+params.get("id")}>{params.get("name")}</option>)}
-            {notebooks && !params.size &&
+            {params.size && (
+              <option value={+params.get("id")}>{params.get("name")}</option>
+            )}
+            {notebooks &&
+              !params.size &&
               notebooks.map((notebook) => (
                 <option key={notebook.id} value={notebook.id}>
                   {notebook.name}
