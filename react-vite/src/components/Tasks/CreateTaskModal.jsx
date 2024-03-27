@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useModal } from "../../context/Modal";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import { createTask } from "../../redux/tasks";
 
 
@@ -90,11 +88,12 @@ function CreateTaskModal() {
           {errors.name && <p>{errors.name}</p>}
         </div>
         <div className="deadline">
-          <DatePicker
-            selected={deadline}
-            minDate={new Date()}
-            onChange={handleChange}
-          />
+          <input
+            type="date"
+            min={new Date().toISOString().split('T').splice(0, 1).join('')}
+            value={deadline}
+            onChange={(e) => setDeadline(e.target.value)}
+          ></input>
         </div>
         <div className="priority">
           <select
