@@ -57,8 +57,8 @@ def new_note():
               )
          db.session.add(newNote)
          db.session.commit()
-         note = Note.query.get(newNote.id)
-         return  note.to_dict()
+         return  {'status': 201,
+                  'message': "Note created Successfully"}
 
 @notes_route.route('<int:noteId>', methods=['DELETE'])
 @login_required

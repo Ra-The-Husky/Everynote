@@ -10,6 +10,7 @@ from .api.auth_routes import auth_routes
 from .api.home_routes import home_route
 from .api.notes_routes import notes_route
 from .api.notebook_routes import notebook_route
+from .api.tasks_routes import tasks_route
 from .seeds import seed_commands
 from .config import Config
 
@@ -34,6 +35,7 @@ app.register_blueprint(auth_routes, url_prefix='/api/auth')
 app.register_blueprint(home_route, url_prefix='/api/home')
 app.register_blueprint(notes_route, url_prefix='/api/notes')
 app.register_blueprint(notebook_route, url_prefix="/api/notebooks/")
+app.register_blueprint(tasks_route, url_prefix='/api/tasks/')
 db.init_app(app)
 Migrate(app, db)
 
