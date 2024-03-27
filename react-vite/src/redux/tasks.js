@@ -14,6 +14,11 @@ export const tasksThunk = () => async (dispatch) => {
   }
 };
 
+export const finishedTaskThunk = (taskId) => async (dispatch) => {
+  await fetch(`/api/tasks/complete-task/${taskId}`)
+  dispatch(tasksThunk())
+}
+
 const initialState = { tasks: null };
 
 function tasksReducer(state = initialState, action) {
