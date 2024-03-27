@@ -1,0 +1,34 @@
+.HomePage {
+  padding-right: 5%;
+}
+
+.HomePage > img {
+  width: 100%;
+  height: 500px;
+  object-fit: cover;
+}
+
+.homeContent {
+  display: flex;
+  flex-direction: row;
+  border: solid 1px black;
+}
+
+.homeLeftPanel {
+  display: flex;
+  flex-direction: column;
+  width: 35%;
+}
+
+.homeRightPanel {
+  width: 65%;
+}
+
+.homeNotes {
+  display: flex;
+  flex-direction: row;
+}
+
+.homeNote {
+  margin: 10px;
+}

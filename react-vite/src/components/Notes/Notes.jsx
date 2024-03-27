@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { allNotes } from "../../redux/notes";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import DeleteNoteModal from "../Notes/DeleteNoteModal";
+import './Notes.css'
 
 function AllNotes() {
   const navigate = useNavigate();
