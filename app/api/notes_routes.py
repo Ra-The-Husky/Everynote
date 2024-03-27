@@ -1,7 +1,8 @@
 from flask import Blueprint, request, redirect, url_for
-from app.models import Note, User, Tag, Notebook, db
+from app.models import Note, User, Tag, db
 from app.forms.note_form import NoteForm
 from app.forms.tag_form import TagForm
+from datetime import date
 from flask_login import login_required, current_user
 
 notes_route = Blueprint('notes', __name__)
@@ -53,11 +54,14 @@ def new_note():
               user_id=current_user.id,
               notebook_id=data['notebook_id'],
               name=data['name'],
+              caption=data['caption'],
               info=data['info'],
+              date_created=date.fromisoformat(data['date_created'])
               )
          db.session.add(newNote)
          db.session.commit()
-         return  {'status': 201,
+         return  { 'note': newNote.to_dict(),
+                  'status': 201,
                   'message': "Note created Successfully"}
 
 @notes_route.route('<int:noteId>', methods=['DELETE'])

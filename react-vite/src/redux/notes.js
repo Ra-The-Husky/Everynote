@@ -73,7 +73,7 @@ export const createNote = (note) => async (dispatch) => {
   });
   if (response.ok) {
     const data = await response.json();
-    dispatch(newNote(data));
+    dispatch(newNote(data.note));
     return data;
   }
 };

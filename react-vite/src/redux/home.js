@@ -23,7 +23,8 @@ export const homeThunk = () => async (dispatch) => {
   const response = await fetch("/api/home");
   if (response.ok) {
     const data = await response.json();
-    dispatch(getNotes(data.notes));
+    dispatch(getNotes(data.notes.reverse()));
+    console.log(data.notes)
     dispatch(getNotebook(data.notebooks));
     dispatch(getTasks(data.tasks))
   }
