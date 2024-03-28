@@ -20,12 +20,14 @@ function DeleteNoteModal({noteId}) {
   };
 
   return (
-    <>
+    <div className="deleteNoteModal">
       <h1>Delete Note</h1>
       <p>Are you sure want to delete this note from your "note's notebook name will go here" notebook?</p>
-      <button onClick={burnNote}>Yes, Burn it!</button>
-      <button>No, I changed my mind</button>
-    </>
+      <div>
+        <button className="logout" onClick={burnNote}>Yes, Burn it!</button>
+        <button className="logout">No, I changed my mind</button>
+      </div>
+    </div>
   );
 }
 

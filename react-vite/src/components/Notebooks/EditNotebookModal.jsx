@@ -29,9 +29,9 @@ function EditNotebookModal({notebook}) {
     };
 
     return (
-        <>
+        <div className="editNotebookModal">
             <h1>Edit Notebook</h1>
-            <form onSubmit={submitNotebook}>
+            <form className="editNotebookForm" onSubmit={submitNotebook}>
                 <div className="name">
                     <input
                         type="text"
@@ -56,7 +56,7 @@ function EditNotebookModal({notebook}) {
                     >Save</button>
                 </div>
             </form>
-        </>
+        </div>
     )
 }
 
