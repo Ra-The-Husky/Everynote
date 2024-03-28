@@ -1,0 +1,21 @@
+/* general */
+
+
+
+/* delete notebook modal */
+
+.deleteNoteModal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.deleteNoteModal > h1 {
+  margin: 0;
+}
+
+.deleteNoteModal > div > button {
+  margin: 10px;
+  width: fit-content;
+}

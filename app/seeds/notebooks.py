@@ -5,13 +5,13 @@ from sqlalchemy.sql import text
 # Adds a demo user, you can add other users here if you want
 def seed_notebooks():
     notebook1 = Notebook(
-        user_id=1, name='notebook1', description='test description')
+        user_id=1, name='Skincare', description='Notes for skincare products')
     notebook2 = Notebook(
-        user_id=2, name='notebook2', description='test description')
+        user_id=1, name='Football-Strats', description='place where i keep all the golden football maneuvers')
     notebook3 = Notebook(
-        user_id=3, name='notebook3', description='test description')
+        user_id=2, name='Shower-Thoughts', description='questions i think in the shower that cant be answered')
     notebook4 = Notebook(
-        user_id=1, name='notebook2', description='2nd test description')
+        user_id=2, name='Rejection-List', description='The book of rejections!')
 
     db.session.add(notebook1)
     db.session.add(notebook2)

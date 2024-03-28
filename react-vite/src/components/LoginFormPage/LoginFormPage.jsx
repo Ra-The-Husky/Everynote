@@ -34,49 +34,53 @@ function LoginFormPage() {
   };
 
   return (
-    <>
-      <img src="../../public/EveryNote-trans.png" />
+    <div className="mainWrapper">
+      <div className="innerWrapper">
+        <img src="../../public/EveryNote-trans.png" />
 
-      <h1>Log In</h1>
-      {errors.length > 0 &&
-        errors.map((message) => <p key={message}>{message}</p>)}
-      <form onSubmit={handleSubmit}>
-        <label>
-          Email
+        <h1>Log In</h1>
+        {errors.length > 0 &&
+          errors.map((message) => <p key={message}>{message}</p>)}
+        <form className="loginForm" onSubmit={handleSubmit}>
           <input
             type="text"
+            placeholder="Username/Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-        </label>
-        {/* {errors.email && <p>{errors.email}</p>} */}
-        <label>
-          Password
+          {/* {errors.email && <p>{errors.email}</p>} */}
+
           <input
             type="password"
+            placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-        </label>
-        {errors.password || errors.email && <p>{errors.password || errors.email}</p>}
-        <button type="submit">Log In</button>
-        <OpenModalMenuItem
-          itemText="Don't have an account? Sign up NOW!"
-          modalComponent={<SignupFormModal />}
-        />
-        <button
-          type="submit"
-          onClick={() => {
-            setEmail("demo@aa.io");
-            setPassword("password");
-          }}
-        >
-          Demo User
-        </button>
-      </form>
-    </>
+          {errors.password || errors.email && <p>{errors.password || errors.email}</p>}
+          <span className="signupLink">
+          <OpenModalMenuItem
+            itemText="Don't have an account? Sign up NOW!"
+            modalComponent={<SignupFormModal />}
+          />
+          </span>
+          <div className="loginButtons">
+            <button className="logout" type="submit">Log In</button>
+            <button
+              className="logout"
+              type="submit"
+              onClick={() => {
+                setEmail("demo@aa.io");
+                setPassword("password");
+              }}
+            >
+              Demo User
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
   );
 }
 

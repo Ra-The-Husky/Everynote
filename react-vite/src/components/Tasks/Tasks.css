@@ -2,3 +2,26 @@
     text-decoration: line-through;
     color: gray;
 }
+
+/* create task modal */
+
+#modal-content {
+    width: 35%;
+}
+
+.createTaskModal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 20px;
+}
+
+.createTaskForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.createTaskForm > div {
+    margin: 5px 0;
+}
