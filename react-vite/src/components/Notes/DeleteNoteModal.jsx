@@ -3,11 +3,11 @@ import { useModal } from "../../context/Modal";
 import { destroyNote } from "../../redux/notes";
 import { useNavigate } from "react-router-dom";
 
-function DeleteNoteModal({ noteId }) {
+function DeleteNoteModal({ noteId, notebook }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { closeModal } = useModal();
-
+console.log(notebook)
   const burnNote = (e) => {
     e.preventDefault();
 
@@ -20,7 +20,7 @@ function DeleteNoteModal({ noteId }) {
   return (
     <>
       <h1>Delete Note</h1>
-      <p>Are you sure want to delete this note from your notebook?</p>
+      <p>Are you sure want to delete this note from your "{notebook.name}" notebook?</p>
       <button onClick={burnNote}>Yes, Burn it!</button>
       <button onClick={() => closeModal()}>No, I changed my mind</button>
     </>

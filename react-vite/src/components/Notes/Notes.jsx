@@ -7,9 +7,9 @@ import DeleteNoteModal from "../Notes/DeleteNoteModal";
 import { notebookThunk } from "../../redux/notebooks";
 
 function AllNotes() {
-  const userNotebooks = useSelector((state) => state.notebooks.notebooks);
   const navigate = useNavigate();
   const userNotes = useSelector((state) => state.notes.allNotes);
+  const userNotebooks = useSelector((state) => state.notebooks.notebooks);
   const dispatch = useDispatch();
   const currDate = new Date();
   const month = currDate.getMonth();
@@ -51,7 +51,14 @@ function AllNotes() {
               <div>{note.caption}</div>
               <div>{new Date(note?.date_created).toDateString()}</div>
               <OpenModalButton
-                modalComponent={<DeleteNoteModal noteId={note.id} />}
+                modalComponent={
+                  <DeleteNoteModal
+                    noteId={note.id}
+                    notebook={userNotebooks.find(
+                      (notebook) => notebook.id === note.notebook_id
+                    )}
+                  />
+                }
               />
             </div>
           ))}
