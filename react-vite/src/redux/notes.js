@@ -5,7 +5,7 @@ const NEW_NOTE = "notes/NewNote";
 const EDIT_NOTE = "notes/EditNote";
 const REMOVE_NOTE = "notes/RemoveNote";
 const ADD_TAGS = "notes/AddTags";
-const REMOVE_TAG = "notes/RemoveTag"
+const REMOVE_TAG = "notes/RemoveTag";
 
 const getNotes = (notes) => ({
   type: ALL_NOTES,
@@ -108,9 +108,7 @@ export const newTags = (noteId, tag) => async (dispatch) => {
   const response = await fetch(`/api/notes/${noteId}/tags`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(
-      tag,
-    ),
+    body: JSON.stringify(tag),
   });
   if (response.ok) {
     const data = await response.json();
@@ -127,7 +125,7 @@ export const destroyTag = (noteId, tagId) => async (dispatch) => {
   if (response.ok) {
     const data = await response.json();
     dispatch(deleteTag(data));
-    dispatch(noteInfo(noteId))
+    dispatch(noteInfo(noteId));
     return data;
   }
 };
