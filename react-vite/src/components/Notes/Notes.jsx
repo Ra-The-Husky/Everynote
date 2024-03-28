@@ -51,7 +51,7 @@ function AllNotes() {
               <div>{note.caption}</div>
               <div>{new Date(note?.date_created).toDateString()}</div>
               <OpenModalButton
-                modalComponent={<DeleteNoteModal noteId={note.id} notebooks={userNotebooks} />}
+                modalComponent={<DeleteNoteModal noteId={note.id} />}
               />
             </div>
           ))}
