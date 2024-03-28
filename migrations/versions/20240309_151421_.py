@@ -27,7 +27,9 @@ def upgrade():
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('notebook_id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=50), nullable=False),
+    sa.Column('caption', sa.String(length=50), nullable=False),
     sa.Column('info', sa.String(length=255), nullable=True),
+    sa.Column('date_created', sa.Date(), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
 

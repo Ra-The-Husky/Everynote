@@ -6,25 +6,18 @@ from datetime import date,timedelta
 # Adds a demo user, you can add other users here if you want
 def seed_tasks():
     task1 = Task(
-        user_id=1, name='task1', deadline=date.today(),priority="High",description="take out the trash",reminder=False
+        user_id=1, name='Organize files in cabinet', deadline=date.today()+timedelta(weeks=10),priority="Low",description="need to reorganize all the files in my work cabinet at some point. Also need to clean desk space",reminder=True
         ,status=False)
     task2 = Task(
-        user_id=2, name='task2', deadline=date.today(),priority="High",description="make pizza",reminder=False
+        user_id=1, name='Change oil', deadline=date.today()+timedelta(weeks=5),priority="Medium",description="i have to change the oil in the car soon. Cant keep forgetting this because it will bite me in the ass later!",reminder=False
         ,status=False)
     task3 = Task(
-        user_id=3, name='task3', deadline=date.today(),priority="Medium",description="eat pizza",reminder=False
+        user_id=1, name='Go to court', deadline= date.today()+timedelta(days=6),priority="High",description="Got caught speeding again have to go to court so i dont loose my license",reminder=True
         ,status=False)
+
     task4 = Task(
-        user_id=1, name='task4', deadline=date.today()+timedelta(weeks=5),priority="Low",description="ride bus",reminder=False
+        user_id=2, name='Send birthday e-vites', deadline=date.today()+timedelta(days=3),priority="Medium",description="need to make birthday e-vites on canva for daughter's 5th birthday and send them to all of her friends parents!",reminder=False
         ,status=False)
-
-    task5 = Task(
-        user_id=1, name='task5', deadline=date.today()+timedelta(weeks=3),priority="Medium",description="take cat for a walk",reminder=False
-        ,status=False)
-    task6 = Task(
-        user_id=1, name='task6', deadline= date.today()+timedelta(weeks=2),priority="High",description="wash car",reminder=False
-        ,status=False)
-
 
 
 
@@ -33,8 +26,6 @@ def seed_tasks():
     db.session.add(task2)
     db.session.add(task3)
     db.session.add(task4)
-    db.session.add(task5)
-    db.session.add(task6)
     db.session.commit()
 
 

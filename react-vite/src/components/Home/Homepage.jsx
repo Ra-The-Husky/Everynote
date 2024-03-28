@@ -8,7 +8,9 @@ function Homepage() {
   const userNotes = useSelector((state) => state.home?.notes);
   const userNotebooks = useSelector((state) => state.home?.notebook);
   const userTasks = useSelector((state) => state.home?.tasks);
-  const [tasks, setTasks] = useState([])
+  const [tasks,setTasks] = useState([])
+  const [notes, setNotes] = useState([])
+
 
   const dispatch = useDispatch();
 
@@ -16,9 +18,18 @@ function Homepage() {
     setTasks([userTasks[0], userTasks[1], userTasks[2]])
   }
 
+  if (userNotes && userNotes.length > 0 && notes.length === 0) {
+    setNotes([userNotes[0], userNotes[1], userNotes[2]])
+  }
+
+  if (userNotes && userNotes.length > 0 && notes.length === 0) {
+    setNotes([userNotes[0], userNotes[1], userNotes[2]])
+  }
+
 
   useEffect(() => {
     dispatch(homeThunk())
+
   }, [dispatch]);
   return (
     <div className="HomePage">

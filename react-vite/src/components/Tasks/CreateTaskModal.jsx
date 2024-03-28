@@ -6,7 +6,6 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { createTask } from "../../redux/tasks";
 
-
 function CreateTaskModal() {
   const { closeModal } = useModal();
 
@@ -18,8 +17,7 @@ function CreateTaskModal() {
   const [description, setDescription] = useState("");
   const [reminder, setReminder] = useState(false);
   const [errors, setErrors] = useState({});
-  const tasks = useSelector((state) => state.tasks.tasks)
-
+  const tasks = useSelector((state) => state.tasks.tasks);
 
   const testTask = () => {
     setName("Test Task");
@@ -31,12 +29,13 @@ function CreateTaskModal() {
     if (!name) {
       errs.name = "Task name required";
     }
-    tasks.forEach(task => {
-      if (name === task.name){
-        errs.name = "Task already exists"
-      }
-
-    });
+    if (tasks) {
+      tasks.forEach((task) => {
+        if (name === task.name) {
+          errs.name = "Task already exists";
+        }
+      });
+    }
     if (name.length > 30) {
       errs.name = "Cannot exceed 30 characters";
     }
@@ -54,7 +53,11 @@ function CreateTaskModal() {
 
     const newTask = {
       name,
-      'deadline': new Date(deadline).toISOString().split('T').splice(0,1).join(""),
+      deadline: new Date(deadline)
+        .toISOString()
+        .split("T")
+        .splice(0, 1)
+        .join(""),
       priority,
       description,
       reminder,
@@ -74,7 +77,6 @@ function CreateTaskModal() {
   const handleChange = (date) => {
     setDeadline(date);
   };
-
 
   return (
     <div className="createTaskModal">

@@ -10,7 +10,8 @@ function CreateNote() {
   const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [info, setInfo] = useState("");
-  const notebooks = useSelector((state) => state.notebooks?.notebooks);
+  const [caption, setCaption] = useState("");
+  const notebooks = useSelector((state) => state.notebooks?.notebook);
   const [notebook_id, setNotebook_id] = useState();
   const [tags, setTags] = useState("");
   const notes = useSelector((state) => state.notes?.allNotes);
@@ -59,7 +60,9 @@ function CreateNote() {
     const newNote = {
       notebook_id,
       name,
+      caption,
       info,
+      date_created: new Date().toISOString().split("T").splice(0, 1).join(""),
     };
     const tag = tags.split(" ");
     if (tag.length > 5) {
@@ -70,8 +73,8 @@ function CreateNote() {
       return console.log(errors);
     } else {
       await dispatch(createNote(newNote)).then((note) => {
-        dispatch(newTags(note.id, tag));
-        navigate(`/notes/${note.id}`);
+        dispatch(newTags(note.note.id, tag));
+        navigate(`/notes/${note.note.id}`);
       });
     }
   };
@@ -88,6 +91,15 @@ function CreateNote() {
             onChange={(e) => setName(e.target.value)}
           ></input>
           <p>{errors.name}</p>
+        </div>
+        <div>
+          <h3>Enter a caption</h3>
+          <input
+            type="text"
+            placeholder="Caption"
+            value={caption}
+            onChange={(e) => setCaption(e.target.value)}
+          ></input>
         </div>
         <div className="info">
           <textarea
