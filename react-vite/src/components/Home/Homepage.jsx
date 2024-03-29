@@ -31,6 +31,7 @@ function Homepage() {
         <div>{userNotebooks && userNotebooks[0]?.name}</div>
         <p>{userNotebooks && userNotebooks[0]?.description}</p>
         <div>
+          <h3>Your Recent Notes</h3>
           <div>
             {!userNotes?.length ? (
               <p>Start writing notes!</p>

@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
 import { thunkSignup } from "../../redux/session";
-import { newNotebookThunk } from "../../redux/notebooks";
 
 function SignupFormPage() {
   const dispatch = useDispatch();
@@ -13,10 +12,7 @@ function SignupFormPage() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
-  const newUserNotebook = {
-    name: 'My First Notebook',
-    description: 'Make more notebooks or add more notes to this one! Feel free to edit or delete this notebook to your liking.'
-  }
+
 
   if (sessionUser) return <Navigate to="/" replace={true} />;
 
@@ -29,7 +25,7 @@ function SignupFormPage() {
           "Confirm Password field must be the same as the Password field",
       });
     }
-    dispatch(newNotebookThunk(newUserNotebook))
+
 
     const serverResponse = await dispatch(
       thunkSignup({

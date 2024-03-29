@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { thunkSignup } from "../../redux/session";
+import { newNotebookThunk } from "../../redux/notebooks";
 import "./SignupForm.css";
 
 function SignupFormModal() {
@@ -12,14 +13,17 @@ function SignupFormModal() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
+  const newUserNotebook = {
+    name: 'My First Notebook',
+    description: 'Make more notebooks or add more notes to this one! Feel free to edit or delete this notebook to your liking.'
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (password !== confirmPassword) {
       return setErrors({
         confirmPassword:
-          "Confirm Password field must be the same as the Password field",
+        "Confirm Password field must be the same as the Password field",
       });
     }
 
@@ -29,13 +33,14 @@ function SignupFormModal() {
         username,
         password,
       })
-    );
+      );
 
-    if (serverResponse) {
-      setErrors(serverResponse);
-    } else {
-      closeModal();
-    }
+      if (serverResponse) {
+        setErrors(serverResponse);
+      } else {
+        closeModal();
+      }
+      dispatch(newNotebookThunk(newUserNotebook))
   };
 
   return (
