@@ -3,7 +3,7 @@ from datetime import date,timedelta
 from sqlalchemy.sql import text
 
 
-# Adds a demo user, you can add other users here if you want
+# Adds notes to db, you can add more notes
 def seed_notes():
     note1 = Note(
         user_id=1, notebook_id=1, name='fav-Brands',caption="these are my fav brands", info='Ceravee-Cheap, Olay-Good but expensive,La Mer-very unique,Neutrogena-its ok nothing too great',date_created=date.today()-timedelta(days=22))

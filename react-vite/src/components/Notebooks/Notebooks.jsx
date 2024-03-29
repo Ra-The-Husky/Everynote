@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect, useRef } from "react";
-import { notebookThunk } from "../../redux/notebooks";
+import { notebookThunk, newNotebookThunk } from "../../redux/notebooks";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import './Notebooks.css'
 import { useNavigate } from "react-router-dom";
@@ -13,8 +13,8 @@ function Notebooks() {
   const [show, setShow] = useState(false)
   const ulRef = useRef();
   const navigate = useNavigate()
-
   const dispatch = useDispatch();
+
 
   const toggleMenu = (e) => {
     e.stopPropagation();

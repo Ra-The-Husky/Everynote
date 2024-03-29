@@ -42,26 +42,35 @@ function AllNotes() {
         {monthName}, {year}
       </h3>
       <div>
-        {userNotes &&
-          userNotes.map((note) => (
-            <div key={note.id}>
-              <div onClick={() => navigate(`/notes/${note.id}`)}>
-                {note.name}{" "}
-              </div>
-              <div>{note.caption}</div>
-              <div>{new Date(note?.date_created).toDateString()}</div>
-              <OpenModalButton
-                modalComponent={
-                  <DeleteNoteModal
-                    noteId={note.id}
-                    notebook={userNotebooks.find(
-                      (notebook) => notebook.id === note.notebook_id
-                    )}
+        {!userNotes ? (
+          <h4>
+            You haven't written any notes yet. Hit the "+" symbol near notes to
+            get started!
+          </h4>
+        ) : (
+          <div>
+            {userNotes &&
+              userNotes.map((note) => (
+                <div key={note.id}>
+                  <div onClick={() => navigate(`/notes/${note.id}`)}>
+                    {note.name}{" "}
+                  </div>
+                  <div>{note.caption}</div>
+                  <div>{new Date(note?.date_created).toDateString()}</div>
+                  <OpenModalButton
+                    modalComponent={
+                      <DeleteNoteModal
+                        noteId={note.id}
+                        notebook={userNotebooks.find(
+                          (notebook) => notebook.id === note.notebook_id
+                        )}
+                      />
+                    }
                   />
-                }
-              />
-            </div>
-          ))}
+                </div>
+              ))}
+          </div>
+        )}
       </div>
     </>
   );

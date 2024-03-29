@@ -20,7 +20,6 @@ function CreateNotebookModal() {
             name,
             description,
         };
-
         dispatch(newNotebookThunk(newNotebook)).then(() => {
             closeModal()
             navigate(`/notebooks`)
