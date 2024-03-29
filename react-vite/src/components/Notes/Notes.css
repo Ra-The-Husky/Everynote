@@ -19,3 +19,43 @@
   margin: 10px;
   width: fit-content;
 }
+
+.note{
+  border: solid 1px black;
+  border-radius: 5px;
+  width: 25%;
+  padding: 10px;
+  margin-bottom: 40px;
+}
+.note-name{
+  font-size: 1.25rem;
+  padding-bottom: 10px;
+  width: fit-content;
+  cursor: pointer;
+}
+
+.header{
+  margin-bottom: 14px;
+  font-size: 2.5rem;
+}
+
+.date{
+  font-size: 1.75rem;
+  margin-top: 1px;
+  padding-bottom: 40px;
+}
+.note-caption{
+  padding-bottom: 5px;
+}
+.notes-footer{
+  display: flex;
+  justify-content: space-between;
+  padding-top:20px ;
+}
+.trash{
+  display: none;
+}
+
+.note:hover .trash {
+  display: block;
+}

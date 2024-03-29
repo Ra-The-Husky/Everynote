@@ -38,22 +38,26 @@ function AllNotes() {
 
   return (
     <>
-      <h1>Notes ({userNotes?.length})</h1>
-      <h3>
+      <h1 className="header">Notes ({userNotes?.length})</h1>
+      <h3 className="date">
         {monthName}, {year}
       </h3>
       <div>
         {userNotes &&
           userNotes.map((note) => (
-            <div key={note.id}>
-              <div onClick={() => navigate(`/notes/${note.id}`)}>
+            <div key={note.id} className="note">
+              <div className="note-name" onClick={() => navigate(`/notes/${note.id}`)}>
                 {note.name}{" "}
               </div>
-              <div>{note.caption}</div>
-              <div>{new Date(note?.date_created).toDateString()}</div>
+              <div className="note-caption">{note.caption}</div>
+              <div className="notes-footer">
+              <div className="note-date">{new Date(note?.date_created).toDateString()}</div>
+              <span className="trash">
               <OpenModalButton
                 modalComponent={<DeleteNoteModal noteId={note.id} />}
-              />
+                />
+                </span>
+                </div>
             </div>
           ))}
       </div>
