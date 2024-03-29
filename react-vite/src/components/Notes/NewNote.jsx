@@ -80,75 +80,83 @@ function CreateNote() {
   };
 
   return (
-    <>
-      <h1>Write A New Note</h1>
-      <form onSubmit={submitNote}>
-        <div className="name">
+    <span className="create-note-outer">
+      <span className="create-note-inner">
+      <h1 className="note-title">Write A New Note</h1>
+      <form className= "create-note-form" onSubmit={submitNote}>
+
           <input
+          className="input-name"
             type="text"
             placeholder="Name"
             value={name}
             onChange={(e) => setName(e.target.value)}
           ></input>
-          <p>{errors.name}</p>
-        </div>
-        <div>
-          <h3>Enter a caption</h3>
+          <div className="error">{errors.name}</div>
+
+          <h3 className="create-note-caption">Enter a caption</h3>
           <input
+          className="input-name create-note-caption"
             type="text"
             placeholder="Caption"
             value={caption}
             onChange={(e) => setCaption(e.target.value)}
           ></input>
-        </div>
-        <div className="info">
+
+
           <textarea
+          className="input-info"
+
             type="text"
             placeholder="Note Information"
             value={info}
             onChange={(e) => setInfo(e.target.value)}
           ></textarea>
-          <p>{errors.info}</p>
-        </div>
-        <div className="notebook">
-          {!params.size ? <div>Pick A Notebook</div> : <div>Notebook</div>}
-          <select onChange={(e) => setNotebook_id(e.target.value)}>
+          <div className="error">{errors.info}</div>
+
+
+
+          {!params.size ? <div className="options-notebook">Pick A Notebook</div> : <div className="options-notebook">Notebook</div>}
+          <select className= "notebook-options" onChange={(e) => setNotebook_id(e.target.value)}>
             {params.size && (
               <option value={+params.get("id")}>{params.get("name")}</option>
             )}
             {notebooks &&
               !params.size &&
               notebooks.map((notebook) => (
-                <option key={notebook.id} value={notebook.id}>
+                <option className="notebook-options" key={notebook.id} value={notebook.id}>
                   {notebook.name}
                 </option>
               ))}
           </select>
-        </div>
+
         <div className="tags">
-          <p>Add Tags (Optional)</p>
-          <p>All tags need to be separated with spaces</p>
+          <div className="tag-info">Add Tags (Optional)</div>
+
           <input
+          className="tag-input"
+          placeholder=" All tags need to be separated with spaces"
             type="text"
             value={tags}
             onChange={(e) => setTags(e.target.value)}
           ></input>
-          {errors.tags && <p>{errors.tags}</p>}
+          {errors.tags && <div>{errors.tags}</div>}
         </div>
-        <div className="buttons">
+        <div className="note-button">
           <button
-            className="button"
+            className="new-note-submit save-disable"
             type="submit"
             disabled={Object.values(errors).length}
           >
             Save
           </button>
-          <button className="button" onClick={testNote}>
+          <button className="new-note-submit" onClick={testNote}>
             Test Note
           </button>
         </div>
       </form>
-    </>
+      </span>
+    </span>
   );
 }
 

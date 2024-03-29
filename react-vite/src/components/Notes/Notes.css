@@ -1,7 +1,5 @@
 /* general */
 
-
-
 /* delete notebook modal */
 
 .deleteNoteModal {
@@ -20,42 +18,134 @@
   width: fit-content;
 }
 
-.note{
+.note {
   border: solid 1px black;
   border-radius: 5px;
   width: 25%;
   padding: 10px;
   margin-bottom: 40px;
 }
-.note-name{
+.note-name {
   font-size: 1.25rem;
   padding-bottom: 10px;
   width: fit-content;
   cursor: pointer;
 }
 
-.header{
+.header {
   margin-bottom: 14px;
   font-size: 2.5rem;
 }
 
-.date{
+.date {
   font-size: 1.75rem;
   margin-top: 1px;
   padding-bottom: 40px;
 }
-.note-caption{
+.note-caption {
   padding-bottom: 5px;
 }
-.notes-footer{
+.notes-footer {
   display: flex;
   justify-content: space-between;
-  padding-top:20px ;
+  padding-top: 20px;
 }
-.trash{
+.trash {
   display: none;
 }
 
 .note:hover .trash {
   display: block;
+}
+
+.name-of-note {
+}
+
+.detail-of-note {
+}
+.create-note-outer {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.create-note-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+}
+.create-note-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 25%;
+}
+
+.note-title {
+  font-size: 2.5rem;
+}
+
+.input-name {
+  width: 100%;
+  text-align: center;
+  height: 1.5rem;
+}
+.error {
+  padding-top: 2px;
+  color: red;
+  text-align: center;
+}
+.create-note-caption {
+  text-align: center;
+  margin-bottom: 10px;
+}
+.input-info {
+  width: 100%;
+  height: 5rem;
+  margin-top: 5px;
+  align-self: center;
+  resize: none;
+  text-align: center;
+}
+
+.options-notebook {
+  margin-top: 20px;
+  padding-bottom: 10px;
+}
+
+.notebook-options{
+  width: 100%;
+  height: 2rem;
+  text-align: center;
+}
+.tags{
+  width: 100%;
+}
+.tag-info{
+  margin-top: 20px;
+  text-align: center;
+}
+.tag-input{
+  width: 100%;
+  height: 2rem;
+  text-align: center;
+  margin-top: 5px;
+  margin-bottom: 20px;
+}
+.note-button{
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.new-note-submit{
+  width: 25%;
+  height: 2rem;
+  background-color: black;
+  color: white;
+
+}
+.save-disable:disabled{
+  background-color: lightgray;
 }
