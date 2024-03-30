@@ -5,9 +5,11 @@ import { useNavigate } from "react-router-dom";
 import CreateNotebookModal from "../Notebooks/CreateNotebook";
 import CreateTaskModal from "../Tasks/CreateTaskModal";
 import { useModal } from '../../context/Modal';
+import AboutModal from "./AboutModal";
 
 
 function Navigation() {
+
   const { setModalContent } = useModal();
 
   const navigate = useNavigate();
@@ -36,6 +38,7 @@ function Navigation() {
   }
 
   const newNotebook = () => setModalContent(<CreateNotebookModal/>)
+  const about =() => setModalContent(<AboutModal/>)
   const newTask = () => setModalContent(<CreateTaskModal />)
 
   return (
@@ -56,7 +59,10 @@ function Navigation() {
             <i className="fa-solid fa-plus" onClick={newTask}></i>
           </span>
         </div>
+        <div className="container-about">
         <button onClick={logout} className="logout">Log Out</button>
+        <div onClick={about}>About</div>
+        </div>
       </div>
     }</>
   );
