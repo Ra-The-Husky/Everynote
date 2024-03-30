@@ -24,8 +24,8 @@ function EditNote() {
 
   useEffect(() => {
     dispatch(noteInfo(Number(noteId))).then((note) => {
-      if (note.message === "page not found") navigate('/not-found')
-      if (note.message === 'unauthorized') navigate("/unauthorized")
+      if (note && note.message === "page not found") navigate('/not-found')
+      if (note && note.message === 'unauthorized') navigate("/unauthorized")
       setName(note.note.name);
       setInfo(note.note.info);
       setCaption(note.note.caption)
@@ -124,7 +124,9 @@ function EditNote() {
 
         <div className="editNoteFooter">
           <div className="editNoteTags">
-            {tags && tags?.map((tag) => <div className="editNoteTag" key={tag.id}>#{tag.name}</div>)}
+            <input type="text"
+            value={tags && tags.map((tag) => tag.name).join(" ")}
+            />
           </div>
 
           <div className="editNoteButtons">

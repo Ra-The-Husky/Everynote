@@ -28,25 +28,25 @@ function CreateNotebookModal() {
 
     return (
         <div className="createNotebookModal">
-            <h1>Create A New Notebook</h1>
+            <img className="create-notebook-img" src="https://res.cloudinary.com/dfxxgifho/image/upload/v1710376011/EveryNote_iw1qhe.png" />
             <form className="createNotebookForm" onSubmit={submitNotebook}>
-                <div className="name">
-                    <input
-                        type="text"
-                        placeholder="Name"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                    ></input>
-                </div>
-                <div className="info">
-                    <textarea
-                        type="text"
-                        placeholder="Description"
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                    ></textarea>
-                </div>
-                <div className="buttons">
+            <h1>Create A New Notebook</h1>
+
+                <input
+                    className="name"
+                    type="text"
+                    placeholder="Name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                ></input>
+                <textarea
+                    className="new-notebook-info"
+                    type="text"
+                    placeholder="Description"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                ></textarea>
+                <div className="edit-notebook-buttons">
                     <button
                         className="logout"
                         type="submit"
