@@ -58,11 +58,6 @@
   display: block;
 }
 
-.name-of-note {
-}
-
-.detail-of-note {
-}
 .create-note-outer {
   display: flex;
   width: 100%;
@@ -148,4 +143,10 @@
 }
 .save-disable:disabled{
   background-color: lightgray;
+}
+
+/* note details */
+
+.name-of-note {
+
 }
