@@ -1,26 +1,20 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { editTaskThunk } from "../../redux/tasks";
 import { useModal } from "../../context/Modal";
-import { createTask } from "../../redux/tasks";
 
-function CreateTaskModal() {
+function EditTaskModal({ task }) {
   const { closeModal } = useModal();
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [name, setName] = useState("");
-  const [deadline, setDeadline] = useState(new Date());
-  const [priority, setPriority] = useState("Low");
-  const [description, setDescription] = useState("");
-  const [reminder, setReminder] = useState(false);
+  const [name, setName] = useState(task?.name);
+  const [deadline, setDeadline] = useState(task?.deadline);
+  const [priority, setPriority] = useState(task?.priority);
+  const [description, setDescription] = useState(task?.description);
+  const [reminder, setReminder] = useState(task?.reminder);
   const [errors, setErrors] = useState({});
   const tasks = useSelector((state) => state.tasks.tasks);
-
-  const testTask = () => {
-    setName("Test Task");
-    setDescription("Setting a test description for the test task");
-  };
 
   useEffect(() => {
     const errs = {};
@@ -34,13 +28,13 @@ function CreateTaskModal() {
         }
       });
     }
-    if (name.length > 30) {
+    if (name && name.length > 30) {
       errs.name = "Cannot exceed 30 characters";
     }
     if (!description) {
       errs.description = "Task description required";
     }
-    if (description.length < 20) {
+    if (description && description.length < 20) {
       errs.description = "Description should be a minimum of 20 characters";
     }
     setErrors(errs);
@@ -48,8 +42,7 @@ function CreateTaskModal() {
 
   const submitTask = async (e) => {
     e.preventDefault();
-
-    const newTask = {
+    const editedTask = {
       name,
       deadline: new Date(deadline)
         .toISOString()
@@ -64,17 +57,16 @@ function CreateTaskModal() {
     if (Object.values(errors).length) {
       return console.log(errors);
     } else {
-      dispatch(createTask(newTask)).then(() => {
+      dispatch(editTaskThunk(editedTask)).then(() => {
         closeModal();
-
         navigate(`/tasks`);
       });
     }
-  };
+  }
 
   return (
     <div className="createTaskModal">
-      <h1>Create A New Task</h1>
+      <h1>Edit {task?.name}</h1>
       <form className="createTaskForm" onSubmit={submitTask}>
         <div className="name">
           <input
@@ -132,11 +124,10 @@ function CreateTaskModal() {
           >
             Save
           </button>
-          <button onClick={testTask}>Test Task</button>
         </div>
       </form>
     </div>
   );
 }
 
-export default CreateTaskModal;
+export default EditTaskModal;
