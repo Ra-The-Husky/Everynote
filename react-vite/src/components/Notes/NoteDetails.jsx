@@ -34,32 +34,31 @@ function NoteInfo() {
         {!tags?.length ? (
           <></>
         ) : (
-          <div className = "editNoteTags">
-              {
-            tags &&
-            tags.map((allTags) =>
-              allTags.map((tag) => (
-                <div className="editNoteTag" key={tag.id}>
-                  #{tag.name}{" "}
-                  <div>
-                    {" "}
-                    <i
-                      className="fa-solid fa-square-xmark"
-                      onClick={() => dispatch(destroyTag(noteId, tag.id))}
-                    ></i>
+          <div className="editNoteTags">
+            {
+              tags &&
+              tags.map((allTags) =>
+                allTags.map((tag) => (
+                  <div className="editNoteTag" key={tag.id}>
+                    #{tag.name}{" "}
+                    <div>
+                      {" "}
+                      <i
+                        className="fa-solid fa-square-xmark"
+                        onClick={() => dispatch(destroyTag(noteId, tag.id))}
+                      ></i>
+                    </div>
                   </div>
-                </div>
-              ))
-            )
-          }
-            </div>
-          )}
-      <div className="editNoteButtons">
-        <i className="fa-regular fa-pen-to-square" onClick={() => navigate(`/notes/${noteId}/edit`)}></i>
-        <OpenModalButton modalComponent={<DeleteNoteModal noteId={noteId} />} />
+                ))
+              )
+            }
+          </div>
+        )}
+        <div className="editNoteButtons">
+          <i className="fa-regular fa-pen-to-square" onClick={() => navigate(`/notes/${noteId}/edit`)}></i>
+          <OpenModalButton modalComponent={<DeleteNoteModal noteId={noteId} />} />
+        </div>
       </div>
-    </div>
-
     </div >
   );
 }
