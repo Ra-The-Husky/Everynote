@@ -1,0 +1,128 @@
+.HomePage {
+  padding-right: 5%;
+}
+
+.HomePage > h2 {
+  font-size: 3rem;
+  padding-left: 100px;
+  padding-bottom: 30px;
+}
+
+.HomePage > img {
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+}
+
+.homeContent {
+  display: flex;
+  flex-direction: row;
+  border: solid 1px black;
+  padding: 15px 0;
+  height: 400px;
+}
+
+.homeLeftPanel {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 35%;
+  padding-left: 25px;
+}
+
+.homeNotebooks {
+  padding-bottom: 20px;
+}
+
+.homeNotebooks > h4 {
+  padding-bottom: 5px;
+}
+
+.homeNotebooks > h4,
+.homeNotebooks > p {
+  width: fit-content;
+  margin: 0 auto;
+  font-size: 1.5rem;
+}
+
+.homeTasks {
+  border: solid 1px black;
+  padding-left: 15px;
+}
+
+.homeTasks > ol {
+  padding: 0;
+}
+
+.homeTask {
+  display: flex;
+  width: 75%;
+  justify-content: space-evenly;
+}
+
+.taskInfo {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.taskInfo > p {
+  width: 33%;
+  text-align: center;
+}
+
+.homeNotes {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+  height: 90%;
+}
+
+.homeNote {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: solid 1px black;
+  width: 25%;
+  padding: 10px;
+}
+
+.noteInfo {
+  height: 85%;
+  font-size: 1.25rem;
+}
+
+
+
+.homeTags {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  height: 15%;
+}
+
+.homeNotesContainer {
+  width: 65%;
+  text-align: center;
+}
+
+.homeNotesContainer > h3 {
+  font-size: 1.5rem;
+}
+
+.homepage-banner {
+  width: 100%;
+  height: 350px;
+
+}
+
+.banner-cont {
+  min-height: 100px;
+  width: 100%;  /* Create the parallax scrolling effect */
+  background-attachment: scroll;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
