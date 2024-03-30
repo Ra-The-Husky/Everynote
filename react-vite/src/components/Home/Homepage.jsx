@@ -56,18 +56,18 @@ function Homepage() {
           )}
           </div>
         </div>
-        <h3 className="homeNotes">Your Recent Notes</h3>
-        <div>
+        <h3>Your Recent Notes</h3>
+        <div className="homeNotes">
           {!userNotes?.length ? (
-            <div>
-              <p className="noteInfo">Start writing notes!</p>
+            <div className="noteInfo">
+              <p >Start writing notes!</p>
             </div>
           ) : (
-            <div>
+            <div className="homeNotes">
               {userNotes &&
                 userNotes.map((note) => (
                   <div className="homeNote" key={note.id}>
-                    <div className="noteInfo">
+                    <div className="">
                       <h4>{note.name}</h4>
                       <p>{note.info}</p>
                     </div>
