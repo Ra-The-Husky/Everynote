@@ -61,7 +61,7 @@ function Navigation() {
         </div>
         <div className="container-about">
         <button onClick={logout} className="logout">Log Out</button>
-        <div onClick={about}>About</div>
+        <div onClick={about} className="about">About</div>
         </div>
       </div>
     }</>
