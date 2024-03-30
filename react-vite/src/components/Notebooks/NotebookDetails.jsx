@@ -12,10 +12,10 @@ function NotebookDetails() {
 
     useEffect(() => {
         dispatch(getNotebookThunk(notebookId)).then((res) => {
-            if (res.message && res.message === "page not found") {
+            if (res && res.message === "page not found") {
                 navigate("/not-found")
             }
-            if (res.message && res.message === "unauthorized") {
+            if (res && res.message === "unauthorized") {
                 navigate("/unauthorized")
             }
         })
