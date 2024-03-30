@@ -59,6 +59,7 @@
 }
 .about{
   cursor: pointer;
+  border-bottom: 2px black solid;
 }
 
 .about-modal{
