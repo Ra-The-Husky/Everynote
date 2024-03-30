@@ -25,7 +25,7 @@ function Homepage() {
   useEffect(() => {
     dispatch(homeThunk());
   }, [dispatch]);
-  
+
   return (
     <div className="Homepage">
       <img src="https://res.cloudinary.com/dfxxgifho/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1710376011/istockphoto-1303583671-612x612_f5tvml.jpg?_s=public-apps" />
@@ -44,11 +44,11 @@ function Homepage() {
           <div>
               {tasks &&
                 tasks.map((task) => (
-                  <div className="homeTask" key={task.id}>
+                  <div className="homeTask" key={task?.id}>
                     <div className="taskInfo">
-                      <p>{task.name}</p>
-                      <p>{moment(task.deadline).format("MM-DD-YYYY")}</p>
-                      <p>{task.priority}</p>
+                      <p>{task?.name}</p>
+                      <p>{moment(task?.deadline).format("MM-DD-YYYY")}</p>
+                      <p>{task?.priority}</p>
                     </div>
                   </div>
                 ))}
