@@ -46,7 +46,7 @@ function CreateTaskModal() {
       errs.description = "Description should be a minimum of 20 characters";
     }
     setErrors(errs);
-  }, [name, description]);
+  }, [name, description, tasks]);
 
   const submitTask = async (e) => {
     e.preventDefault();
@@ -74,31 +74,34 @@ function CreateTaskModal() {
     }
   };
 
-  const handleChange = (date) => {
-    setDeadline(date);
-  };
+  // const handleChange = (date) => {
+  //   setDeadline(date);
+  // };
 
   return (
     <div className="createTaskModal">
-      <h1>Create A New Task</h1>
-      <form className="createTaskForm" onSubmit={submitTask}>
-        <input
-          type="text"
-          placeholder="Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        ></input>
-        {errors.name && <p>{errors.name}</p>}
+      <div className="inner-task">
+        <h1>Create A New Task</h1>
+        <form className="createTaskForm" onSubmit={submitTask}>
+          <input
+            className="input-name-task"
+            type="text"
+            placeholder="Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          ></input>
 
-        <div className="deadline">
-          <DatePicker
+          <input
+            className="input-date-task"
             selected={deadline}
-            minDate={new Date()}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="priority">
+            type="date"
+            min={new Date().toISOString().split("T").splice(0, 1).join("")}
+            value={deadline}
+            onChange={(e) => setDeadline(e.target.value)}
+          ></input>
+
           <select
+            className="input-selector"
             value={priority}
             onChange={(e) => setPriority(e.target.value)}
           >
@@ -109,17 +112,15 @@ function CreateTaskModal() {
             <option value={"Medium"}>Medium</option>
             <option value={"High"}>High</option>
           </select>
-        </div>
-        <div className="description">
+
           <textarea
+            className="input-desc-task"
             type="text"
             placeholder="Description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           ></textarea>
-          {errors.description && <p>{errors.description}</p>}
-        </div>
-        <div className="reminder">
+
           <label htmlFor="reminder">Reminder</label>
           <input
             name="reminder"
@@ -127,18 +128,21 @@ function CreateTaskModal() {
             value={reminder}
             onChange={(e) => setReminder(e.target.value)}
           ></input>
-        </div>
-        <div className="buttons">
-          <button
-            className="button"
-            type="submit"
-            disabled={Object.values(errors).length}
-          >
-            Save
-          </button>
-          <button onClick={testTask}>Test Task</button>
-        </div>
-      </form>
+
+          <div className="note-button">
+            <button
+              className="new-note-submit save-disable"
+              type="submit"
+              disabled={Object.values(errors).length}
+            >
+              Save
+            </button>
+            <button className="new-note-submit" onClick={testTask}>
+              Test Task
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }

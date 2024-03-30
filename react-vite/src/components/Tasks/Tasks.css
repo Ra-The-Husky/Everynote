@@ -1,25 +1,66 @@
 .true {
-    text-decoration: line-through;
-    color: gray;
+  text-decoration: line-through;
+  color: gray;
 }
 
 /* create task modal */
 
-
+.inner-task {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 80%;
+}
 
 .createTaskModal {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 20px;
+  width: 400px;
 }
 
 .createTaskForm {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
 .createTaskForm > div {
-    margin: 5px 0;
+  margin: 5px 0;
 }
+
+.input-name-task {
+  width: 80%;
+  height: 1.5rem;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.input-date-task {
+  width: 80%;
+  height: 1.5rem;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.input-selector {
+  width: 80%;
+  height: 1.5rem;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.input-desc-task {
+  width: 80%;
+  height: 1.5rem;
+  text-align: center;
+  margin-bottom: 10px;
+  resize: none;
+  height: 5rem;
+}
+.error-task {
+  width: 70%;
+}
+
