@@ -19,7 +19,7 @@ function NotebookDetails() {
                 navigate("/unauthorized")
             }
         })
-    }, [dispatch, notebookId])
+    }, [dispatch, notebookId,navigate])
 
     return (
         <span className="notebooks-cont">

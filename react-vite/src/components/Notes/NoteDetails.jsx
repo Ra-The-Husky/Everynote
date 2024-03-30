@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { destroyTag, editNote, noteInfo } from "../../redux/notes";
+import { destroyTag, noteInfo } from "../../redux/notes";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import DeleteNoteModal from "./DeleteNoteModal";
 import { notebookThunk } from "../../redux/notebooks";
@@ -21,7 +21,7 @@ function NoteInfo() {
       if (res.message === "unauthorized") navigate('/unauthorized')
     });
     dispatch(notebookThunk());
-  }, [dispatch, noteId]);
+  }, [dispatch, noteId,navigate]);
 
   return (
     <div className="editNoteCont">

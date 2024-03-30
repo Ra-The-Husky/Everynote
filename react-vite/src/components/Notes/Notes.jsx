@@ -47,7 +47,7 @@ function AllNotes() {
         {!userNotes?.length ? (
           <div>
             <p className="note">
-              You haven't written any notes yet. Hit the "+" symbol near notes
+              You haven&apos;t written any notes yet. Hit the &quot;+&quot; symbol near notes
               to get started!
             </p>
           </div>

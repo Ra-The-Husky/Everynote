@@ -1,4 +1,3 @@
-import { redirect } from "react-router-dom";
 
 const GET_NOTEBOOKS = "home/GetNotebooks";
 const GET_NOTEBOOK = "home/GetNotebook"

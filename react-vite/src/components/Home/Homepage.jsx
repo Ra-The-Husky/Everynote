@@ -76,7 +76,7 @@ function Homepage() {
                       </div>
                       <div className="homeTags">
                         {note.tags &&
-                          note.tags.map((tag) => <div>{tag.name}</div>)}
+                          note.tags.map((tag) => <div key={tag.id}>{tag.name}</div>)}
                       </div>
                     </div>
                   ))}

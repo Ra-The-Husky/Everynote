@@ -32,7 +32,7 @@ function EditNote() {
       setTags(note.tags);
     });
     dispatch(homeThunk());
-  }, [dispatch]);
+  }, [dispatch,navigate,noteId]);
 
   useEffect(() => {
     const errs = {};
@@ -55,7 +55,7 @@ function EditNote() {
       errs.info = "Note information must be a minimium of 30 characters";
     }
     setErrors(errs);
-  }, [name, info]);
+  }, [name, info,noteDeets.name,noteNames]);
 
   const submitChanges = async (e) => {
     e.preventDefault();

@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect, useRef } from "react";
-import { notebookThunk, newNotebookThunk } from "../../redux/notebooks";
+import { notebookThunk } from "../../redux/notebooks";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import './Notebooks.css'
 import { useNavigate } from "react-router-dom";
@@ -45,7 +45,7 @@ function Notebooks() {
 
     return () => document.removeEventListener("click", closeMenu);
 
-  }, [show]);
+  }, [show,notebooks]);
 
   const closeMenu = () => setShow(false);
   // const createNotebook = () Navigate()

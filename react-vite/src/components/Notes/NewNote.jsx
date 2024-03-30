@@ -52,7 +52,7 @@ function CreateNote() {
       errs.info = "Note information must be a minimium of 30 characters";
     }
     setErrors(errs);
-  }, [name, info]);
+  }, [name, info,noteNames]);
 
   const submitNote = async (e) => {
     e.preventDefault();
