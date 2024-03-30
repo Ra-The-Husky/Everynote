@@ -28,7 +28,9 @@ function Homepage() {
 
   return (
     <div className="Homepage">
-      <img src="https://res.cloudinary.com/dfxxgifho/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1710376011/istockphoto-1303583671-612x612_f5tvml.jpg?_s=public-apps" />
+      <span className="banner-cont">
+      <img className="homepage-banner" src="https://res.cloudinary.com/dfxxgifho/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1710376011/istockphoto-1303583671-612x612_f5tvml.jpg?_s=public-apps" />
+      </span>
       <h2>Home</h2>
       <div className="homeContent">
         <div className="homeLeftPanel">
@@ -39,46 +41,48 @@ function Homepage() {
           <div className="homeTasks">
             <h3>Your Tasks</h3>
             {!tasks?.length ? (
-            <p>Add some tasks!</p>
-          ) : (
-          <div>
-              {tasks &&
-                tasks.map((task) => (
-                  <div className="homeTask" key={task?.id}>
-                    <div className="taskInfo">
-                      <p>{task?.name}</p>
-                      <p>{moment(task?.deadline).format("MM-DD-YYYY")}</p>
-                      <p>{task?.priority}</p>
+              <p>Add some tasks!</p>
+            ) : (
+              <div>
+                {tasks &&
+                  tasks.map((task) => (
+                    <div className="homeTask" key={task?.id}>
+                      <div className="taskInfo">
+                        <p>{task?.name}</p>
+                        <p>{moment(task?.deadline).format("MM-DD-YYYY")}</p>
+                        <p>{task?.priority}</p>
+                      </div>
                     </div>
-                  </div>
-                ))}
-            </div>
-          )}
+                  ))}
+              </div>
+            )}
           </div>
         </div>
-        <h3>Your Recent Notes</h3>
-        <div className="homeNotes">
-          {!userNotes?.length ? (
-            <div className="noteInfo">
-              <p >Start writing notes!</p>
-            </div>
-          ) : (
-            <div className="homeNotes">
-              {userNotes &&
-                userNotes.map((note) => (
-                  <div className="homeNote" key={note.id}>
-                    <div className="">
-                      <h4>{note.name}</h4>
-                      <p>{note.info}</p>
+        <div className="homeNotesContainer">
+          <h3>Your Recent Notes</h3>
+          <div className="homeNotes">
+            {!userNotes?.length ? (
+              <div className="noteInfo">
+                <p >Start writing notes!</p>
+              </div>
+            ) : (
+              <div className="homeNotes">
+                {userNotes &&
+                  userNotes.map((note) => (
+                    <div className="homeNote" key={note.id}>
+                      <div className="">
+                        <h4>{note.name}</h4>
+                        <p>{note.info}</p>
+                      </div>
+                      <div className="homeTags">
+                        {note.tags &&
+                          note.tags.map((tag) => <div>{tag.name}</div>)}
+                      </div>
                     </div>
-                    <div className="homeTags">
-                      {note.tags &&
-                        note.tags.map((tag) => <div>{tag.name}</div>)}
-                    </div>
-                  </div>
-                ))}
-            </div>
-          )}
+                  ))}
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>
