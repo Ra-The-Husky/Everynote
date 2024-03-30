@@ -9,12 +9,12 @@ function EditNote() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const noteDeets = useSelector((state) => state.notes?.note);
-  const notebooks = useSelector((state) => state.home.notebook);
+  const notebooks = useSelector((state) => state.home?.notebook);
   const defaultNotebook = notebooks && notebooks?.find(
     (notebook) => notebook.id === noteDeets.notebook_id
   );
   const notes = useSelector((state) => state.notes?.allNotes);
-  const noteNames = notes?.map((note) => note.name);
+  const noteNames = notes && notes?.map((note) => note.name);
   const [name, setName] = useState();
   const [caption, setCaption] = useState()
   const [info, setInfo] = useState();

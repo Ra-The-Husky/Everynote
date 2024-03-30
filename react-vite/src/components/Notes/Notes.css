@@ -207,6 +207,7 @@
 
 .fa-pen-to-square {
   font-size: 1.25rem;
+  cursor: pointer;
 }
 
 /* edit note form */

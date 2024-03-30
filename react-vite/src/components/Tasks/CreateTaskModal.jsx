@@ -15,7 +15,7 @@ function CreateTaskModal() {
   const [description, setDescription] = useState("");
   const [reminder, setReminder] = useState(false);
   const [errors, setErrors] = useState({});
-  const tasks = useSelector((state) => state.tasks.tasks);
+  const tasks = useSelector((state) => state.tasks?.tasks);
 
   const testTask = () => {
     setName("Test Task");
