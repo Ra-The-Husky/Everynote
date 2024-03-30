@@ -79,9 +79,9 @@ function CreateTaskModal() {
   };
 
   return (
-    <>
+    <div className="createTaskModal">
       <h1>Create A New Task</h1>
-      <form onSubmit={submitTask}>
+      <form className="createTaskForm" onSubmit={submitTask}>
         <div className="name">
           <input
             type="text"
@@ -140,7 +140,7 @@ function CreateTaskModal() {
           <button onClick={testTask}>Test Task</button>
         </div>
       </form>
-    </>
+    </div>
   );
 }
 

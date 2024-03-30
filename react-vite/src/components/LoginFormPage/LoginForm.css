@@ -1,0 +1,41 @@
+.mainWrapper {
+  display: flex;
+  justify-content: center;
+  margin-left: -20%;
+}
+
+.innerWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 30%;
+  margin: 0 auto;
+  border: solid 1px black;
+  margin-top: 50px;
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.loginForm > input {
+  text-align: center;
+  margin: 10px 0;
+  height: 1.5rem;
+}
+
+.loginButtons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px 0;
+}
+
+.loginButtons > button {
+  width: 45%;
+}
+
+.signupLink {
+  cursor: pointer;
+}

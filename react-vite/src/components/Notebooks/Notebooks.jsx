@@ -51,10 +51,11 @@ function Notebooks() {
   // const createNotebook = () Navigate()
 
   return (
-    <>
+    <span className="notebooks-cont">
+      <span className="inner-notebooks-cont">
       <h1>Notebooks</h1>
       <table className="table">
-        <thead >
+        <thead className="table-head" >
           <tr>
             <th scope="col" >Title</th>
             <th scope="col" >Description</th>
@@ -107,7 +108,8 @@ function Notebooks() {
           </tbody>
         ))}
       </table>
-    </>
+      </span>
+    </span>
   );
 }
 

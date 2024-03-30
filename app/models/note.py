@@ -29,4 +29,5 @@ class Note(db.Model):
             "caption": self.caption,
             "info":self.info,
             "date_created":self.date_created,
+            "tags": [tag.to_dict() for tag in self.tags]
         }

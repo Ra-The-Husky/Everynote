@@ -1,40 +1,121 @@
-
 .table {
-    border: 1px black solid;
-    width: 60%;
-    padding: 5px;
-    border-collapse: collapse;
+  border: 1px black solid;
+  min-height: 300px;
+  font-size: 1.5rem;
+  width: 80%;
+  padding: 5px;
+  border-collapse: collapse;
 }
 
-
 .col {
-    text-align: center;
-    border: 1px black solid;
+  text-align: center;
+  border: 1px black solid;
 }
 
 .row {
-    height: 50px;
+  height: 50px;
 }
 
 .notebookName {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .col2 {
-    border: 1px black solid;
-    text-align: center;
-    align-items: center;
+  border: 1px black solid;
+  text-align: center;
+  align-items: center;
 }
 
 .profile-dropdown {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    height: 75px;
-    background-color: lightgray;
-    border-radius: 5px 5px 5px 5px;
-    width: fit-content;
-    padding: 2px 10px;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  height: 100px;
+  background-color: lightgray;
+  border-radius: 5px 5px 5px 5px;
+  width: fit-content;
+  padding: 5px 10px;
+  margin-left: 1%;
+}
 
+/* create notebook modal */
+
+#modal-content {
+  width: fit-content;
+}
+
+.createNotebookModal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: fit-content;
+  padding: 20px;
+}
+
+.createNotebookForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.createNotebookForm > div {
+  margin: 5px 0;
+}
+
+/* delete notebook modal */
+
+.deleteNotebookModal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.deleteNotebookModal > h1 {
+  margin: 0;
+}
+
+.deleteNotebookModal > div > button {
+  margin: 10px;
+  width: fit-content;
+}
+
+/* edit notebook modal */
+
+.editNotebookModal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.editNotebookModal > h1 {
+  margin-top: 0;
+}
+
+.editNotebookForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100px;
+}
+
+.notebooks-cont {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+.inner-notebooks-cont {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 75%;
+  margin-left: -15%;
+  padding-top: 50px;
+}
+
+.table-head {
+  height: 50px;
 }

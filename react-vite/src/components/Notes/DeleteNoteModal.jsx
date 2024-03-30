@@ -7,7 +7,7 @@ function DeleteNoteModal({ noteId, notebook }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { closeModal } = useModal();
-  
+
   const burnNote = (e) => {
     e.preventDefault();
 
@@ -18,12 +18,14 @@ function DeleteNoteModal({ noteId, notebook }) {
   };
 
   return (
-    <>
+    <div className="deleteNoteModal">
       <h1>Delete Note</h1>
-      <p>Are you sure want to delete this note from your "{notebook?.name}" notebook?</p>
-      <button onClick={burnNote}>Yes, Burn it!</button>
-      <button onClick={() => closeModal()}>No, I changed my mind</button>
-    </>
+      <p>Are you sure want to delete this note from your notebook?</p>
+      <div>
+        <button className="logout" onClick={burnNote}>Yes, Burn it!</button>
+        <button onClick={() => closeModal()} className="logout">No, I changed my mind</button>
+      </div>
+    </div>
   );
 }
 

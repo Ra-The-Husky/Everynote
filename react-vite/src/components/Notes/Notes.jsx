@@ -5,8 +5,10 @@ import { allNotes } from "../../redux/notes";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import DeleteNoteModal from "../Notes/DeleteNoteModal";
 import { notebookThunk } from "../../redux/notebooks";
+import './Notes.css'
 
 function AllNotes() {
+  //const userNotebooks = useSelector((state) => state.notebooks.notebooks);
   const navigate = useNavigate();
   const userNotes = useSelector((state) => state.notes.allNotes);
   const userNotebooks = useSelector((state) => state.notebooks.notebooks);

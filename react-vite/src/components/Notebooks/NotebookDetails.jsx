@@ -15,7 +15,8 @@ function NotebookDetails() {
     }, [dispatch, notebookId])
 
     return (
-        <>
+        <span className="notebooks-cont">
+            <span className="inner-notebooks-cont">
             <h1>{notebook?.name}</h1>
             <table className="table">
                 <thead>
@@ -33,7 +34,8 @@ function NotebookDetails() {
                     </tbody>
                 ))}
             </table>
-        </>
+            </span>
+        </span>
     );
 }
 
