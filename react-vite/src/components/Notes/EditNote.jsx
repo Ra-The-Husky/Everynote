@@ -26,9 +26,9 @@ function EditNote() {
     dispatch(noteInfo(Number(noteId))).then((note) => {
       if (note && note.message === "page not found") navigate('/not-found')
       if (note && note.message === 'unauthorized') navigate("/unauthorized")
-      setName(note.note.name);
-      setInfo(note.note.info);
-      setCaption(note.note.caption)
+      setName(note.note?.name);
+      setInfo(note.note?.info);
+      setCaption(note.note?.caption)
       setTags(note.tags);
     });
     dispatch(homeThunk());
