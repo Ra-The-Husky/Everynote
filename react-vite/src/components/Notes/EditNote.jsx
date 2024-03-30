@@ -10,7 +10,7 @@ function EditNote() {
   const dispatch = useDispatch();
   const noteDeets = useSelector((state) => state.notes?.note);
   const notebooks = useSelector((state) => state.home.notebook);
-  const defaultNotebook = notebooks?.find(
+  const defaultNotebook = notebooks && notebooks?.find(
     (notebook) => notebook.id === noteDeets.notebook_id
   );
   const notes = useSelector((state) => state.notes?.allNotes);
@@ -24,6 +24,8 @@ function EditNote() {
 
   useEffect(() => {
     dispatch(noteInfo(Number(noteId))).then((note) => {
+      if (note.message === "page not found") navigate('/not-found')
+      if (note.message === 'unauthorized') navigate("/unauthorized")
       setName(note.note.name);
       setInfo(note.note.info);
       setCaption(note.note.caption)

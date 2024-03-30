@@ -57,11 +57,13 @@ export const allNotes = () => async (dispatch) => {
 
 export const noteInfo = (noteId) => async (dispatch) => {
   const response = await fetch(`/api/notes/${noteId}`);
+  const data = await response.json();
   if (response.ok) {
-    const data = await response.json();
     dispatch(getNote(data.note));
     dispatch(getTags(data.tags));
     return data;
+  } else {
+    return data
   }
 };
 
@@ -84,11 +86,13 @@ export const editNote = (noteId, edits) => async (dispatch) => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(edits),
   });
+  const data = await response.json();
   if (response.ok) {
-    const data = await response.json();
     dispatch(getNote(data));
     dispatch(adjustNote(data));
     return data;
+  } else {
+    return data
   }
 };
 
@@ -96,11 +100,13 @@ export const destroyNote = (noteId) => async (dispatch) => {
   const response = await fetch(`/api/notes/${noteId}`, {
     method: "DELETE",
   });
+  const data = await response.json();
   if (response.ok) {
-    const data = await response.json();
     dispatch(deleteNote(data));
     dispatch(allNotes());
     return data;
+  } else {
+    return data
   }
 };
 

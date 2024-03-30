@@ -1,3 +1,5 @@
+import { redirect } from "react-router-dom";
+
 const GET_NOTEBOOKS = "home/GetNotebooks";
 const GET_NOTEBOOK = "home/GetNotebook"
 
@@ -21,9 +23,11 @@ export const notebookThunk = () => async (dispatch) => {
 
 export const getNotebookThunk = (notebookId) => async (dispatch) => {
   const response = await fetch(`/api/notebooks/${notebookId}`);
+  const data = await response.json();
   if (response.ok) {
-    const data = await response.json();
     dispatch(getNotebook(data));
+  } else {
+    return data
   }
 };
 

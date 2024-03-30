@@ -55,6 +55,14 @@ export const router = createBrowserRouter([
         path: "/tasks",
         element: <Tasks />
       },
+      {
+        path: "/not-found",
+        element: <h1>Not Found</h1>
+      },
+      {
+        path: "/unauthorized",
+        element: <h1>Unauthorized</h1>
+      }
     ],
   },
 ]);
