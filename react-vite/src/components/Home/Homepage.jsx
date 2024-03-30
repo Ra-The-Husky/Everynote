@@ -25,8 +25,9 @@ function Homepage() {
   useEffect(() => {
     dispatch(homeThunk());
   }, [dispatch]);
+  
   return (
-    <>
+    <div className="Homepage">
       <img src="https://res.cloudinary.com/dfxxgifho/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1710376011/istockphoto-1303583671-612x612_f5tvml.jpg?_s=public-apps" />
       <h2>Home</h2>
       <div className="homeContent">
@@ -37,75 +38,50 @@ function Homepage() {
           </div>
           <div className="homeTasks">
             <h3>Your Tasks</h3>
-            {tasks &&
-              tasks.map((task) => (
-                <div className="homeTask" key={task.id}>
-                  <div className="taskInfo">
-                    <p>{task.name}</p>
-                    <p>{moment(task.deadline).format("MM-DD-YYYY")}</p>
-                    <p>{task.priority}</p>
+            {!tasks?.length ? (
+            <p>Add some tasks!</p>
+          ) : (
+          <div>
+              {tasks &&
+                tasks.map((task) => (
+                  <div className="homeTask" key={task.id}>
+                    <div className="taskInfo">
+                      <p>{task.name}</p>
+                      <p>{moment(task.deadline).format("MM-DD-YYYY")}</p>
+                      <p>{task.priority}</p>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+            </div>
+          )}
           </div>
         </div>
-        {userNotes &&
-          userNotes.map((note) => (
-            <div className="homeNote" key={note.id}>
-              <div className="noteInfo">
-                <h4>{note.name}</h4>
-                <p>{note.info}</p>
-              </div>
-              <div className="homeTags">
-                {note.tags && note.tags.map((tag) => <div>{tag.name}</div>)}
-              </div>
-            </div>
-          ))}
-        <h2>Users Home</h2>
-        <div>{userNotebooks && userNotebooks[0]?.name}</div>
-        <p>{userNotebooks && userNotebooks[0]?.description}</p>
+        <h3 className="homeNotes">Your Recent Notes</h3>
         <div>
-          <h3>Your Recent Notes</h3>
-          <div>
-            {!userNotes?.length ? (
-              <p>Start writing notes!</p>
-            ) : (
-              <div>
-                {userNotes &&
-                  notes.map((notes) => (
-                    <div key={notes.id}>
-                      <h4>{notes.name}</h4>
-                      <p>{notes.note}</p>
+          {!userNotes?.length ? (
+            <div>
+              <p className="noteInfo">Start writing notes!</p>
+            </div>
+          ) : (
+            <div>
+              {userNotes &&
+                userNotes.map((note) => (
+                  <div className="homeNote" key={note.id}>
+                    <div className="noteInfo">
+                      <h4>{note.name}</h4>
+                      <p>{note.info}</p>
                     </div>
-                  ))}
-              </div>
-            )}
-          </div>
-          <div>
-            <h3>Your Tasks</h3>
-            {!tasks?.length ? (
-              <p>Add some tasks!</p>
-            ) : (
-              <ol>
-                {tasks &&
-                  tasks.map((task) => (
-                    <div key={task.id}>
-                      <div>
-                        {task.name}
-                        <br />
-                        {moment(task.deadline).format("MM-DD-YYYY")}
-                        <br />
-                        {task.priority}
-                        <br />
-                      </div>
+                    <div className="homeTags">
+                      {note.tags &&
+                        note.tags.map((tag) => <div>{tag.name}</div>)}
                     </div>
-                  ))}
-              </ol>
-            )}
-          </div>
+                  </div>
+                ))}
+            </div>
+          )}
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

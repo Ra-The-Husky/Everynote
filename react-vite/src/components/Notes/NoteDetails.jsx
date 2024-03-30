@@ -28,8 +28,9 @@ function NoteInfo() {
   return (
     <>
       <h5>{notebook?.name}</h5>
-      <h1>{noteDetails?.name}</h1>
+      <h1 className="name-of-note">{noteDetails?.name}</h1>
       <div>{noteDetails?.caption}</div>
+      <span className="detail-of-note">
       <p>{noteDetails?.info}</p>
       <div>
         {!tags?.length ? (
@@ -58,6 +59,7 @@ function NoteInfo() {
         <button onClick={edit}>Edit Note</button>
       </div>
       <OpenModalButton modalComponent={<DeleteNoteModal noteId={noteId} />} />
+      </span>
     </>
   );
 }
