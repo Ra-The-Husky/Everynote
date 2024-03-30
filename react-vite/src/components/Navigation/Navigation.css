@@ -57,3 +57,15 @@
   display: flex;
   align-items: center;
 }
+.about-modal{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width:30vh
+}
+
+.container-about{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
