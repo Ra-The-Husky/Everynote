@@ -8,7 +8,7 @@ import { notebookThunk } from "../../redux/notebooks";
 import './Notes.css'
 
 function AllNotes() {
-  const userNotebooks = useSelector((state) => state.notebooks.notebooks);
+  //const userNotebooks = useSelector((state) => state.notebooks.notebooks);
   const navigate = useNavigate();
   const userNotes = useSelector((state) => state.notes.allNotes);
   const dispatch = useDispatch();

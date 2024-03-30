@@ -5,9 +5,7 @@
 
 /* create task modal */
 
-#modal-content {
-    width: 35%;
-}
+
 
 .createTaskModal {
     display: flex;

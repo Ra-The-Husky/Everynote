@@ -49,7 +49,7 @@ function CreateNotebookModal() {
                 </div>
                 <div className="buttons">
                     <button
-                        className="button"
+                        className="logout"
                         type="submit"
                         disabled={!name || !description}
                     >Save</button>

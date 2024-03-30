@@ -13,13 +13,14 @@ function DeleteNotebookModal({ notebookId, notebookName }) {
             .then(closeModal());
     };
 
+
     return (
         <div className="deleteNotebookModal">
             <h1>Delete Notebook</h1>
             <p>Are you sure want to delete {notebookName}?</p>
             <div>
                 <button className="logout" onClick={burnNote}> Yes, Burn it! </button>
-                <button className="logout"> No, I changed my mind </button>
+                <button className="logout" onClick={()=>{closeModal()}}> No, I changed my mind </button>
             </div>
         </div>
     );
