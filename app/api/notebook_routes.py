@@ -16,7 +16,12 @@ def get_notebooks():
 @login_required
 def get_notebook(notebookId):
     notebook = Notebook.query.get(notebookId)
-    return notebook.to_dict()
+    if notebook and notebook.user_id == current_user.id:
+        return notebook.to_dict()
+    elif notebook:
+         return {"message": 'unauthorized'}, 401
+    else:
+         return {"message":"page not found"}, 404
 
 @notebook_route.route("/", methods=['POST'])
 @login_required

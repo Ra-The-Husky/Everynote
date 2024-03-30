@@ -21,7 +21,10 @@ function NoteInfo() {
   };
 
   useEffect(() => {
-    dispatch(noteInfo(Number(noteId)));
+    dispatch(noteInfo(Number(noteId))).then((res) => {
+      if (res.message === "page not found") navigate('/not-found')
+      if (res.message === "unauthorized") navigate('/unauthorized')
+    });
     dispatch(notebookThunk());
   }, [dispatch, noteId]);
 

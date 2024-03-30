@@ -18,34 +18,44 @@ def get_notes():
 @login_required
 def edit_note(noteId):
      adjust_note = Note.query.get(noteId)
-     data = request.get_json()
-     print(data, "is caption being passed in?")
-     adjust_note.id=noteId
-     adjust_note.user_id=current_user.id
-     adjust_note.notebook_id=data['notebook_id']
-     adjust_note.name=data['name']
-     adjust_note.caption=data['caption']
-     adjust_note.info=data['info']
-     adjust_note.date_created=date.fromisoformat(data['date_created'])
-     db.session.commit()
-     return {'status': 201,
-             'message': "Note Successfully Updated"}
+     if adjust_note.user_id == current_user.id:
+        data = request.get_json()
+        print(data, "is caption being passed in?")
+        adjust_note.id=noteId
+        adjust_note.user_id=current_user.id
+        adjust_note.notebook_id=data['notebook_id']
+        adjust_note.name=data['name']
+        adjust_note.caption=data['caption']
+        adjust_note.info=data['info']
+        adjust_note.date_created=date.fromisoformat(data['date_created'])
+        db.session.commit()
+        return {'message': "Note Successfully Updated"}, 201
+     elif adjust_note:
+          return {'message': "unauthorized"}, 401
+     else:
+          return {'message': 'page not found'}, 404
+
 
 @notes_route.route('<int:noteId>')
 @login_required
 def get_note(noteId):
         notes = Note.query.get(noteId)
-        tags = Tag.query.filter(Tag.note_id == noteId).all()
-        # print(tags, 'ALL THE NOTES TAGS!!!')
-        note_data = notes.to_dict()
-        # print(note_data, "-----> Note Data")
-        tag_data = [tag.to_dict() for tag in tags]
-        # print(tag_data, '-----> Should be all the tags in a dict')
-        data = {
-              'note': note_data,
-              'tags': tag_data,
-        }
-        return data
+        if notes and notes.user_id == current_user.id:
+                tags = Tag.query.filter(Tag.note_id == noteId).all()
+                # print(tags, 'ALL THE NOTES TAGS!!!')
+                note_data = notes.to_dict()
+                # print(note_data, "-----> Note Data")
+                tag_data = [tag.to_dict() for tag in tags]
+                # print(tag_data, '-----> Should be all the tags in a dict')
+                data = {
+                'note': note_data,
+                'tags': tag_data,
+                }
+                return data
+        elif notes:
+          return {'message': "unauthorized"}, 401
+        else:
+          return {'message': 'page not found'}, 404
 
 @notes_route.route('new-note', methods=['POST'])
 @login_required
@@ -71,11 +81,16 @@ def new_note():
 @login_required
 def destroy_note(noteId):
         note = Note.query.get(noteId)
-        db.session.delete(note)
-        db.session.commit()
-        return {'status': 200,
-                'message': "Note Successfully Deleted"
-                }
+        if note.user_id == current_user.id:
+                db.session.delete(note)
+                db.session.commit()
+                return {'status': 200,
+                        'message': "Note Successfully Deleted"
+                        }
+        elif note:
+             return {'message': "unauthorized"}, 401
+        else:
+          return {'message': 'page not found'}, 404
 
 @notes_route.route('<int:noteId>/tags', methods=['POST'])
 @login_required

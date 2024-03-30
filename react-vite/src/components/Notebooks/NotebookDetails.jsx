@@ -11,7 +11,14 @@ function NotebookDetails() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getNotebookThunk(notebookId))
+        dispatch(getNotebookThunk(notebookId)).then((res) => {
+            if (res.message === "page not found") {
+                navigate("/not-found")
+            }
+            if (res.message === "unauthorized") {
+                navigate("/unauthorized")
+            }
+        })
     }, [dispatch, notebookId])
 
     return (
