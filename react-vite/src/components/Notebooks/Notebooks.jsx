@@ -9,7 +9,7 @@ import EditNotebookModal from "./EditNotebookModal"
 
 
 function Notebooks() {
-  const notebooks = useSelector((state) => state.notebooks.notebooks);
+  const notebooks = useSelector((state) => state.notebooks?.notebooks);
   const [show, setShow] = useState(false)
   const ulRef = useRef();
   const navigate = useNavigate()

@@ -9,9 +9,9 @@ import { notebookThunk } from "../../redux/notebooks";
 function NoteInfo() {
   const { noteId } = useParams();
   const navigate = useNavigate();
-  const noteDetails = useSelector((state) => state.notes.note);
-  const tags = useSelector((state) => state.notes.tags);
-  const notebooks = useSelector((state) => state.notebooks.notebooks);
+  const noteDetails = useSelector((state) => state.notes?.note);
+  const tags = useSelector((state) => state.notes?.tags);
+  const notebooks = useSelector((state) => state.notebooks?.notebooks);
   const notebook = notebooks?.find((notebook) => notebook.id === noteDetails?.notebook_id);
   const dispatch = useDispatch();
 

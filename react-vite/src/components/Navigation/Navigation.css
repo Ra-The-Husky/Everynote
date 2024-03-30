@@ -57,6 +57,10 @@
   display: flex;
   align-items: center;
 }
+.about{
+  cursor: pointer;
+}
+
 .about-modal{
   display: flex;
   align-items: center;

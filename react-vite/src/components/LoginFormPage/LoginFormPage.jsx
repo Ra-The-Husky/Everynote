@@ -36,7 +36,7 @@ function LoginFormPage() {
   return (
     <div className="mainWrapper">
       <div className="innerWrapper">
-        <img src="../../public/EveryNote-trans.png" />
+        <img src="https://res.cloudinary.com/dfxxgifho/image/upload/v1710376011/EveryNote-trans_a4yh6s.png" />
 
         <h1>Log In</h1>
         {errors.length > 0 &&

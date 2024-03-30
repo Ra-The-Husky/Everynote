@@ -1,4 +1,4 @@
-from .db import db, environment, SCHEMA
+from .db import db, environment, SCHEMA, add_prefix_for_prod
 
 class Note(db.Model):
     __tablename__ = 'notes'
@@ -7,8 +7,8 @@ class Note(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    notebook_id = db.Column(db.Integer, db.ForeignKey('notebooks.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
+    notebook_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('notebooks.id')), nullable=False)
     name = db.Column(db.String(50), nullable=False)
     caption = db.Column(db.String(50))
     info = db.Column(db.String(255))
