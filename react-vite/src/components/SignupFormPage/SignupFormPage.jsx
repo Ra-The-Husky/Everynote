@@ -13,6 +13,7 @@ function SignupFormPage() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
 
+
   if (sessionUser) return <Navigate to="/" replace={true} />;
 
   const handleSubmit = async (e) => {
@@ -24,6 +25,7 @@ function SignupFormPage() {
           "Confirm Password field must be the same as the Password field",
       });
     }
+
 
     const serverResponse = await dispatch(
       thunkSignup({

@@ -3,7 +3,7 @@ import { useModal } from "../../context/Modal";
 import { destroyNote } from "../../redux/notes";
 import { useNavigate } from "react-router-dom";
 
-function DeleteNoteModal({ noteId }) {
+function DeleteNoteModal({ noteId, notebook }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { closeModal } = useModal();

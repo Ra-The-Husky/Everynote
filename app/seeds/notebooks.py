@@ -2,7 +2,7 @@ from app.models import db, Notebook, environment, SCHEMA
 from sqlalchemy.sql import text
 
 
-# Adds a demo user, you can add other users here if you want
+# Adds a demo notebook, you can add more notebooks
 def seed_notebooks():
     notebook1 = Notebook(
         user_id=1, name='Skincare', description='Notes for skincare products')
