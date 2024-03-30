@@ -10,8 +10,8 @@ import "./Notes.css";
 function AllNotes() {
   //const userNotebooks = useSelector((state) => state.notebooks.notebooks);
   const navigate = useNavigate();
-  const userNotes = useSelector((state) => state.notes.allNotes);
-  const userNotebooks = useSelector((state) => state.notebooks.notebooks);
+  const userNotes = useSelector((state) => state.notes?.allNotes);
+  const userNotebooks = useSelector((state) => state.notebooks?.notebooks);
   const dispatch = useDispatch();
   const currDate = new Date();
   const month = currDate.getMonth();
@@ -72,7 +72,7 @@ function AllNotes() {
                         modalComponent={
                           <DeleteNoteModal
                             noteId={note.id}
-                            notebook={userNotebooks.find(
+                            notebook={userNotebooks && userNotebooks.find(
                               (notebook) => notebook.id === note.notebook_id
                             )}
                           />
