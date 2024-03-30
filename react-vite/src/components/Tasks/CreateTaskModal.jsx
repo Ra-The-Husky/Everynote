@@ -80,15 +80,14 @@ function CreateTaskModal() {
     <div className="createTaskModal">
       <h1>Create A New Task</h1>
       <form className="createTaskForm" onSubmit={submitTask}>
-        <div className="name">
-          <input
-            type="text"
-            placeholder="Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          ></input>
-          {errors.name && <p>{errors.name}</p>}
-        </div>
+        <input
+          type="text"
+          placeholder="Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        ></input>
+        {errors.name && <p>{errors.name}</p>}
+
         <div className="deadline">
           <input
             type="date"

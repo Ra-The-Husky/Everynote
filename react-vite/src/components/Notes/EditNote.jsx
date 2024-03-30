@@ -16,6 +16,7 @@ function EditNote() {
   const notes = useSelector((state) => state.notes?.allNotes);
   const noteNames = notes?.map((note) => note.name);
   const [name, setName] = useState();
+  const [caption, setCaption] = useState()
   const [info, setInfo] = useState();
   const [notebook_id, setNotebook_id] = useState(noteDeets?.notebook_id);
   const [tags, setTags] = useState();
@@ -25,6 +26,7 @@ function EditNote() {
     dispatch(noteInfo(Number(noteId))).then((note) => {
       setName(note.note.name);
       setInfo(note.note.info);
+      setCaption(note.note.caption)
       setTags(note.tags);
     });
     dispatch(homeThunk());
@@ -59,7 +61,9 @@ function EditNote() {
     const edits = {
       notebook_id,
       name,
+      caption,
       info,
+      date_created: new Date().toISOString().split("T").splice(0, 1).join(""),
     };
 
     // const tag = tags.split(" ");
@@ -82,6 +86,15 @@ function EditNote() {
             onChange={(e) => setName(e.target.value)}
           ></input>
           <p>{errors.name}</p>
+        </div>
+        <div className="caption">
+          <h3>Enter a caption</h3>
+          <input
+            type="text"
+            placeholder="Caption"
+            value={caption}
+            onChange={(e) => setCaption(e.target.value)}
+          ></input>
         </div>
         <div className="info">
           <textarea

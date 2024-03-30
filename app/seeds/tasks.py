@@ -3,7 +3,7 @@ from app.models import db, Task, environment, SCHEMA
 from sqlalchemy.sql import text
 from datetime import date,timedelta
 
-# Adds a demo user, you can add other users here if you want
+# Adds tasks to a demo user, you can add more tasks. Keep in mind the date format for python.
 def seed_tasks():
     task1 = Task(
         user_id=1, name='Organize files in cabinet', deadline=date.today()+timedelta(weeks=10),priority="Low",description="need to reorganize all the files in my work cabinet at some point. Also need to clean desk space",reminder=True

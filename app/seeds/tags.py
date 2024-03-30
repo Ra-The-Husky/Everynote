@@ -2,7 +2,7 @@ from app.models import db, Tag, environment, SCHEMA
 from sqlalchemy.sql import text
 
 
-# Adds a demo user, you can add other users here if you want
+# Adds additional tags to notes, add as many as you'd like. Keep in mind that notes can only have 5 tags max.
 def seed_tags():
     tag1 = Tag(
         user_id=1, note_id=1 , name='Brands')

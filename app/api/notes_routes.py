@@ -19,13 +19,14 @@ def get_notes():
 def edit_note(noteId):
      adjust_note = Note.query.get(noteId)
      data = request.get_json()
+     print(data, "is caption being passed in?")
      adjust_note.id=noteId
      adjust_note.user_id=current_user.id
      adjust_note.notebook_id=data['notebook_id']
      adjust_note.name=data['name']
      adjust_note.caption=data['caption']
      adjust_note.info=data['info']
-     adjust_note.info=data['date_created']
+     adjust_note.date_created=date.fromisoformat(data['date_created'])
      db.session.commit()
      return {'status': 201,
              'message': "Note Successfully Updated"}

@@ -24,13 +24,12 @@ export const homeThunk = () => async (dispatch) => {
   if (response.ok) {
     const data = await response.json();
     dispatch(getNotes(data.notes.reverse()));
-    console.log(data.notes)
     dispatch(getNotebook(data.notebooks));
     dispatch(getTasks(data.tasks))
   }
 };
 
-const initialState = { notes: null, notebook: null,tasks:null };
+const initialState = { notes: null, notebook: null, tasks:null };
 
 function homeReducer(state = initialState, action) {
   switch (action.type) {
