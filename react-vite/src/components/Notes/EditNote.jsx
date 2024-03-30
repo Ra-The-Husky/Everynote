@@ -43,7 +43,7 @@ function EditNote() {
     if (name?.length > 20) {
       errs.name = "Name cannot exceed 20 characters"
     }
-    if (noteNames?.includes(name)) {
+    if (noteNames?.includes(name) && name !== noteDeets.name) {
       errs.name = "Note already exists"
     }
     if (!info) {
