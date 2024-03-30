@@ -40,7 +40,7 @@ function LoginFormPage() {
 
         <h1>Log In</h1>
         {errors.length > 0 &&
-          errors.map((message) => <p key={message}>{message}</p>)}
+          errors.map((message) => <div className="error" key={message}>{message}</div>)}
         <form className="loginForm" onSubmit={handleSubmit}>
           <input
             type="text"
@@ -58,7 +58,7 @@ function LoginFormPage() {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          {errors.password || errors.email && <p>{errors.password || errors.email}</p>}
+          <span hidden={!errors.password || !errors.email} className="error">{errors.password || errors.email}</span>
           <span className="signupLink">
           <OpenModalMenuItem
             itemText="Don't have an account? Sign up NOW!"

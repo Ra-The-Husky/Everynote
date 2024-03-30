@@ -77,36 +77,9 @@ function EditNote() {
   };
 
   return (
-    <>
-      <h1>Edit Your Note</h1>
+    <div className="editNoteCont">
+      <h1 id="editNoteTitle">Edit Your Note</h1>
       <form onSubmit={submitChanges}>
-        <div className="name">
-          <input
-            type="text"
-            placeholder="Your note's name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          ></input>
-          <p>{errors.name}</p>
-        </div>
-        <div className="caption">
-          <h3>Enter a caption</h3>
-          <input
-            type="text"
-            placeholder="Caption"
-            value={caption}
-            onChange={(e) => setCaption(e.target.value)}
-          ></input>
-        </div>
-        <div className="info">
-          <textarea
-            type="text"
-            placeholder="Note's Information"
-            value={info}
-            onChange={(e) => setInfo(e.target.value)}
-          ></textarea>
-          <p>{errors.info}</p>
-        </div>
         <div className="notebook">
           <div>Assigned Notebook</div>
           <select onChange={(e) => setNotebook_id(e.target.value)}>
@@ -119,23 +92,53 @@ function EditNote() {
               ))}
           </select>
         </div>
-        <div className="tags">
-          <p>Tags</p>
-          <div>
-            {tags && tags?.map((tag) => <p key={tag.id}>#{tag.name}</p>)}
+
+        <div className="editNoteName">
+          <input
+            type="text"
+            placeholder="Your note's name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          ></input>
+          <p>{errors.name}</p>
+        </div>
+
+        <div className="editNoteCaption">
+          <input
+            type="text"
+            placeholder="Caption"
+            value={caption}
+            onChange={(e) => setCaption(e.target.value)}
+          ></input>
+        </div>
+
+        <div className="editNoteContent editContentForm">
+          <textarea
+            type="text"
+            placeholder="Note's Information"
+            value={info}
+            onChange={(e) => setInfo(e.target.value)}
+          ></textarea>
+          <p>{errors.info}</p>
+        </div>
+
+        <div className="editNoteFooter">
+          <div className="editNoteTags">
+            {tags && tags?.map((tag) => <div className="editNoteTag" key={tag.id}>#{tag.name}</div>)}
+          </div>
+
+          <div className="editNoteButtons">
+            <button
+              className="new-note-submit save-disable editNoteSubmit"
+              type="submit"
+              disabled={Object.values(errors).length}
+            >
+              Save
+            </button>
           </div>
         </div>
-        <div className="buttons">
-          <button
-            className="button"
-            type="submit"
-            disabled={Object.values(errors).length}
-          >
-            Save Changes
-          </button>
-        </div>
       </form>
-    </>
+    </div>
   );
 }
 

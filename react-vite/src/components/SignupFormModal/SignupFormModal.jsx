@@ -23,7 +23,7 @@ function SignupFormModal() {
     if (password !== confirmPassword) {
       return setErrors({
         confirmPassword:
-        "Confirm Password field must be the same as the Password field",
+          "Confirm Password field must be the same as the Password field",
       });
     }
 
@@ -33,64 +33,62 @@ function SignupFormModal() {
         username,
         password,
       })
-      );
+    );
 
-      if (serverResponse) {
-        setErrors(serverResponse);
-      } else {
-        closeModal();
-      }
-      dispatch(newNotebookThunk(newUserNotebook))
+    if (serverResponse) {
+      setErrors(serverResponse);
+    } else {
+      closeModal();
+    }
+    dispatch(newNotebookThunk(newUserNotebook))
   };
 
   return (
-    <>
+    <div className="signupModal">
       <h1>Sign Up</h1>
-      {errors.server && <p>{errors.server}</p>}
-      <form onSubmit={handleSubmit}>
-        <label>
-          Email
-          <input
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </label>
-        {errors.email && <p>{errors.email}</p>}
-        <label>
-          Username
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-        </label>
-        {errors.username && <p>{errors.username}</p>}
-        <label>
-          Password
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </label>
-        {errors.password && <p>{errors.password}</p>}
-        <label>
-          Confirm Password
-          <input
-            type="password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-          />
-        </label>
-        {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
-        <button type="submit">Sign Up</button>
+      {errors.server && <div className="error error-task">{errors.server}</div>}
+      <form className="signupForm" onSubmit={handleSubmit}>
+
+        <input
+          placeholder="Email"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        {errors.email && <div className="error error-task">{errors.email}</div>}
+
+        <input
+          placeholder="Username"
+          type="text"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          required
+        />
+        {errors.username && <div className="error error-task">{errors.username}</div>}
+
+
+        <input
+          placeholder="Password"
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+        {errors.password && <div className="error error-task">{errors.password}</div>}
+
+        <input
+          placeholder="Confirm Password"
+          type="password"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          required
+        />
+        {errors.confirmPassword && <div className="error error-task">{errors.confirmPassword}</div>}
+
+        <button className="new-note-submit save-disable" type="submit" disabled={!username || !password || !confirmPassword || !email}>Sign Up</button>
       </form>
-    </>
+    </div>
   );
 }
 
