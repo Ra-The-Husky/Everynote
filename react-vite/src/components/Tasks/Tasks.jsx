@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { tasksThunk, finishedTaskThunk } from "../../redux/tasks";
 import EditTaskModal from "./EditTaskModal";
+import DeleteTaskModal from "./DeleteTaskModal";
 import { useModal } from "../../context/Modal";
 import './Tasks.css'
 
@@ -24,7 +25,8 @@ function Tasks() {
         }
     }
 
-    const editTask = (taskId) => setModalContent(<EditTaskModal taskId={taskId} />)
+    const editTask = (task) => setModalContent(<EditTaskModal task={task} />)
+    const deleteTask = (task) => setModalContent(<DeleteTaskModal task={task} />)
 
     return (
         <>
@@ -49,7 +51,7 @@ function Tasks() {
                             <td className={`col`}>
                                 <div className="editButtons">
                                     <i className="fa-regular fa-pen-to-square" onClick={() => editTask(task)}></i>
-                                    <i className="fa-regular fa-trash-can" onClick={() => alert("Feature coming soon!")}></i>
+                                    <i className="fa-regular fa-trash-can" onClick={() => deleteTask(task)}></i>
                                 </div>
                             </td>
                         </tr>

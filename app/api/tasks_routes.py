@@ -35,3 +35,28 @@ def complete_task(taskId):
   task.status = True
   db.session.commit()
   return {"message": "completed successfully"}
+
+@tasks_route.route('/<int:taskId>/edit', methods=['PUT'])
+@login_required
+def edit_task(taskId):
+    data = request.get_json()
+    edited_task = Task.query.get(taskId)
+    edited_task.name = data["name"]
+    edited_task.deadline = date.fromisoformat(data['deadline'])
+    edited_task.priority = data["priority"]
+    edited_task.description = data["description"]
+    edited_task.reminder = data["reminder"]
+
+    db.session.commit()
+
+    return {"message": "edited successfully"}
+
+@tasks_route.route('<int:taskId>', methods=['DELETE'])
+@login_required
+def destroy_task(taskId):
+        task = Task.query.get(taskId)
+        db.session.delete(task)
+        db.session.commit()
+        return {'status': 200,
+                'message': "Task Successfully Deleted"
+                }
