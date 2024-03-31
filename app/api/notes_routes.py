@@ -98,7 +98,7 @@ def add_tags(noteId):
     existing_tags = Note.query.get(noteId).tags
     tags = request.get_json()
     for tag in existing_tags:
-              destroy_tag(tag.id)
+              destroy_tag(noteId,tag.id)
     for tag in tags:
          new_tag = Tag(
               user_id=current_user.id,

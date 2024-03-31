@@ -54,8 +54,11 @@ function EditNote() {
     if (info?.length < 30) {
       errs.info = "Note information must be a minimium of 30 characters";
     }
+    if (tags?.length > 9) {
+      errs.tags = "only 5 tags are allowed";
+    }
     setErrors(errs);
-  }, [name, info, noteDeets.name, noteNames]);
+  }, [name, info, noteDeets.name, noteNames, tags]);
 
   const submitChanges = async (e) => {
     e.preventDefault();
@@ -68,14 +71,7 @@ function EditNote() {
       date_created: new Date().toISOString().split("T").splice(0, 1).join(""),
     };
 
-
-
-
-
     const tag = tags.split(" ");
-    if (tag.length > 5) {
-      setErrors((errors.tags = "Too many entered tags"));
-    }
 
     await dispatch(editNote(noteId, edits)).then(() => {
       dispatch(newTags(noteId, tag));
@@ -133,10 +129,14 @@ function EditNote() {
           <div className="editNoteTags">
             <input
               type="text"
-              value={Array.isArray(tags) ? tags.map((tag) => tag.name).join(" ") : tags}
+              value={
+                Array.isArray(tags)
+                  ? tags.map((tag) => tag.name).join(" ")
+                  : tags
+              }
               onChange={(e) => setTags(e.target.value)}
             ></input>
-            {/* {tags && tags?.map((tag) => <div className="editNoteTag" key={tag.id}>#{tag.name}</div>)} */}
+            {tags && <div className="error">{errors.tags}</div>}
           </div>
 
           <div className="editNoteButtons">
