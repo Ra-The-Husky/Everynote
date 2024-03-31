@@ -34,6 +34,26 @@ export const createTask = (task) => async (dispatch) => {
   }
 };
 
+export const editTaskThunk = (taskId, task) => async (dispatch) => {
+  const response = await fetch(`/api/tasks/${taskId}/edit`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(task)
+  });
+  if (response.ok) {
+    dispatch(tasksThunk());
+  }
+};
+
+export const destroyTask = (taskId) => async (dispatch) => {
+  const response = await fetch(`/api/tasks/${taskId}`, {
+    method: 'DELETE'
+  });
+  if (response.ok) {
+    dispatch(tasksThunk())
+  }
+};
+
 export const finishedTaskThunk = (taskId) => async (dispatch) => {
   await fetch(`/api/tasks/complete-task/${taskId}`)
   dispatch(tasksThunk())

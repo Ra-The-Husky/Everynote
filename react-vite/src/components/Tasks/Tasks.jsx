@@ -1,10 +1,13 @@
-import {useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { tasksThunk, finishedTaskThunk } from "../../redux/tasks";
-
+import EditTaskModal from "./EditTaskModal";
+import DeleteTaskModal from "./DeleteTaskModal";
+import { useModal } from "../../context/Modal";
 import './Tasks.css'
 
 function Tasks() {
+    const { setModalContent } = useModal();
     const dispatch = useDispatch();
     const tasks = useSelector((state) => state.tasks?.tasks)
 
@@ -21,6 +24,9 @@ function Tasks() {
             document.getElementById(taskId).className = e.target.checked
         }
     }
+
+    const editTask = (task) => setModalContent(<EditTaskModal task={task} />)
+    const deleteTask = (task) => setModalContent(<DeleteTaskModal task={task} />)
 
     return (
         <>
@@ -39,10 +45,15 @@ function Tasks() {
                     <tbody key={task.id} id={task.id} className={`${task.status}`}>
                         <tr className="row">
                             <td scope="row" className={`col2`}><span className="notebookName" >{task.name}</span></td>
-                            <td className={`col`}>{task.deadline.split(" ").splice(1,3).join(' ')}</td>
+                            <td className={`col`}>{task.deadline.split(" ").splice(1, 3).join(' ')}</td>
                             <td className={`col`}>{task.description}</td>
                             <td className={`col`}><input type="checkbox" checked={task.status} disabled={task.status} onChange={(e) => handleChange(e, task.id)} /></td>
-                            <td className={`col`}><button onClick={() => {alert("Feature coming soon")}}>Delete</button></td>
+                            <td className={`col`}>
+                                <div className="editButtons">
+                                    <i className="fa-regular fa-pen-to-square" onClick={() => editTask(task)}></i>
+                                    <i className="fa-regular fa-trash-can" onClick={() => deleteTask(task)}></i>
+                                </div>
+                            </td>
                         </tr>
                     </tbody>
                 ))}
