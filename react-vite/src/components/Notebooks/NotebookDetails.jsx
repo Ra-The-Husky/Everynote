@@ -6,7 +6,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 function NotebookDetails() {
     const { notebookId } = useParams()
-    const notebook = useSelector((state) => state.notebooks.notebook);
+    const notebook = useSelector((state) => state.notebooks?.notebook);
     const navigate = useNavigate()
     const dispatch = useDispatch();
 
