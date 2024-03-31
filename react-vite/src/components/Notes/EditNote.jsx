@@ -10,29 +10,35 @@ function EditNote() {
   const dispatch = useDispatch();
   const noteDeets = useSelector((state) => state.notes?.note);
   const notebooks = useSelector((state) => state.home.notebook);
-  const defaultNotebook = notebooks && notebooks?.find(
-    (notebook) => notebook.id === noteDeets.notebook_id
-  );
+  const tagsData = useSelector((state) => state?.notes.tags[0]);
+  const defaultNotebook =
+    notebooks &&
+    notebooks?.find((notebook) => notebook.id === noteDeets.notebook_id);
   const notes = useSelector((state) => state.notes?.allNotes);
   const noteNames = notes?.map((note) => note.name);
   const [name, setName] = useState();
-  const [caption, setCaption] = useState()
+  const [caption, setCaption] = useState();
   const [info, setInfo] = useState();
   const [notebook_id, setNotebook_id] = useState(noteDeets?.notebook_id);
   const [tags, setTags] = useState();
   const [errors, setErrors] = useState({});
-
+  useEffect(() => {
+    if (tagsData) {
+      const tagString = tagsData.map((tag) => tag.name).join(" ");
+      setTags(tagString);
+    }
+  }, [tagsData]);
   useEffect(() => {
     dispatch(noteInfo(Number(noteId))).then((note) => {
-      if (note.message === "page not found") navigate('/not-found')
-      if (note.message === 'unauthorized') navigate("/unauthorized")
+      if (note.message === "page not found") navigate("/not-found");
+      if (note.message === "unauthorized") navigate("/unauthorized");
       setName(note.note.name);
       setInfo(note.note.info);
-      setCaption(note.note.caption)
-      setTags(note.tags);
+      setCaption(note.note.caption);
+      setTags(note.tags.map((tag) => ({ name: tag.name })));
     });
     dispatch(homeThunk());
-  }, [dispatch,navigate,noteId]);
+  }, [dispatch, navigate, noteId]);
 
   useEffect(() => {
     const errs = {};
@@ -40,13 +46,13 @@ function EditNote() {
       errs.name = "Name of note required";
     }
     if (name?.includes("notebook")) {
-      errs.name = 'Name of note cannot contain the word "notebook"'
+      errs.name = 'Name of note cannot contain the word "notebook"';
     }
     if (name?.length > 20) {
-      errs.name = "Name cannot exceed 20 characters"
+      errs.name = "Name cannot exceed 20 characters";
     }
     if (noteNames?.includes(name) && name !== noteDeets.name) {
-      errs.name = "Note already exists"
+      errs.name = "Note already exists";
     }
     if (!info) {
       errs.info = "Note information required";
@@ -55,10 +61,11 @@ function EditNote() {
       errs.info = "Note information must be a minimium of 30 characters";
     }
     setErrors(errs);
-  }, [name, info,noteDeets.name,noteNames]);
+  }, [name, info, noteDeets.name, noteNames]);
 
   const submitChanges = async (e) => {
     e.preventDefault();
+    const tagArray = tags.split(" ");
 
     const edits = {
       notebook_id,
@@ -66,6 +73,7 @@ function EditNote() {
       caption,
       info,
       date_created: new Date().toISOString().split("T").splice(0, 1).join(""),
+      tags: tagArray,
     };
 
     // const tag = tags.split(" ");
@@ -124,7 +132,13 @@ function EditNote() {
 
         <div className="editNoteFooter">
           <div className="editNoteTags">
-            {tags && tags?.map((tag) => <div className="editNoteTag" key={tag.id}>#{tag.name}</div>)}
+            <label htmlFor="tags">Tags:</label>
+            <input
+              type="text"
+              id="tags"
+              value={tags}
+              onChange={(e) => setTags(e.target.value)}
+            />
           </div>
 
           <div className="editNoteButtons">

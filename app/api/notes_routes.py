@@ -20,6 +20,16 @@ def edit_note(noteId):
      adjust_note = Note.query.get(noteId)
      if adjust_note.user_id == current_user.id:
         data = request.get_json()
+        Tag.query.filter_by(note_id=noteId).delete()
+        db.session.commit()
+        tags = data.get("tags,",[])
+        for tag_name in tags:
+            new_tag = Tag(
+                 user_id= current_user.id,
+                 note_id=noteId,
+                 name=tag_name,
+            )
+        db.session.add(new_tag)
         print(data, "is caption being passed in?")
         adjust_note.id=noteId
         adjust_note.user_id=current_user.id
