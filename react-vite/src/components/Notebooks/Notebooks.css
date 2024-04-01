@@ -52,12 +52,18 @@
   align-items: center;
   width: fit-content;
   padding: 20px;
+  background: linear-gradient(90deg, rgba(44,166,99,255), rgba(75,177,116,255));
+
 }
 
 .createNotebookForm {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.createNotebookForm > h1 {
+  color: whitesmoke;
 }
 
 .createNotebookForm > div {
@@ -89,10 +95,13 @@
   flex-direction: column;
   align-items: center;
   padding: 20px;
+  background: linear-gradient(90deg, rgba(44,166,99,255), rgba(75,177,116,255));
+  height: 52vh;
 }
 
 .editNotebookModal > h1 {
   margin-top: 0;
+  color: whitesmoke;
 }
 
 .editNotebookForm {
@@ -100,7 +109,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  height: 100px;
+  height: 100%;
 }
 
 .notebooks-cont {
@@ -119,4 +128,33 @@
 
 .table-head {
   height: 50px;
+}
+
+.new-notebook-info {
+  resize: none;
+  height: 5rem;
+  width: 100%;
+  text-align: center;
+}
+
+.name {
+  width: 100%;
+  height: 1.5rem;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.create-notebook-img {
+  width: 300px;
+}
+
+.edit-notebook-button {
+  color: whitesmoke;
+  background-color: black;
+  width: 5rem;
+  height: 1.5rem;
+}
+
+.edit-notebook-button {
+  margin-top: 10px;
 }

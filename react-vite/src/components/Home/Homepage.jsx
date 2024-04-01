@@ -68,7 +68,7 @@ function Homepage() {
             ) : (
               <div className="homeNotes">
                 {userNotes &&
-                  userNotes.map((note) => (
+                  notes.map((note) => (
                     <div className="homeNote" key={note.id}>
                       <div className="">
                         <h4>{note.name}</h4>

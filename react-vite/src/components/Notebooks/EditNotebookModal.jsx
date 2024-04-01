@@ -28,27 +28,26 @@ function EditNotebookModal({ notebook }) {
 
   return (
     <div className="editNotebookModal">
+      <img className="create-notebook-img" src="https://res.cloudinary.com/dfxxgifho/image/upload/v1710376011/EveryNote_iw1qhe.png" />
       <h1>Edit {name&&name}</h1>
       <form className="editNotebookForm" onSubmit={submitNotebook}>
-        <div className="name">
           <input
+          className="name"
             type="text"
             placeholder="Name"
             value={name}
             onChange={(e) => setName(e.target.value)}
           ></input>
-        </div>
-        <div className="info">
           <textarea
+          className="new-notebook-info edit-notebook-info"
             type="text"
             placeholder="Description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           ></textarea>
-        </div>
         <div className="buttons">
           <button
-            className="button"
+            className="edit-notebook-button"
             type="submit"
             disabled={!name || !description}
           >

@@ -52,7 +52,7 @@ function CreateNote() {
       errs.info = "Note information must be a minimium of 30 characters";
     }
     setErrors(errs);
-  }, [name, info,noteNames]);
+  }, [name, info]);
 
   const submitNote = async (e) => {
     e.preventDefault();
@@ -64,6 +64,7 @@ function CreateNote() {
       info,
       date_created: new Date().toISOString().split("T").splice(0, 1).join(""),
     };
+    console.log(notebook_id)
     const tag = tags.split(" ");
     if (tag.length > 5) {
       setErrors((errors.tags = "Too many tags. Tag limit (5)"));
@@ -123,6 +124,7 @@ function CreateNote() {
             {params.size && (
               <option value={+params.get("id")}>{params.get("name")}</option>
             )}
+            <option selected disabled hidden>Select a Notebook</option>
             {notebooks &&
               !params.size &&
               notebooks.map((notebook) => (
