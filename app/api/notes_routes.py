@@ -1,5 +1,5 @@
 from flask import Blueprint, request, redirect, url_for
-from app.models import Note, User, Tag, db
+from app.models import Note, User, Tag, Notebook, db
 from app.forms.note_form import NoteForm
 from app.forms.tag_form import TagForm
 from datetime import date
@@ -42,6 +42,9 @@ def get_note(noteId):
         notes = Note.query.get(noteId)
         if notes and notes.user_id == current_user.id:
                 tags = Tag.query.filter(Tag.note_id == noteId).all()
+                print(notes.notebooks.id)
+                notebook = {"notebookId":notes.notebooks.id,
+                            "notebookName": notes.notebooks.name}
                 # print(tags, 'ALL THE NOTES TAGS!!!')
                 note_data = notes.to_dict()
                 # print(note_data, "-----> Note Data")
@@ -50,6 +53,7 @@ def get_note(noteId):
                 data = {
                 'note': note_data,
                 'tags': tag_data,
+                'notebook': notebook
                 }
                 return data
         elif notes:

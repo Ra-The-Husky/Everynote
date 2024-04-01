@@ -14,16 +14,16 @@ function Homepage() {
 
   const dispatch = useDispatch();
 
-  if (userTasks && userTasks.length > 0 && tasks.length === 0) {
-    setTasks([userTasks[0], userTasks[1], userTasks[2]]);
-  }
-
-  if (userNotes && userNotes.length > 0 && notes.length === 0) {
-    setNotes([userNotes[0], userNotes[1], userNotes[2]]);
-  }
-
   useEffect(() => {
-    dispatch(homeThunk());
+    dispatch(homeThunk()).then((data) => {
+      if (data && data.tasks) {
+        setTasks([data.tasks[0], data.tasks[1], data.tasks[2]]);
+      }
+
+      if (data && data.notes) {
+        setNotes([data.notes[0], data.notes[1], data.notes[2]]);
+      }
+    });
   }, [dispatch]);
 
   return (
@@ -46,11 +46,11 @@ function Homepage() {
               <div>
                 {tasks &&
                   tasks.map((task) => (
-                    <div className="homeTask" key={task?.id}>
+                    <div className="homeTask" key={task && task?.id}>
                       <div className="taskInfo">
-                        <p>{task?.name}</p>
-                        <p>{moment(task?.deadline).format("MM-DD-YYYY")}</p>
-                        <p>{task?.priority}</p>
+                        <p>{task && task?.name}</p>
+                        <p>{moment(task && task?.deadline).format("MM-DD-YYYY")}</p>
+                        <p>{task && task?.priority}</p>
                       </div>
                     </div>
                   ))}
@@ -69,13 +69,13 @@ function Homepage() {
               <div className="homeNotes">
                 {userNotes &&
                   notes.map((note) => (
-                    <div className="homeNote" key={note.id}>
+                    <div className="homeNote" key={note && note.id}>
                       <div className="">
-                        <h4>{note.name}</h4>
-                        <p>{note.info}</p>
+                        <h4>{note && note.name}</h4>
+                        <p>{note && note.info}</p>
                       </div>
                       <div className="homeTags">
-                        {note.tags &&
+                        {note && note.tags &&
                           note.tags.map((tag) => <div key={tag.id}>{tag.name}</div>)}
                       </div>
                     </div>

@@ -26,6 +26,7 @@ export const homeThunk = () => async (dispatch) => {
     dispatch(getNotes(data.notes.reverse()));
     dispatch(getNotebook(data.notebooks));
     dispatch(getTasks(data.tasks))
+    return data
   }
 };
 
