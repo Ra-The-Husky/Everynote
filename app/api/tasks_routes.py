@@ -45,7 +45,7 @@ def edit_task(taskId):
     edited_task.deadline = date.fromisoformat(data['deadline'])
     edited_task.priority = data["priority"]
     edited_task.description = data["description"]
-    edited_task.reminder = data["reminder"]
+    edited_task.reminder = bool(data["reminder"] == "true")
 
     db.session.commit()
 
