@@ -63,7 +63,7 @@ function EditNote() {
       errs.tags = "only 5 tags are allowed";
     }
     setErrors(errs);
-  }, [name, info, noteNames, tags, noteDeets?.name]);
+  }, [name, info, noteNames, tags, noteDeets]);
 
   const submitChanges = async (e) => {
     e.preventDefault();
