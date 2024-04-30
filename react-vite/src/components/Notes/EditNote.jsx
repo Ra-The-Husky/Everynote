@@ -22,7 +22,7 @@ function EditNote() {
   const [notebook_id, setNotebook_id] = useState(noteDeets?.notebook_id);
   const [tags, setTags] = useState();
   const [errors, setErrors] = useState({});
-  console.log(notebooks, "this is  note books");
+ 
   useEffect(() => {
     dispatch(notebookThunk())
     dispatch(noteInfo(Number(noteId))).then((note) => {

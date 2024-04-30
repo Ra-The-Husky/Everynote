@@ -5,7 +5,7 @@ import { editNotebookThunk } from "../../redux/notebooks";
 import { useModal } from "../../context/Modal";
 
 function EditNotebookModal({ notebook }) {
-  console.log(notebook);
+
   const { closeModal } = useModal();
 
   const navigate = useNavigate();

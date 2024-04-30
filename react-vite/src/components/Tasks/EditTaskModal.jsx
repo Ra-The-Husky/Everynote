@@ -56,7 +56,7 @@ function EditTaskModal({ task }) {
     };
 
     if (Object.values(errors).length) {
-      return console.log(errors);
+      return errors
     } else {
       dispatch(editTaskThunk(task.id, editedTask)).then(() => {
         closeModal();

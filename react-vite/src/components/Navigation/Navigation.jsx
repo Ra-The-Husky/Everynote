@@ -24,7 +24,7 @@ function Navigation() {
   };
 
   const handleSubmit = (e) => {
-    console.log(e.target.innerText)
+
     switch (e.target.innerText) {
       case "Notebooks":
         return navigate('/notebooks');

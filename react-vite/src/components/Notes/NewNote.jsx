@@ -64,14 +64,14 @@ function CreateNote() {
       info,
       date_created: new Date().toISOString().split("T").splice(0, 1).join(""),
     };
-    console.log(notebook_id)
+
     const tag = tags.split(" ");
     if (tag.length > 5) {
       setErrors((errors.tags = "Too many tags. Tag limit (5)"));
     }
 
     if (Object.values(errors).length) {
-      return console.log(errors);
+      return errors
     } else {
       await dispatch(createNote(newNote)).then((note) => {
         dispatch(newTags(note.note.id, tag));

@@ -62,7 +62,7 @@ function CreateTaskModal() {
     };
 
     if (Object.values(errors).length) {
-      return console.log(errors);
+      return errors
     } else {
       dispatch(createTask(newTask)).then(() => {
         closeModal();
