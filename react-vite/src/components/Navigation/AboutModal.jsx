@@ -18,8 +18,8 @@ function AboutModal() {
         to-do lists, or organizing thoughts, Everynote offers the tools you need
         to keep everything neatly organized and easily accessible.
       </p>
-      <h4>Created by:</h4>
-      <div className="about-modal">
+      <h4 style={{borderBottom: "solid 1px black", width: "100%", textAlign: "center", fontSize: "1.5rem", paddingBottom: "15px"}}>Created by:</h4>
+      <div className="contributers">
         <h3>Andrew McCord</h3>
         <a href="https://github.com/a2011mccord">a2011mccord</a>
 
@@ -30,15 +30,15 @@ function AboutModal() {
         <a href="https://github.com/Ra-The-Husky">Ra-The-Husky</a>
 
         <h3>Mohammad Najad</h3>
-        <a href="https://github.com/Mjcoco09">Mjcoco09</a>
+        <a href="https://github.com/Mjcoco09" style={{paddingBottom: "10%"}}>Mjcoco09</a>
 
         <p>
           For feedback feel free to
           contact us via email or connect with us on GitHub.
         </p>
 
-        <h4>Get in Touch:</h4>
-        <p>Email:comingSoon@noEmail.com</p>
+        <h4 style={{fontSize: "1.15rem"}}>Get in Touch:</h4>
+        <p >Email:comingSoon@noEmail.com</p>
         <a href="https://github.com/Ra-The-Husky/Everynote/">
           Everynote GitHub
         </a>

@@ -1,7 +1,10 @@
 .about-modal {
   font-family: "Arial", sans-serif;
-  max-width: 500px;
+  width: 40vw;
   margin: 50px auto;
+  max-height: 80vh;
+  overflow-y: auto;
+  padding-left: 15px;
 }
 
 .about-modal h2 {
@@ -28,4 +31,10 @@
 
 .about-modal a:hover {
   color: #0077df;
+}
+
+.contributers {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
