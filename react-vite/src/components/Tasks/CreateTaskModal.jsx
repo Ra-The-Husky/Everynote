@@ -72,10 +72,6 @@ function CreateTaskModal() {
     }
   };
 
-  // const handleChange = (date) => {
-  //   setDeadline(date);
-  // };
-
   return (
     <div className="createTaskModal">
       <div className="inner-task">
