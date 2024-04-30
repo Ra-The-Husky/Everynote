@@ -100,7 +100,8 @@ def add_tags(noteId):
     for tag in existing_tags:
               destroy_tag(noteId,tag.id)
     for tag in tags:
-         new_tag = Tag(
+         if(tag):
+          new_tag = Tag(
               user_id=current_user.id,
               note_id=noteId,
               name=tag,
