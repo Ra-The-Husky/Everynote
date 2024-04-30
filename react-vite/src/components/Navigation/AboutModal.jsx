@@ -12,9 +12,9 @@ function AboutModal() {
         personalized and organized note-taking experience tailored to their
         preferences. We understand that most people prefer to keep their notes
         and tasks for themselves, but not in a way that results in cluttered and
-        disorganized files. That's why we developed Everynote—to provide a
+        disorganized files. That&apos;s why we developed Everynote—to provide a
         solution that helps users maintain their notes and tasks in a structured
-        and user-friendly manner. Whether you're jotting down ideas, creating
+        and user-friendly manner. Whether you&apos;re jotting down ideas, creating
         to-do lists, or organizing thoughts, Everynote offers the tools you need
         to keep everything neatly organized and easily accessible.
       </p>

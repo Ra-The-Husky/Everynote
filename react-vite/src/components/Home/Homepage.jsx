@@ -8,7 +8,6 @@ import "./Homepage.css";
 function Homepage() {
   const userNotes = useSelector((state) => state.home?.notes);
   const userNotebooks = useSelector((state) => state.home?.notebook);
-  const userTasks = useSelector((state) => state.home?.tasks);
   const [tasks, setTasks] = useState([]);
   const [notes, setNotes] = useState([]);
 

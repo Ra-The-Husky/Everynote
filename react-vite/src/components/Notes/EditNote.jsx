@@ -22,7 +22,7 @@ function EditNote() {
   const [notebook_id, setNotebook_id] = useState(noteDeets?.notebook_id);
   const [tags, setTags] = useState();
   const [errors, setErrors] = useState({});
- 
+
   useEffect(() => {
     dispatch(notebookThunk())
     dispatch(noteInfo(Number(noteId))).then((note) => {
@@ -63,7 +63,7 @@ function EditNote() {
       errs.tags = "only 5 tags are allowed";
     }
     setErrors(errs);
-  }, [name, info, noteNames,tags]);
+  }, [name, info, noteNames, tags, noteDeets.name]);
 
   const submitChanges = async (e) => {
     e.preventDefault();
