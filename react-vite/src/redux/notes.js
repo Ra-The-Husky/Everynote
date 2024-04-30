@@ -6,6 +6,7 @@ const EDIT_NOTE = "notes/EditNote";
 const REMOVE_NOTE = "notes/RemoveNote";
 const ADD_TAGS = "notes/AddTags";
 const REMOVE_TAG = "notes/RemoveTag";
+const GET_NOTEBOOK = 'notes/GetNotebook'
 
 const getNotes = (notes) => ({
   type: ALL_NOTES,
@@ -47,6 +48,11 @@ const deleteTag = (tagId) => ({
   tagId,
 });
 
+const getNotebook = (notebook) => ({
+  type: GET_NOTEBOOK,
+  notebook
+})
+
 export const allNotes = () => async (dispatch) => {
   const response = await fetch("/api/notes");
   if (response.ok) {
@@ -61,6 +67,7 @@ export const noteInfo = (noteId) => async (dispatch) => {
   if (response.ok) {
     dispatch(getNote(data.note));
     dispatch(getTags(data.tags));
+    dispatch(getNotebook(data.notebook))
     return data;
   } else {
     return data
@@ -152,6 +159,8 @@ function notesReducer(state = initialState, action) {
       return { ...state, note: action.note };
     case ADD_TAGS:
       return { ...state, tags: action.tags };
+    case GET_NOTEBOOK:
+      return { ...state, noteNotebook: action.notebook}
     default:
       return state;
   }

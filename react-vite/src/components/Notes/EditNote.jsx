@@ -9,10 +9,8 @@ function EditNote() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const noteDeets = useSelector((state) => state.notes?.note);
-  const notebooks = useSelector((state) => state.home?.notebook);
-  const defaultNotebook = notebooks && notebooks?.find(
-    (notebook) => notebook.id === noteDeets.notebook_id
-  );
+  const notebooks = useSelector((state) => state.notebooks?.notebooks);
+  const noteNotebook = useSelector((state) => state.notes?.noteNotebook);
   const notes = useSelector((state) => state.notes?.allNotes);
   const noteNames = notes && notes?.map((note) => note.name);
   const [name, setName] = useState();
@@ -55,7 +53,7 @@ function EditNote() {
       errs.info = "Note information must be a minimium of 30 characters";
     }
     setErrors(errs);
-  }, [name, info,noteDeets.name,noteNames]);
+  }, [name, info,noteNames]);
 
   const submitChanges = async (e) => {
     e.preventDefault();
@@ -83,7 +81,7 @@ function EditNote() {
         <div className="notebook">
           <div>Assigned Notebook</div>
           <select onChange={(e) => setNotebook_id(e.target.value)}>
-            <option value={defaultNotebook?.id}>{defaultNotebook?.name}</option>
+            <option value={noteNotebook && noteNotebook.notebookId}>{noteNotebook && noteNotebook.notebookName}</option>
             {notebooks &&
               notebooks?.map((notebook) => (
                 <option key={notebook.id} value={notebook.id}>
