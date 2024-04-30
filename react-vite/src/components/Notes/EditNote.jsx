@@ -3,16 +3,17 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { editNote, newTags, noteInfo } from "../../redux/notes";
 import { homeThunk } from "../../redux/home";
-
+import {notebookThunk} from '../../redux/notebooks'
 function EditNote() {
   const { noteId } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const noteDeets = useSelector((state) => state.notes?.note);
-  const notebooks = useSelector((state) => state.home?.notebook);
-  const defaultNotebook =
-    notebooks &&
-    notebooks?.find((notebook) => notebook.id === noteDeets.notebook_id);
+  const notebooks = useSelector((state) => state.notebooks.notebooks);
+  const noteNotebook = useSelector((state) => state.notes.noteNotebook);
+  // const noteNotebook =
+  //   notebooks &&
+  //   notebooks?.find((notebook) => notebook.id === noteDeets.notebook_id);
   const notes = useSelector((state) => state.notes?.allNotes);
   const noteNames = notes && notes?.map((note) => note.name);
   const [name, setName] = useState();
@@ -21,14 +22,15 @@ function EditNote() {
   const [notebook_id, setNotebook_id] = useState(noteDeets?.notebook_id);
   const [tags, setTags] = useState();
   const [errors, setErrors] = useState({});
-
+  console.log(notebooks, "this is  note books");
   useEffect(() => {
+    dispatch(notebookThunk())
     dispatch(noteInfo(Number(noteId))).then((note) => {
-      if (note && note.message === "page not found") navigate('/not-found')
-      if (note && note.message === 'unauthorized') navigate("/unauthorized")
+      if (note && note.message === "page not found") navigate("/not-found");
+      if (note && note.message === "unauthorized") navigate("/unauthorized");
       setName(note.note?.name);
       setInfo(note.note?.info);
-      setCaption(note.note?.caption)
+      setCaption(note.note?.caption);
       setTags(note.tags);
     });
     dispatch(homeThunk());
@@ -61,7 +63,7 @@ function EditNote() {
       errs.tags = "only 5 tags are allowed";
     }
     setErrors(errs);
-  }, [name, info,noteNames]);
+  }, [name, info, noteNames,tags]);
 
   const submitChanges = async (e) => {
     e.preventDefault();
@@ -75,7 +77,6 @@ function EditNote() {
     };
 
     const tag = tags.split(" ");
-
     await dispatch(editNote(noteId, edits)).then(() => {
       dispatch(newTags(noteId, tag));
       navigate(`/notes/${noteId}`);
@@ -89,7 +90,9 @@ function EditNote() {
         <div className="notebook">
           <div>Assigned Notebook</div>
           <select onChange={(e) => setNotebook_id(e.target.value)}>
-            <option value={noteNotebook && noteNotebook.notebookId}>{noteNotebook && noteNotebook.notebookName}</option>
+            <option value={noteNotebook && noteNotebook.notebookId}>
+              {noteNotebook && noteNotebook.notebookName}
+            </option>
             {notebooks &&
               notebooks?.map((notebook) => (
                 <option key={notebook.id} value={notebook.id}>
@@ -130,9 +133,16 @@ function EditNote() {
 
         <div className="editNoteFooter">
           <div className="editNoteTags">
-            <input type="text"
-            value={tags && tags.map((tag) => tag.name).join(" ")}
-            />
+            <input
+              type="text"
+              value={
+                Array.isArray(tags)
+                  ? tags.map((tag) => tag.name).join(" ")
+                  : tags
+              }
+              onChange={(e) => setTags(e.target.value)}
+            ></input>
+             {tags && <div className="error">{errors.tags}</div>}
           </div>
 
           <div className="editNoteButtons">

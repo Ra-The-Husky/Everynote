@@ -16,7 +16,7 @@ function DeleteTaskModal({ task }) {
 
     return (
         <div className="deleteNotebookModal">
-            <h1>Delete Notebook</h1>
+            <h1>Delete Task</h1>
             <p>Are you sure want to delete {task?.name}?</p>
             <div>
                 <button className="logout" onClick={burnTask}> Yes, Burn it! </button>
