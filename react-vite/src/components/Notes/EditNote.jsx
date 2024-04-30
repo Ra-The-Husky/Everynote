@@ -54,7 +54,10 @@ function EditNote() {
     if (info?.length < 30) {
       errs.info = "Note information must be a minimium of 30 characters";
     }
-    if (typeof tags === "string" && tags.split(" ").length > 5) {
+    if (
+      typeof tags === "string" &&
+      tags.replace(/ +(?= )/g, "").split(" ").length > 5
+    ) {
       errs.tags = "only 5 tags are allowed";
     }
     setErrors(errs);
