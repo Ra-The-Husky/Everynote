@@ -16,11 +16,11 @@ function EditNote() {
   //   notebooks?.find((notebook) => notebook.id === noteDeets.notebook_id);
   const notes = useSelector((state) => state.notes?.allNotes);
   const noteNames = notes && notes?.map((note) => note.name);
-  const [name, setName] = useState();
-  const [caption, setCaption] = useState();
-  const [info, setInfo] = useState();
-  const [notebook_id, setNotebook_id] = useState(noteDeets?.notebook_id);
-  const [tags, setTags] = useState();
+  const [name, setName] = useState(noteDeets && noteDeets.name);
+  const [caption, setCaption] = useState(noteDeets && noteDeets.caption);
+  const [info, setInfo] = useState(noteDeets && noteDeets.info);
+  const [notebook_id, setNotebook_id] = useState(noteDeets && noteDeets.notebook_id);
+  const [tags, setTags] = useState(noteDeets && noteDeets.tags);
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
@@ -47,7 +47,7 @@ function EditNote() {
     if (name?.length > 20) {
       errs.name = "Name cannot exceed 20 characters";
     }
-    if (noteNames?.includes(name) && name !== noteDeets.name) {
+    if (noteNames?.includes(name) && name !== noteDeets && noteDeets.name) {
       errs.name = "Note already exists";
     }
     if (!info) {
@@ -63,7 +63,7 @@ function EditNote() {
       errs.tags = "only 5 tags are allowed";
     }
     setErrors(errs);
-  }, [name, info, noteNames, tags, noteDeets.name]);
+  }, [name, info, noteNames, tags, noteDeets?.name]);
 
   const submitChanges = async (e) => {
     e.preventDefault();
