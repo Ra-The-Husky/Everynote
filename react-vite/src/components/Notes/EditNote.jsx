@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { editNote, newTags, noteInfo } from "../../redux/notes";
 import { homeThunk } from "../../redux/home";
 import {notebookThunk} from '../../redux/notebooks'
+
 function EditNote() {
   const { noteId } = useParams();
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ function EditNote() {
   const [name, setName] = useState(noteDeets && noteDeets.name);
   const [caption, setCaption] = useState(noteDeets && noteDeets.caption);
   const [info, setInfo] = useState(noteDeets && noteDeets.info);
-  const [notebook_id, setNotebook_id] = useState(noteDeets && noteDeets.notebook_id);
+  const [notebook_id, setNotebook_id] = useState(noteDeets.notebook_id && noteDeets.notebook_id);
   const [tags, setTags] = useState(noteDeets && noteDeets.tags);
   const [errors, setErrors] = useState({});
 
