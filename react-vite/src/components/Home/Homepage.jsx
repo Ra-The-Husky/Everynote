@@ -15,7 +15,7 @@ function Homepage() {
 
   useEffect(() => {
     dispatch(homeThunk()).then((data) => {
-      if (data && data.tasks) {
+      if (data && data.tasks.length > 0) {
         setTasks([data.tasks[0], data.tasks[1], data.tasks[2]]);
       }
 
@@ -40,7 +40,7 @@ function Homepage() {
           <div className="homeTasks">
             <h3>Your Tasks</h3>
             {!tasks?.length ? (
-              <p>Add some tasks!</p>
+              <div className="taskMsg" >Add some tasks!</div>
             ) : (
               <div>
                 {tasks &&
@@ -48,7 +48,7 @@ function Homepage() {
                     <div className="homeTask" key={task && task?.id}>
                       <div className="taskInfo">
                         <p>{task && task?.name}</p>
-                        <p>{moment(task && task?.deadline).format("MM-DD-YYYY")}</p>
+                        <p>{task && moment(task && task?.deadline).format("MM-DD-YYYY")}</p>
                         <p>{task && task?.priority}</p>
                       </div>
                     </div>
@@ -62,7 +62,7 @@ function Homepage() {
           <div className="homeNotes">
             {!userNotes?.length ? (
               <div className="noteInfo">
-                <p >Start writing notes!</p>
+                <p>Start writing notes!</p>
               </div>
             ) : (
               <div className="homeNotes">
