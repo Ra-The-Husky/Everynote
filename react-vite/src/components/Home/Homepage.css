@@ -59,7 +59,11 @@
   width: 75%;
   justify-content: space-evenly;
 }
-
+.taskMsg {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5px;
+}
 .taskInfo {
   display: flex;
   justify-content: space-between;
