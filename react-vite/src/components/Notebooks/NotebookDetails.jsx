@@ -28,14 +28,14 @@ function NotebookDetails() {
             <table className="table">
                 <thead>
                     <tr>
-                        <th scope="col" >Notes</th>
-                        <th scope="col" >Note Description</th>
+                        <th scope="col">Notes</th>
+                        <th scope="col">Note Description</th>
                     </tr>
                 </thead>
                 {notebook && notebook.notes?.map((note) => (
                     <tbody key={note.id}>
-                        <tr className="row">
-                            <td scope="row" className="col2"><span className="notebookName" onClick={() => navigate(`/notes/${note.id}`)}>{note.name}</span></td>
+                        <tr className="row click" onClick={() => navigate(`/notes/${note.id}`)}>
+                            <td scope="row" className="col2"><span className="notebookName">{note.name}</span></td>
                             <td className="col">{note.info}</td>
                         </tr>
                     </tbody>

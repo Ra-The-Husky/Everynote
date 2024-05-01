@@ -65,8 +65,8 @@ function Notebooks() {
         {notebooks && notebooks.map((notebook) => (
           <tbody key={notebook.id}>
             <tr className="row">
-              <td scope="row" className="col2"><span className="notebookName" onClick={()=>navigate(`/notebooks/${notebook.id}`)}>{notebook.name}</span></td>
-              <td className="col">{notebook.description}</td>
+              <td scope="row" className="col2 click" onClick={()=>navigate(`/notebooks/${notebook.id}`)}><span className="notebookName">{notebook.name}</span></td>
+              <td className="col click" onClick={()=>navigate(`/notebooks/${notebook.id}`)}>{notebook.description}</td>
               <td className="col"><span><b className='notebookName' onClick={(e) => {
                 toggleMenu(e)
                 let n = notebooks.find(ele => ele.id === notebook.id)

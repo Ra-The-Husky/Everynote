@@ -24,12 +24,12 @@
   width: 25%;
   padding: 10px;
   margin-bottom: 40px;
+  cursor: pointer;
 }
 .note-name {
   font-size: 1.25rem;
   padding-bottom: 10px;
   width: fit-content;
-  cursor: pointer;
 }
 
 .header {

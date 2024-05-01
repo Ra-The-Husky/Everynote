@@ -90,7 +90,7 @@ function CreateNote() {
             type="text"
             placeholder="Name"
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={(e) => setName(e.target.value.replace(/ +(?= )/g, ""))}
           ></input>
           {name && <div className="error">{errors.name}</div>}
 
@@ -100,7 +100,7 @@ function CreateNote() {
             type="text"
             placeholder="Caption"
             value={caption}
-            onChange={(e) => setCaption(e.target.value)}
+            onChange={(e) => setCaption(e.target.value.replace(/ +(?= )/g, ""))}
           ></input>
 
           <textarea
@@ -108,7 +108,7 @@ function CreateNote() {
             type="text"
             placeholder="Note Information"
             value={info}
-            onChange={(e) => setInfo(e.target.value)}
+            onChange={(e) => setInfo(e.target.value.replace(/ +(?= )/g, ""))}
           ></textarea>
           {info && <div className="error">{errors.info}</div>}
 
@@ -146,7 +146,7 @@ function CreateNote() {
               placeholder=" All tags need to be separated with spaces"
               type="text"
               value={tags}
-              onChange={(e) => setTags(e.target.value)}
+              onChange={(e) => setTags(e.target.value.replace(/ +(?= )/g, ""))}
             ></input>
             {errors.tags && <div>{errors.tags}</div>}
           </div>

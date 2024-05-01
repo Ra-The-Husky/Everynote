@@ -108,7 +108,7 @@ function EditNote() {
             type="text"
             placeholder="Your note's name"
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={(e) => setName(e.target.value.replace(/ +(?= )/g, ""))}
           ></input>
           <p>{errors.name}</p>
         </div>
@@ -118,7 +118,7 @@ function EditNote() {
             type="text"
             placeholder="Caption"
             value={caption}
-            onChange={(e) => setCaption(e.target.value)}
+            onChange={(e) => setCaption(e.target.value.replace(/ +(?= )/g, ""))}
           ></input>
         </div>
 
@@ -127,7 +127,7 @@ function EditNote() {
             type="text"
             placeholder="Note's Information"
             value={info}
-            onChange={(e) => setInfo(e.target.value)}
+            onChange={(e) => setInfo(e.target.value.replace(/ +(?= )/g, ""))}
           ></textarea>
           <p>{errors.info}</p>
         </div>
@@ -141,7 +141,7 @@ function EditNote() {
                   ? tags.map((tag) => tag.name).join(" ")
                   : tags
               }
-              onChange={(e) => setTags(e.target.value)}
+              onChange={(e) => setTags(e.target.value.replace(/ +(?= )/g, ""))}
             ></input>
              {tags && <div className="error">{errors.tags}</div>}
           </div>

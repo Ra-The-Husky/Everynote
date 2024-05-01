@@ -55,11 +55,10 @@ function AllNotes() {
           <div>
             {userNotes &&
               userNotes.map((note) => (
-                <div key={note.id} className="note">
-                  <div
-                    className="note-name"
-                    onClick={() => navigate(`/notes/${note.id}`)}
-                  >
+                <div key={note.id} className="note" onClick={e => {
+                  if (e.target.tagName !== 'BUTTON') navigate(`/notes/${note.id}`)
+                }}>
+                  <div className="note-name">
                     {note.name}{" "}
                   </div>
                   <div className="note-caption">{note.caption}</div>

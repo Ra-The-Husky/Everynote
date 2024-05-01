@@ -36,14 +36,14 @@ function EditNotebookModal({ notebook }) {
             type="text"
             placeholder="Name"
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={(e) => setName(e.target.value.replace(/ +(?= )/g, ""))}
           ></input>
           <textarea
           className="new-notebook-info edit-notebook-info"
             type="text"
             placeholder="Description"
             value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            onChange={(e) => setDescription(e.target.value.replace(/ +(?= )/g, ""))}
           ></textarea>
         <div className="buttons">
           <button
