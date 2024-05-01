@@ -15,7 +15,7 @@ function EditNote() {
   //   notebooks &&
   //   notebooks?.find((notebook) => notebook.id === noteDeets.notebook_id);
   const notes = useSelector((state) => state.notes?.allNotes);
-  const noteNames = notes && notes?.map((note) => note.name);
+  const [noteNames, setNoteName] = useState(notes && notes?.map((note) => note.name));
   const [name, setName] = useState(noteDeets && noteDeets.name);
   const [caption, setCaption] = useState(noteDeets && noteDeets.caption);
   const [info, setInfo] = useState(noteDeets && noteDeets.info);
@@ -31,7 +31,7 @@ function EditNote() {
       setName(note.note?.name);
       setInfo(note.note?.info);
       setCaption(note.note?.caption);
-      setTags(note.tags);
+      setTags(note.tags.map(tag => tag.name).join(" "));
     });
     dispatch(homeThunk());
   }, [dispatch, navigate, noteId]);
@@ -47,7 +47,7 @@ function EditNote() {
     if (name?.length > 20) {
       errs.name = "Name cannot exceed 20 characters";
     }
-    if (noteNames?.includes(name) && name !== noteDeets && noteDeets.name) {
+    if (noteNames?.includes(name) && name !== noteDeets.name) {
       errs.name = "Note already exists";
     }
     if (!info) {
