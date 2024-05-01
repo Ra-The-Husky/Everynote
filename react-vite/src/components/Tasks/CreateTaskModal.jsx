@@ -10,10 +10,10 @@ function CreateTaskModal() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [name, setName] = useState("");
-  const [deadline, setDeadline] = useState(new Date());
+  const [deadline, setDeadline] = useState();
   const [priority, setPriority] = useState("Low");
   const [description, setDescription] = useState("");
-  const [reminder, setReminder] = useState(false);
+  const [reminder, setReminder] = useState("false");
   const [errors, setErrors] = useState({});
   const tasks = useSelector((state) => state.tasks?.tasks);
 
@@ -80,9 +80,9 @@ function CreateTaskModal() {
           <input
             className="input-name-task"
             type="text"
-            placeholder="Name"
+            placeholder="Name required"
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={(e) => setName(e.target.value.replace(/ +(?= )/g, ""))}
           ></input>
 
           <input
@@ -93,6 +93,7 @@ function CreateTaskModal() {
             value={deadline}
             onChange={(e) => setDeadline(e.target.value)}
           ></input>
+          <div id="required" hidden={deadline} style={{ color: 'red' }}>Required</div>
 
           <select
             className="input-selector"
@@ -110,9 +111,9 @@ function CreateTaskModal() {
           <textarea
             className="input-desc-task"
             type="text"
-            placeholder="Description"
+            placeholder="Description required"
             value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            onChange={(e) => setDescription(e.target.value.replace(/ +(?= )/g, ""))}
           ></textarea>
 
           <label htmlFor="reminder">Reminder</label>

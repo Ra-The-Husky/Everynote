@@ -98,3 +98,16 @@
     height: 5rem;
     resize: none;
 }
+
+#required {
+  margin: 0 0 10px 0;
+}
+
+.createTaskForm input::placeholder,
+.createTaskForm textarea::placeholder {
+  color: red;
+}
+
+.fa-trash-can {
+  cursor: pointer;
+}

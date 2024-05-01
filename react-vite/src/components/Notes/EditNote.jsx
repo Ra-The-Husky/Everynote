@@ -20,7 +20,7 @@ function EditNote() {
   const [name, setName] = useState(noteDeets && noteDeets.name);
   const [caption, setCaption] = useState(noteDeets && noteDeets.caption);
   const [info, setInfo] = useState(noteDeets && noteDeets.info);
-  const [notebook_id, setNotebook_id] = useState(noteDeets.notebook_id && noteDeets.notebook_id);
+  const [notebook_id, setNotebook_id] = useState(noteDeets?.notebook_id && noteDeets.notebook_id);
   const [tags, setTags] = useState(noteDeets && noteDeets.tags);
   const [errors, setErrors] = useState({});
 
@@ -33,6 +33,7 @@ function EditNote() {
       setInfo(note.note?.info);
       setCaption(note.note?.caption);
       setTags(note.tags.map(tag => tag.name).join(" "));
+      setNotebook_id(note.note.notebook_id)
     });
     dispatch(homeThunk());
   }, [dispatch, navigate, noteId]);
@@ -76,6 +77,8 @@ function EditNote() {
       info,
       date_created: new Date().toISOString().split("T").splice(0, 1).join(""),
     };
+    console.log(edits)
+    console.log(noteDeets)
 
     const tag = tags.split(" ");
     await dispatch(editNote(noteId, edits)).then(() => {

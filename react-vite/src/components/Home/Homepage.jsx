@@ -16,7 +16,15 @@ function Homepage() {
   useEffect(() => {
     dispatch(homeThunk()).then((data) => {
       if (data && data.tasks.length > 0) {
-        setTasks([data.tasks[0], data.tasks[1], data.tasks[2]]);
+        const recentTasks = []
+
+        data.tasks.map(task => {
+          if (!task.status && recentTasks.length < 3) {
+            recentTasks.push(task);
+          }
+        })
+
+        setTasks(recentTasks)
       }
 
       if (data && data.notes) {
@@ -46,11 +54,12 @@ function Homepage() {
                 {tasks &&
                   tasks.map((task) => (
                     <div className="homeTask" key={task && task?.id}>
+                      {!Boolean(task.status) &&
                       <div className="taskInfo">
                         <p>{task && task?.name}</p>
                         <p>{task && moment(task && task?.deadline).format("MM-DD-YYYY")}</p>
                         <p>{task && task?.priority}</p>
-                      </div>
+                      </div>}
                     </div>
                   ))}
               </div>

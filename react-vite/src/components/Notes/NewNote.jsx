@@ -15,7 +15,7 @@ function CreateNote() {
   const [notebook_id, setNotebook_id] = useState();
   const [tags, setTags] = useState("");
   const notes = useSelector((state) => state.notes?.allNotes);
-  const noteNames = notes?.map((note) => note.name);
+  const [noteNames, setNoteNames] = useState(notes?.map((note) => note.name));
   const [errors, setErrors] = useState({});
 
   const testNote = () => {
