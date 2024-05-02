@@ -19,7 +19,9 @@ export const thunkAuthenticate = () => async (dispatch) => {
 		}
 
 		dispatch(setUser(data));
-	}
+	} else {
+    return { user: null }
+  }
 };
 
 export const thunkLogin = (credentials) => async dispatch => {

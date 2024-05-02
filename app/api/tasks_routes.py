@@ -19,7 +19,7 @@ def get_tasks():
       deadline = date.fromisoformat(data['deadline']),
       priority = data['priority'],
       description = data['description'],
-      reminder = data['reminder'],
+      reminder = bool(data['reminder'].title()),
       status = False
       )
     db.session.add(newTask)

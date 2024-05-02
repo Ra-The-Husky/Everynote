@@ -20,7 +20,7 @@ function EditNote() {
   const [name, setName] = useState(noteDeets && noteDeets.name);
   const [caption, setCaption] = useState(noteDeets && noteDeets.caption);
   const [info, setInfo] = useState(noteDeets && noteDeets.info);
-  const [notebook_id, setNotebook_id] = useState(noteDeets.notebook_id && noteDeets.notebook_id);
+  const [notebook_id, setNotebook_id] = useState(noteDeets?.notebook_id && noteDeets.notebook_id);
   const [tags, setTags] = useState(noteDeets && noteDeets.tags);
   const [errors, setErrors] = useState({});
 
@@ -33,6 +33,7 @@ function EditNote() {
       setInfo(note.note?.info);
       setCaption(note.note?.caption);
       setTags(note.tags.map(tag => tag.name).join(" "));
+      setNotebook_id(note.note.notebook_id)
     });
     dispatch(homeThunk());
   }, [dispatch, navigate, noteId]);
@@ -76,6 +77,8 @@ function EditNote() {
       info,
       date_created: new Date().toISOString().split("T").splice(0, 1).join(""),
     };
+    console.log(edits)
+    console.log(noteDeets)
 
     const tag = tags.split(" ");
     await dispatch(editNote(noteId, edits)).then(() => {
@@ -108,7 +111,7 @@ function EditNote() {
             type="text"
             placeholder="Your note's name"
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={(e) => setName(e.target.value.replace(/ +(?= )/g, ""))}
           ></input>
           <p>{errors.name}</p>
         </div>
@@ -118,7 +121,7 @@ function EditNote() {
             type="text"
             placeholder="Caption"
             value={caption}
-            onChange={(e) => setCaption(e.target.value)}
+            onChange={(e) => setCaption(e.target.value.replace(/ +(?= )/g, ""))}
           ></input>
         </div>
 
@@ -127,7 +130,7 @@ function EditNote() {
             type="text"
             placeholder="Note's Information"
             value={info}
-            onChange={(e) => setInfo(e.target.value)}
+            onChange={(e) => setInfo(e.target.value.replace(/ +(?= )/g, ""))}
           ></textarea>
           <p>{errors.info}</p>
         </div>
@@ -141,7 +144,7 @@ function EditNote() {
                   ? tags.map((tag) => tag.name).join(" ")
                   : tags
               }
-              onChange={(e) => setTags(e.target.value)}
+              onChange={(e) => setTags(e.target.value.replace(/ +(?= )/g, ""))}
             ></input>
              {tags && <div className="error">{errors.tags}</div>}
           </div>

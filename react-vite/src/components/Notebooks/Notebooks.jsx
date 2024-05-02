@@ -65,8 +65,8 @@ function Notebooks() {
         {notebooks && notebooks.map((notebook) => (
           <tbody key={notebook.id}>
             <tr className="row">
-              <td scope="row" className="col2"><span className="notebookName" onClick={()=>navigate(`/notebooks/${notebook.id}`)}>{notebook.name}</span></td>
-              <td className="col">{notebook.description}</td>
+              <td scope="row" className="col2 click" onClick={()=>navigate(`/notebooks/${notebook.id}`)}><span className="notebookName">{notebook.name}</span></td>
+              <td className="col click" onClick={()=>navigate(`/notebooks/${notebook.id}`)}>{notebook.description}</td>
               <td className="col"><span><b className='notebookName' onClick={(e) => {
                 toggleMenu(e)
                 let n = notebooks.find(ele => ele.id === notebook.id)
@@ -76,7 +76,7 @@ function Notebooks() {
                     <div className="profile-dropdown notebookName" ref={ulRef}>
                       <>
                         <OpenModalMenuItem
-                          itemText="Create Note"
+                          itemText={<i class="fa-solid fa-file-circle-plus"/>}
                           onItemClick={() => {
                             navigate(`/notes/new-note?id=${notebook.id}&name=${notebook.name}`);
                           }}
@@ -84,7 +84,7 @@ function Notebooks() {
                           onModalClose={() => {notebook.show = false}}
                         />
                         <OpenModalMenuItem
-                          itemText="Edit Notebook"
+                          itemText={<i class="fa-solid fa-gear"></i>}
                           onItemClick={closeMenu}
                           modalComponent={<EditNotebookModal
                             notebook={notebook}
@@ -92,7 +92,7 @@ function Notebooks() {
                           onModalClose={() => {notebook.show = false}}
                         />
                         <OpenModalMenuItem
-                          itemText="Delete Notebook"
+                          itemText={<i class="fa-solid fa-trash-can"></i>}
                           onItemClick={closeMenu}
                           modalComponent={<DeleteNotebookModal
                             notebookId={notebook.id}
