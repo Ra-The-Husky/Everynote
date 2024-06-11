@@ -1,49 +1,67 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect} from "react";
+import { useEffect } from "react";
 import { getNotebookThunk } from "../../redux/notebooks";
-import './Notebooks.css'
+import "./Notebooks.css";
 import { useNavigate, useParams } from "react-router-dom";
 
 function NotebookDetails() {
-    const { notebookId } = useParams()
-    const notebook = useSelector((state) => state.notebooks?.notebook);
-    const navigate = useNavigate()
-    const dispatch = useDispatch();
+  const { notebookId } = useParams();
+  const notebook = useSelector((state) => state.notebooks?.notebook);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(getNotebookThunk(notebookId)).then((res) => {
-            if (res && res.message === "page not found") {
-                navigate("/not-found")
-            }
-            if (res && res.message === "unauthorized") {
-                navigate("/unauthorized")
-            }
-        })
-    }, [dispatch, notebookId,navigate])
+  useEffect(() => {
+    dispatch(getNotebookThunk(notebookId)).then((res) => {
+      if (res && res.message === "page not found") {
+        navigate("/not-found");
+      }
+      if (res && res.message === "unauthorized") {
+        navigate("/unauthorized");
+      }
+    });
+  }, [dispatch, notebookId, navigate]);
 
-    return (
-        <span className="notebooks-cont">
-            <span className="inner-notebooks-cont">
-            <h1>{notebook?.name}</h1>
-            <table className="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Notes</th>
-                        <th scope="col">Note Description</th>
-                    </tr>
-                </thead>
-                {notebook && notebook.notes?.map((note) => (
-                    <tbody key={note.id}>
-                        <tr className="row click" onClick={() => navigate(`/notes/${note.id}`)}>
-                            <td scope="row" className="col2"><span className="notebookName">{note.name}</span></td>
-                            <td className="col">{note.info}</td>
-                        </tr>
-                    </tbody>
-                ))}
-            </table>
-            </span>
-        </span>
-    );
+  return (
+    <span className="notebooks-cont">
+      <span className="inner-notebooks-cont">
+        <h1>{notebook?.name}</h1>
+        {!notebook?.notes.length ? (
+          <div className="no-notes">
+            <div className="no-notes-msg">
+              You haven&apos;t written any notes for this notebook yet.{" "}
+            </div>
+            <div className="no-notes-msg">
+              Click on the &quot;+&quot; next to &quot;Notes&quot; or create one from the
+              &quot;Notebooks&quot; page to add notes to this notebook.
+            </div>
+          </div>
+        ) : (
+          <table className="table">
+            <thead>
+              <tr>
+                <th scope="col">Notes</th>
+                <th scope="col">Note Description</th>
+              </tr>
+            </thead>
+            {notebook &&
+              notebook.notes?.map((note) => (
+                <tbody key={note.id}>
+                  <tr
+                    className="row click"
+                    onClick={() => navigate(`/notes/${note.id}`)}
+                  >
+                    <td scope="row" className="col2">
+                      <span className="notebookName">{note.name}</span>
+                    </td>
+                    <td className="col">{note.info}</td>
+                  </tr>
+                </tbody>
+              ))}
+          </table>
+        )}
+      </span>
+    </span>
+  );
 }
 
 export default NotebookDetails;
