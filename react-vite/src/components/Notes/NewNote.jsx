@@ -33,7 +33,7 @@ function CreateNote() {
   useEffect(() => {
     const errs = {};
 
-    if (!name) {
+    if (name.length < 1) {
       errs.name = "Name of note required";
     }
     if (name.toLowerCase().includes("notebook")) {
@@ -56,6 +56,28 @@ function CreateNote() {
 
   const submitNote = async (e) => {
     e.preventDefault();
+    const errs = {};
+
+    if (name.length < 1) {
+      errs.name = "Name of note required";
+    }
+    if (name.toLowerCase().includes("notebook")) {
+      errs.name = 'Name of note cannot contain the word "notebook"';
+    }
+    if (noteNames?.includes(name)) {
+      errs.name = "Note already exists";
+    }
+    if (name.length > 20) {
+      errs.name = "Name cannot exceed 20 characters";
+    }
+    if (!info) {
+      errs.info = "Note information required";
+    }
+    if (info.length < 30) {
+      errs.info = "Note information must be a minimium of 30 characters";
+    }
+    setErrors(errs);
+
 
     const newNote = {
       notebook_id,

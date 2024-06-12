@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { editNote, newTags, noteInfo } from "../../redux/notes";
 import { homeThunk } from "../../redux/home";
-import {notebookThunk} from '../../redux/notebooks'
+import { notebookThunk } from "../../redux/notebooks";
 
 function EditNote() {
   const { noteId } = useParams();
@@ -16,32 +16,37 @@ function EditNote() {
   //   notebooks &&
   //   notebooks?.find((notebook) => notebook.id === noteDeets.notebook_id);
   const notes = useSelector((state) => state.notes?.allNotes);
-  const [noteNames, setNoteName] = useState(notes && notes?.map((note) => note.name));
+  const [noteNames, setNoteName] = useState(
+    notes && notes?.map((note) => note.name)
+  );
   const [name, setName] = useState(noteDeets && noteDeets.name);
   const [caption, setCaption] = useState(noteDeets && noteDeets.caption);
   const [info, setInfo] = useState(noteDeets && noteDeets.info);
-  const [notebook_id, setNotebook_id] = useState(noteDeets?.notebook_id && noteDeets.notebook_id);
+  const [notebook_id, setNotebook_id] = useState(
+    noteDeets?.notebook_id && noteDeets.notebook_id
+  );
   const [tags, setTags] = useState(noteDeets && noteDeets.tags);
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
-    dispatch(notebookThunk())
+    dispatch(notebookThunk());
     dispatch(noteInfo(Number(noteId))).then((note) => {
       if (note && note.message === "page not found") navigate("/not-found");
       if (note && note.message === "unauthorized") navigate("/unauthorized");
       setName(note.note?.name);
       setInfo(note.note?.info);
       setCaption(note.note?.caption);
-      setTags(note.tags.map(tag => tag.name).join(" "));
-      setNotebook_id(note.note.notebook_id)
+      setTags(note.tags.map((tag) => tag.name).join(" "));
+      setNotebook_id(note.note.notebook_id);
     });
     dispatch(homeThunk());
   }, [dispatch, navigate, noteId]);
 
   useEffect(() => {
     const errs = {};
-    if (!name) {
+    if (name?.trim().length < 1) {
       errs.name = "Name of note required";
+      return
     }
     if (name?.includes("notebook")) {
       errs.name = 'Name of note cannot contain the word "notebook"';
@@ -69,6 +74,33 @@ function EditNote() {
 
   const submitChanges = async (e) => {
     e.preventDefault();
+    const errs = {};
+    if (name?.trim().length < 1) {
+      errs.name = "Name of note required";
+      return
+    }
+    if (name?.includes("notebook")) {
+      errs.name = 'Name of note cannot contain the word "notebook"';
+    }
+    if (name?.length > 20) {
+      errs.name = "Name cannot exceed 20 characters";
+    }
+    if (noteNames?.includes(name) && name !== noteDeets.name) {
+      errs.name = "Note already exists";
+    }
+    if (!info) {
+      errs.info = "Note information required";
+    }
+    if (info?.length < 30) {
+      errs.info = "Note information must be a minimium of 30 characters";
+    }
+    if (
+      typeof tags === "string" &&
+      tags.replace(/ +(?= )/g, "").split(" ").length > 5
+    ) {
+      errs.tags = "only 5 tags are allowed";
+    }
+    setErrors(errs);
 
     const edits = {
       notebook_id,
@@ -77,14 +109,16 @@ function EditNote() {
       info,
       date_created: new Date().toISOString().split("T").splice(0, 1).join(""),
     };
-    console.log(edits)
-    console.log(noteDeets)
 
     const tag = tags.split(" ");
-    await dispatch(editNote(noteId, edits)).then(() => {
-      dispatch(newTags(noteId, tag));
-      navigate(`/notes/${noteId}`);
-    });
+    if (Object.values(errors).length) {
+      return errors;
+    } else {
+      await dispatch(editNote(noteId, edits)).then(() => {
+        dispatch(newTags(noteId, tag));
+        navigate(`/notes/${noteId}`);
+      });
+    }
   };
 
   return (
@@ -108,11 +142,13 @@ function EditNote() {
 
         <div className="editNoteName">
           <input
+          required
             type="text"
             placeholder="Your note's name"
             value={name}
             onChange={(e) => setName(e.target.value.replace(/ +(?= )/g, ""))}
           ></input>
+
           <p>{errors.name}</p>
         </div>
 
@@ -146,7 +182,7 @@ function EditNote() {
               }
               onChange={(e) => setTags(e.target.value.replace(/ +(?= )/g, ""))}
             ></input>
-             {tags && <div className="error">{errors.tags}</div>}
+            {tags && <div className="error">{errors.tags}</div>}
           </div>
 
           <div className="editNoteButtons">

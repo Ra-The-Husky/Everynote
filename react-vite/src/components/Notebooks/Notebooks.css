@@ -1,3 +1,14 @@
+.no-notes{
+  display: flex;
+  text-align: center;
+  align-items: center;
+  flex-direction: column;
+}
+.no-notes-msg {
+
+  display: flex;
+  font-size: 40px
+}
 .table {
   border: 1px black solid;
   min-height: 300px;
