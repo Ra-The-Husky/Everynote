@@ -76,7 +76,7 @@ function Notebooks() {
                     <div className="profile-dropdown notebookName" ref={ulRef}>
                       <>
                         <OpenModalMenuItem
-                          itemText={<i class="fa-solid fa-file-circle-plus"/>}
+                          itemText={<i classname="fa-solid fa-file-circle-plus"/>}
                           onItemClick={() => {
                             navigate(`/notes/new-note?id=${notebook.id}&name=${notebook.name}`);
                           }}
