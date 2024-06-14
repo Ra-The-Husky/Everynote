@@ -16,7 +16,7 @@ function EditNote() {
   //   notebooks &&
   //   notebooks?.find((notebook) => notebook.id === noteDeets.notebook_id);
   const notes = useSelector((state) => state.notes?.allNotes);
-  const [noteNames, setNoteName] = useState(
+  const [noteNames, setNoteNames] = useState(
     notes && notes?.map((note) => note.name)
   );
   const [name, setName] = useState(noteDeets && noteDeets.name);

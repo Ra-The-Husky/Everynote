@@ -15,7 +15,7 @@ export default function Layout() {
       setIsLoaded(true)
   });
 
-  }, [dispatch]);
+  }, [dispatch, navigate]);
 
   return (
     <>

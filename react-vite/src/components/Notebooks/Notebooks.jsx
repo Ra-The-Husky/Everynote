@@ -76,7 +76,7 @@ function Notebooks() {
                     <div className="profile-dropdown notebookName" ref={ulRef}>
                       <>
                         <OpenModalMenuItem
-                          itemText={<i classname="fa-solid fa-file-circle-plus"/>}
+                          itemText={<i className="fa-solid fa-file-circle-plus"/>}
                           onItemClick={() => {
                             navigate(`/notes/new-note?id=${notebook.id}&name=${notebook.name}`);
                           }}
@@ -84,7 +84,7 @@ function Notebooks() {
                           onModalClose={() => {notebook.show = false}}
                         />
                         <OpenModalMenuItem
-                          itemText={<i class="fa-solid fa-gear"></i>}
+                          itemText={<i className="fa-solid fa-gear"></i>}
                           onItemClick={closeMenu}
                           modalComponent={<EditNotebookModal
                             notebook={notebook}
@@ -92,7 +92,7 @@ function Notebooks() {
                           onModalClose={() => {notebook.show = false}}
                         />
                         <OpenModalMenuItem
-                          itemText={<i class="fa-solid fa-trash-can"></i>}
+                          itemText={<i className="fa-solid fa-trash-can"></i>}
                           onItemClick={closeMenu}
                           modalComponent={<DeleteNotebookModal
                             notebookId={notebook.id}
