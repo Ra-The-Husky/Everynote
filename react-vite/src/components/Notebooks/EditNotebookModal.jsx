@@ -28,7 +28,7 @@ function EditNotebookModal({ notebook }) {
     if (description?.trim().length < 1) {
       return;
     }
-    // setErrors(errs);
+    setErrors(errs);
   }, [name, description]);
 
   const submitNotebook = async (e) => {
